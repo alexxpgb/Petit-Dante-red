@@ -29,16 +29,16 @@ func (p Personnage) Display() {
 	for cle, val := range p.inventaire {
 		fmt.Printf("Tu a %d %s", val, cle)
 	}
-	fmt.Println("-----------------------")
+	fmt.Println("\n-----------------------")
 }
 func (p Personnage) AccessInventory() {
 	fmt.Println("-----------------------")
 	fmt.Println("Ton inventaire est composé de")
 	for cle, val := range p.inventaire {
-		fmt.Printf("Tu a %d %s", val, cle)
+		fmt.Printf(" %d %s", val, cle)
 	}
 	fmt.Println()
-	fmt.Print("-----------------------")
+	fmt.Println("-----------------------")
 }
 func (p *Personnage) TakePot() {
 	for cle := range p.inventaire {
@@ -63,14 +63,6 @@ func (p *Personnage) TakePot() {
 		} else {
 			fmt.Println("Tu n'a pas de potions")
 		}
-	}
-}
-
-func menu(p *Personnage, i inventaire) {
-	var answer int
-	fmt.Scan(&answer)
-	switch menu {
-
 	}
 }
 
