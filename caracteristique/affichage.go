@@ -12,7 +12,7 @@ func (p *Personnage) Init(name string, classe string) {
 }
 func (p *Personnage) menu() {
 	var answer int
-	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder au marchand, tape 3  ")
+	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder à la boutique , tape 3  ")
 	fmt.Scan(&answer)
 	switch answer {
 	case 1:
@@ -21,6 +21,7 @@ func (p *Personnage) menu() {
 		p.Display()
 
 	case 3:
+		p.Boutique()
 
 	default:
 		fmt.Println("Je n'ai pas compris ta requête, peux tu repeter ? ")
