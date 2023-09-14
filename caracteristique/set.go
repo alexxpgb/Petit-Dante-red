@@ -29,3 +29,9 @@ func (p *Personnage) TakePot() {
 		}
 	}
 }
+
+func (p *Personnage) Boutique() {
+	marchand := Personnage{name: "Arthur", niveau: 1, PDVmax: 69, PDV: 4, inventaire: map[string]int{"potion": 1}}
+	marchand.AccessInventory()
+	fmt.Println("Que veux tu parmi tous ses objets")
+}

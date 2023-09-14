@@ -42,7 +42,7 @@ func (p Personnage) Display() {
 }
 func (p Personnage) AccessInventory() {
 	fmt.Println("-----------------------")
-	fmt.Println("Ton inventaire est composé de")
+	fmt.Println("L'inventaire est composé de")
 	for cle, val := range p.inventaire {
 		fmt.Printf(" %d %s", val, cle)
 	}
