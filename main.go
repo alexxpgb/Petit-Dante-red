@@ -66,10 +66,20 @@ func (p *Personnage) TakePot() {
 	}
 }
 
-func menu(p *Personnage, i inventaire) {
+func (p *Personnage) menu() {
 	var answer int
+	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder au marchand, tape 3  ")
 	fmt.Scan(&answer)
-	switch menu {
+	switch answer {
+	case 1:
+		p.AccessInventory()
+	case 2:
+		p.Display()
+
+	case 3:
+
+	default:
+		fmt.Println("Je n'ai pas compris ta requête, peux tu repeter ? ")
 
 	}
 }
