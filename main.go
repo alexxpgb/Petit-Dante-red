@@ -53,6 +53,15 @@ func (p *Personnage) TakePot(nb int) {
 		}
 	}
 }
+
+func menu(p *Personnage, i inventaire) {
+	var answer int
+	fmt.Scan(&answer)
+	switch menu {
+
+	}
+}
+
 func main() {
 	var p1 Personnage
 	p1.Init("test", "test")
