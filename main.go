@@ -40,13 +40,25 @@ func (p Personnage) AccessInventory() {
 	fmt.Println()
 	fmt.Print("-----------------------")
 }
-func (p *Personnage) TakePot(nb int) {
-	for cle, val := range p.inventaire {
+func (p *Personnage) TakePot() {
+	for cle := range p.inventaire {
 		if cle == "potion" {
-			if nb <= val {
-				p.inventaire["potion"] -= nb
+			if p.PDV > 50 {
+				var answer string
+				fmt.Println("est tu sur de vouloir utiliser la potion")
+				fmt.Scan(&answer)
+				if answer == "oui" {
+					p.inventaire["potion"] -= 1
+					p.PDV += 50
+				} else if answer == "non" {
+					fmt.Println("Fais plus attention la prochaine fois")
+				} else {
+					fmt.Println("Tu peux répéter ?")
+				}
 			} else {
-				fmt.Println("Tu n'a pas assez de potions")
+				p.inventaire["potion"] -= 1
+				p.PDV += 50
+				fmt.Println("Tu as pris une potion tu est maintenant à", p.PDV)
 			}
 		} else {
 			fmt.Println("Tu n'a pas de potions")
@@ -65,5 +77,7 @@ func menu(p *Personnage, i inventaire) {
 func main() {
 	var p1 Personnage
 	p1.Init("test", "test")
+	p1.Display()
 	p1.AccessInventory()
+	p1.TakePot()
 }
