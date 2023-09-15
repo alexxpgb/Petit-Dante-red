@@ -5,14 +5,14 @@ import "fmt"
 func (p *Personnage) Init(name string, classe string) {
 	p.name = name
 	p.classe = classe
-	p.niveau = 1
-	p.PDVmax = 100
-	p.PDV = 40
-	p.inventaire = map[string]int{"potion": 3}
+	p.niveau = "B1"
+	p.notemax = 100
+	p.note = 50
+	p.inventaire = map[string]int{"sucette": 3}
 }
 func (p *Personnage) menu() {
 	var answer int
-	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder à la boutique , tape 3  ")
+	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder à la peda , tape 3  ")
 	fmt.Scan(&answer)
 	switch answer {
 	case 1:
@@ -32,10 +32,9 @@ func (p *Personnage) menu() {
 func (p Personnage) Display() {
 	fmt.Println("-----------------------")
 	fmt.Println("Ton nom est :", p.name)
-	fmt.Println("Ta classe est :", p.classe)
+	fmt.Println("Ta spécialité est :", p.classe)
 	fmt.Println("Ton niveau est :", p.niveau)
-	fmt.Printf("Tu as %d/%d", p.PDV, p.PDVmax)
-	fmt.Println(" point de vie")
+	fmt.Printf("Tu as %d/%d\n", p.note, p.notemax)
 	for cle, val := range p.inventaire {
 		fmt.Printf("Tu a %d %s", val, cle)
 	}
@@ -47,6 +46,5 @@ func (p Personnage) AccessInventory() {
 	for cle, val := range p.inventaire {
 		fmt.Printf(" %d %s", val, cle)
 	}
-	fmt.Println()
-	fmt.Println("-----------------------")
+	fmt.Println("\n----------------------")
 }
