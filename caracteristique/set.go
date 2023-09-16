@@ -1,6 +1,8 @@
 package piscine
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func (p *Personnage) TakePot() {
 	for cle := range p.inventaire {

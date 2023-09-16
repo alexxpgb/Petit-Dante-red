@@ -7,6 +7,8 @@ type Personnage struct {
 	notemax    int
 	note       int
 	inventaire map[string]int
+	skills     []string
+	wallet     int
 }
 
 func (p *Personnage) Init(name string, classe string) {
@@ -16,4 +18,6 @@ func (p *Personnage) Init(name string, classe string) {
 	p.notemax = 100
 	p.note = 50
 	p.inventaire = map[string]int{"sucette": 3, "totem": 1}
+	p.skills = []string{"python"}
+	p.wallet = 50
 }
