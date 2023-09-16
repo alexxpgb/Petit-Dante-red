@@ -52,10 +52,16 @@ func (p Personnage) Display() {
 	fmt.Println("Ta spécialité est :", p.classe)
 	fmt.Println("Ton niveau est :", p.niveau)
 	fmt.Printf("Tu as %d/%d\n", p.note, p.notemax)
+	fmt.Println("Dans ton inventaire tu as :")
 	for cle, val := range p.inventaire {
-		fmt.Printf("Tu a %d %s", val, cle)
+		fmt.Printf("%d %s\n", val, cle)
 	}
-	fmt.Println("\n-----------------------")
+	fmt.Println("Ta liste de skills est :")
+	for _, val := range p.skills {
+		fmt.Println(val)
+	}
+	fmt.Printf("Tu as %d euros\n", p.wallet)
+	fmt.Println("-----------------------")
 }
 func (p Personnage) AccessInventory() {
 	fmt.Println("-----------------------")
