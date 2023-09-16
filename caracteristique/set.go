@@ -42,7 +42,12 @@ func (p *Personnage) Boutique() {
 	for cle := range marchand.inventaire {
 		if answer == cle {
 			marchand.inventaire[cle] -= 1
-			p.inventaire[cle] = 1
+			if marchand.inventaire[cle] == 0 {
+				delete(marchand.inventaire, cle)
+			}
+			p.AddInventory(answer)
+			return
 		}
 	}
+	fmt.Printf("%#v n'est pas un objet accessible à la PEDA\n", answer)
 }
