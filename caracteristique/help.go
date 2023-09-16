@@ -17,3 +17,12 @@ func (p *Personnage) RemoveInventory(s string) {
 		}
 	}
 }
+
+func (p *Personnage) IsInInventory(s string) bool {
+	for cle := range p.inventaire {
+		if cle == s {
+			return true
+		}
+	}
+	return false
+}

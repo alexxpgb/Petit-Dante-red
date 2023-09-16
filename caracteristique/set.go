@@ -22,15 +22,19 @@ func (p *Personnage) TakePot() {
 					fmt.Println("Tu peux répéter ?")
 					p.TakePot()
 				}
+				return
 			} else {
 				p.inventaire["sucette"] -= 1
+				if p.inventaire["sucette"] == 0 {
+					delete(p.inventaire, "sucette")
+				}
 				p.note += 20
 				fmt.Println("Tu as pris une sucette tu est maintenant à", p.note)
+				return
 			}
-		} else {
-			fmt.Println("Tu n'a pas de sucette")
 		}
 	}
+	fmt.Println("Tu n'as pas de sucette")
 }
 
 func (p *Personnage) Boutique() {
