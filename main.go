@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	var p1 pc.Personnage
-	p1.Boutique()
+	pc.Graphisme()
 }

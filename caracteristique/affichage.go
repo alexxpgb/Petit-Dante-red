@@ -2,6 +2,33 @@ package piscine
 
 import "fmt"
 
+func Graphisme() {
+	fmt.Println("#######################################################################################")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                   WELCOME TO                                        #")
+	fmt.Println("#                                 MENTOR FIGHTER                                      #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                             1- NEW GAME                                             #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                             2- SETTINGS                                             #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                             3- QUIT                                                 #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#                                                                                     #")
+	fmt.Println("#######################################################################################")
+	var answer int
+	fmt.Scan(&answer)
+}
 func (p *Personnage) menu() {
 	var answer int
 	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder à la peda , tape 3  ")
