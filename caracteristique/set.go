@@ -40,17 +40,24 @@ func (p *Personnage) TakePot() {
 }
 
 func (p *Personnage) Boutique() {
-	marchand := Personnage{name: "Arthur", niveau: "B1", notemax: 100, note: 4, inventaire: map[string]int{"multiprise": 1}}
-	marchand.AccessInventory()
+	marchand := Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"multiprise": 0, "poison": 30}}
+	fmt.Println("-----------------------")
+	fmt.Println("L'inventaire de la PEDA est composé de")
+	for cle, val := range p.inventaire {
+		fmt.Printf("%s pour %d€", cle, val)
+	}
+	fmt.Println("\n----------------------")
 	fmt.Println("Que veux tu parmi tous ses objets")
 	var answer string
 	fmt.Scan(&answer)
-	for cle := range marchand.inventaire {
+	for cle, val := range marchand.inventaire {
 		if answer == cle {
-			marchand.inventaire[cle] -= 1
-			if marchand.inventaire[cle] == 0 {
-				delete(marchand.inventaire, cle)
+			if marchand.wallet >= val {
+				marchand.wallet -= val
+			} else {
+				fmt.Println("Pas sur que tu peux te payer ça")
 			}
+			delete(marchand.inventaire, cle)
 			p.AddInventory(answer)
 			return
 		}

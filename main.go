@@ -9,4 +9,5 @@ func main() {
 	pc.Graphisme()
 	p1.Init("Nath", "Info")
 	p1.Display()
+	p1.Poison()
 }

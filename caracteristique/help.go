@@ -26,3 +26,12 @@ func (p *Personnage) IsInInventory(s string) bool {
 	}
 	return false
 }
+
+func (p *Personnage) IsInSkill(s string) bool {
+	for _, c := range p.skills {
+		if c == s {
+			return true
+		}
+	}
+	return false
+}
