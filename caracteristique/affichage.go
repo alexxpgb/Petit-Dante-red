@@ -56,6 +56,9 @@ func (p *Personnage) Menu() {
 	case 3:
 		p.Boutique()
 
+	case 4:
+		p.Forgeron()
+
 	default:
 		fmt.Println("Je n'ai pas compris ta requête, peux tu repeter ? ")
 

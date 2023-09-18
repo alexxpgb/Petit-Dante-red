@@ -42,11 +42,11 @@ func (p *Personnage) TakePot() {
 }
 
 func (p *Personnage) Boutique() {
-	marchand := Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "poison": 30, "Skill: go": 60}} //L'inventaire d'Arthur est la boutique
+	marchand := Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "poison": 30, "Skill: go": 60, "fourrure de loup": 4, "peau de troll": 7, "cuir de sanglier": 3, "cuir de corbeau": 1}} //L'inventaire d'Arthur est la boutique
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
-	for cle, val := range p.inventaire {
-		fmt.Printf("%s pour %d€", cle, val) //La clé est le nom de l'objet et val est le montant
+	for cle, val := range marchand.inventaire {
+		fmt.Printf("%s pour %d € ;", cle, val) //La clé est le nom de l'objet et val est le montant
 	}
 	fmt.Println("\n----------------------")
 	fmt.Println("Que veux tu parmi tous ses objets")
@@ -84,4 +84,14 @@ func (p *Personnage) Boutique() {
 	}
 	fmt.Printf("%#v n'est pas un objet accessible à la PEDA ou alors tu l'a mal écrit\n", answer)
 	p.Menu()
+}
+
+func (p *Personnage) Forgeron() {
+	forgeron := Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"Chapeau de l’aventurier": 5, "Tunique de l’aventurier": 5, "Bottes de l’aventurier": 5}}
+	fmt.Println("-----------------------")
+	fmt.Println("L'inventaire du forgeron est composé de")
+	for cle, val := range forgeron.inventaire {
+		fmt.Printf("%s pour %d € ;", cle, val)
+		fmt.Println("cependant, pour %a, il te faudra  ", cle)
+	}
 }
