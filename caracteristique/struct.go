@@ -46,3 +46,23 @@ func (p *Personnage) Init1() {
 	p.skills = []string{"python"}
 	p.wallet = 50
 }
+
+func (p *Personnage) class() {
+	var answer string
+	if p.niveau == "B3" {
+		fmt.Println("Quelle est ta specialisation ?")
+		fmt.Println("-------------------------------")
+		fmt.Println("1-IA data  2-infra 3-cybersécurité 4- dev  ")
+		fmt.Println("Saisie le numéro de ta spécialité")
+		fmt.Scan(&answer)
+		if answer == "1" {
+			p.classe = "IA data"
+		} else if answer == "2" {
+			p.classe = "infra "
+		} else if answer == "3" {
+			p.classe = "cybersécurité"
+		} else if answer == "4" {
+			p.classe = "dev"
+		}
+	}
+}
