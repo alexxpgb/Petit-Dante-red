@@ -3,29 +3,29 @@ package piscine
 import "fmt"
 
 func Graphisme() {
-	fmt.Println("#######################################################################################")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                                   WELCOME TO                                        #")
-	fmt.Println("#                                 MENTOR FIGHTER                                      #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                             1- NEW GAME                                             #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                             2- SETTINGS                                             #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                             3- QUIT                                                 #")
-	fmt.Println("#                                                                                     #")
-	fmt.Println("#                                             __...--~~~~~-._   _.-~~~~~--...__       #")
-	fmt.Println("#                                           //               `V'               \\\\     #")
-	fmt.Println("#                                          //                 |                 \\\\    #")
-	fmt.Println("#                                         //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\   #")
-	fmt.Println("#                                        //__.....----~~~~._\\ | /_.~~~~----.....__\\\\  #")
-	fmt.Println("#                                       ====================\\|//====================  #")
-	fmt.Println("#                                                           `---`                     #")
-	fmt.Println("#######################################################################################")
+	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+	fmt.Println("▓                                                                                                                                     ▓")
+	fmt.Println("▓  _       __     __                             __           __  ___           __                _______       __    __              ▓")
+	fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____     /  |/  ___  ____  / /_____  _____   / ____(_____ _/ /_  / /____  _____  ▓")
+	fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\   / /|_/ / _ \\/ __ \\/ __/ __ \\/ ___/  / /_  / / __ `/ __ \\/ __/ _ \\/ ___/  ▓")
+	fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /  / /  / /  __/ / / / /_/ /_/ / /     / __/ / / /_/ / / / / /_/  __/ /      ▓")
+	fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/  /_/  /_/\\___/_/ /_/\\__/\\____/_/     /_/   /_/\\__, /_/ /_/\\__/\\___/_/       ▓")
+	fmt.Println("▓                             			                                                                                    		  ▓")
+	fmt.Println("▓                                                                                                                            		  ▓")
+	fmt.Println("▓                                                                                                                            	      ▓")
+	fmt.Println("▓                             1- NEW GAME                                                                                      	  ▓")
+	fmt.Println("▓                                                                                                                            	      ▓")
+	fmt.Println("▓                                                                                                                         		      ▓")
+	fmt.Println("▓                             2-SETTINGS                                                                                		      ▓")
+	fmt.Println("▓                                                                                                                         		      ▓")
+	fmt.Println("▓                                                                                           __...--~~~~~-._   _.-~~~~~--...__      		  ▓")
+	fmt.Println("▓                             3-QUIT                                                       //               `V'               \\\\\\\\  	     ▓")
+	fmt.Println("▓                                                                                         //                 |                 \\\\\\\\		     ▓")
+	fmt.Println("▓                                                                                        //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\\\\\  ▓")
+	fmt.Println("▓                                                                            		    //__.....----~~~~._\\\\ | /_.~~~~----.....__\\\\\\\\ ▓")
+	fmt.Println("▓                                                                            		    ====================\\\\|//==================== ▓")
+	fmt.Println("▓                                                                                           		        `---`                    ▓")
+	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
 	var answer int
 	fmt.Scanln(&answer)
 	switch answer {
@@ -67,16 +67,16 @@ func (p Personnage) Display() {
 	fmt.Println("Ton nom est :", p.name)
 	fmt.Println("Ta spécialité est :", p.classe)
 	fmt.Println("Ton niveau est :", p.niveau)
-	fmt.Printf("Tu as %d/%d\n", p.note, p.notemax)
+	fmt.Printf("Tu as %d/%d\\n", p.note, p.notemax)
 	fmt.Println("Dans ton inventaire tu as :")
 	for cle, val := range p.inventaire {
-		fmt.Printf("%d %s\n", val, cle)
+		fmt.Printf("%d %s\\n", val, cle)
 	}
 	fmt.Println("Ta liste de skills est :")
 	for _, val := range p.skills {
 		fmt.Println(val)
 	}
-	fmt.Printf("Tu as %d euros\n", p.wallet)
+	fmt.Printf("Tu as %d euros\\n", p.wallet)
 	fmt.Println("-----------------------")
 }
 func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire batard
@@ -85,7 +85,7 @@ func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire
 	for cle, val := range p.inventaire {
 		fmt.Printf(" %d %s", val, cle)
 	}
-	fmt.Println("\n----------------------")
+	fmt.Println("\\n----------------------")
 	fmt.Println("Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
 	fmt.Println("2- Non")
@@ -113,7 +113,7 @@ func (p *Personnage) BookOfSkills(s string) { // fct qui permet d'apprendre des 
 	for cle, val := range bos.inventaire {
 		fmt.Printf(" %d %s", val, cle)
 	}
-	fmt.Println("\n----------------------")
+	fmt.Println("\\n----------------------")
 	var answer string
 	fmt.Scan(&answer)
 	if !p.IsInSkill(answer) { // si je n'ai pas ce skill dans ma skill liste :
