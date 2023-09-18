@@ -6,8 +6,8 @@ import (
 
 func (p *Personnage) TakePot() {
 	for cle := range p.inventaire {
-		if cle == "sucette" {
-			if p.note > p.notemax-20 {
+		if cle == "sucette" { //On parcours l'inventaire et si on a la sucette on l'utilise
+			if p.note > p.notemax-20 { //La sucette rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
 				var answer string
 				fmt.Println("est tu sur de vouloir utiliser la sucette")
 				fmt.Scan(&answer)
