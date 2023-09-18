@@ -31,6 +31,9 @@ func Graphisme() {
 	switch answer {
 	case 1:
 		fmt.Println("New Game")
+		var p Personnage
+		p.Init1()
+		p.Menu()
 	case 2:
 		fmt.Println("en construction...")
 	case 3:
@@ -83,10 +86,28 @@ func (p Personnage) AccessInventory() {
 		fmt.Printf(" %d %s", val, cle)
 	}
 	fmt.Println("\n----------------------")
+	fmt.Println("Veut tu utiliser un de ses objets?")
+	fmt.Println("1- Oui")
+	fmt.Println("2- Non")
+	var answer int
+	fmt.Scanln(&answer)
+	switch answer {
+	case 1:
+		fmt.Println("Lequel?")
+		var answer2 string
+		fmt.Scanln(&answer2)
+		p.UseObject(answer2)
+	case 2:
+		fmt.Println("Alors tu peux continuer")
+	default:
+		fmt.Println("Je n'ai pas compris ta requête, peux tu repeter? ")
+		p.AccessInventory()
+	}
 }
 
-func (p *Personnage) BookOfSkills() {
-	bos := Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1, "go": 1}}
+func (p *Personnage) BookOfSkills(s string) {
+	bos := Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1}}
+	bos.inventaire[s] = 1
 	fmt.Println("-----------------------")
 	fmt.Println("Quels skills veut tu apprendre?")
 	for cle, val := range bos.inventaire {
