@@ -79,7 +79,7 @@ func (p Personnage) Display() {
 	fmt.Printf("Tu as %d euros\n", p.wallet)
 	fmt.Println("-----------------------")
 }
-func (p Personnage) AccessInventory() {
+func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire batard
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire est composé de")
 	for cle, val := range p.inventaire {
@@ -105,7 +105,7 @@ func (p Personnage) AccessInventory() {
 	}
 }
 
-func (p *Personnage) BookOfSkills(s string) {
+func (p *Personnage) BookOfSkills(s string) { // fct qui permet d'apprendre des compétences
 	bos := Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1}}
 	bos.inventaire[s] = 1
 	fmt.Println("-----------------------")
@@ -116,10 +116,10 @@ func (p *Personnage) BookOfSkills(s string) {
 	fmt.Println("\n----------------------")
 	var answer string
 	fmt.Scan(&answer)
-	if !p.IsInSkill(answer) {
-		if bos.IsInInventory(answer) {
-			p.skills = append(p.skills, answer)
-			fmt.Println("Vous avez appris ce skill")
+	if !p.IsInSkill(answer) { // si je n'ai pas ce skill dans ma skill liste :
+		if bos.IsInInventory(answer) { // et s'il est proposé dans l'inventaire :
+			p.skills = append(p.skills, answer)      // je l'ajoute a ma liste de skills
+			fmt.Println("Vous avez appris ce skill") // la si t'as pas compris t'es un sale PD
 		} else {
 			fmt.Println("Le skill que tu m'a proposé ne fait pas partie de ma liste de skills")
 		}
