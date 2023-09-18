@@ -11,6 +11,7 @@ type Personnage struct {
 	inventaire map[string]int
 	skills     []string
 	wallet     int
+	armure     Equipment
 }
 
 func (p *Personnage) Init1() {
@@ -35,4 +36,10 @@ func (p *Personnage) Init1() {
 	p.inventaire = map[string]int{"sucette": 3, "totem": 1}
 	p.skills = []string{"python"}
 	p.wallet = 50
+}
+
+type Equipment struct {
+	head string
+	body string
+	foot string
 }
