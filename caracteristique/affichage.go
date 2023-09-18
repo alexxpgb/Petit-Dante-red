@@ -13,18 +13,18 @@ func Graphisme() {
 	fmt.Println("▓                             			                                                                                    		  ▓")
 	fmt.Println("▓                                                                                                                            		  ▓")
 	fmt.Println("▓                                                                                                                            	      ▓")
-	fmt.Println("▓                             1- NEW GAME                                                                                      	  ▓")
+	fmt.Println("▓                             1• NEW GAME                                                                                      	  ▓")
 	fmt.Println("▓                                                                                                                            	      ▓")
 	fmt.Println("▓                                                                                                                         		      ▓")
-	fmt.Println("▓                             2-SETTINGS                                                                                		      ▓")
+	fmt.Println("▓                             2• SETTINGS                                                                                		      ▓")
 	fmt.Println("▓                                                                                                                         		      ▓")
-	fmt.Println("▓                                                                                           __...--~~~~~-._   _.-~~~~~--...__      		  ▓")
-	fmt.Println("▓                             3-QUIT                                                       //               `V'               \\\\\\\\  	     ▓")
-	fmt.Println("▓                                                                                         //                 |                 \\\\\\\\		     ▓")
-	fmt.Println("▓                                                                                        //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\\\\\  ▓")
-	fmt.Println("▓                                                                            		    //__.....----~~~~._\\\\ | /_.~~~~----.....__\\\\\\\\ ▓")
-	fmt.Println("▓                                                                            		    ====================\\\\|//==================== ▓")
-	fmt.Println("▓                                                                                           		        `---`                    ▓")
+	fmt.Println("▓                                                                                      __...--~~~~~-._   _.-~~~~~--...__      		  ▓")
+	fmt.Println("▓                             3• QUIT                                                 //               `V'              \\\\  	      ▓")
+	fmt.Println("▓                                                                                    //                 |                \\\\		   ▓")
+	fmt.Println("▓                                                                                      //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\     ▓")
+	fmt.Println("▓                                                                                    //__.....----~~~~._\\\\ | /_.~~~~----.....__\\\\    ▓")
+	fmt.Println("▓                                                                         	     ====================\\\\|//====================   ▓")
+	fmt.Println("▓                                                                                           		 `---`                       ▓")
 	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
 	var answer int
 	fmt.Scanln(&answer)
@@ -38,7 +38,7 @@ func Graphisme() {
 		fmt.Println("en construction...")
 	case 3:
 		fmt.Println("Bye!")
-		break
+		return
 	default:
 		fmt.Println("Wrong answer!")
 	}

@@ -91,7 +91,6 @@ func (p *Personnage) Forgeron() {
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire du forgeron est composé de")
 	for cle, val := range forgeron.inventaire {
-		fmt.Printf("%s pour %d € ;", cle, val)
-		fmt.Println("cependant, pour %a, il te faudra  ", cle)
+		fmt.Printf("%s pour %d € ;\n", cle, val)
 	}
 }

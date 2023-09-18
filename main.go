@@ -5,7 +5,5 @@ import (
 )
 
 func main() {
-	var p1 pc.Personnage
 	pc.Graphisme()
-	p1.Menu()
 }
