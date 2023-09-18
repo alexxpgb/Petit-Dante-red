@@ -40,7 +40,7 @@ func (p *Personnage) TakePot() {
 }
 
 func (p *Personnage) Boutique() {
-	marchand := Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"multiprise": 0, "poison": 30}}
+	marchand := Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "poison": 30}}
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
 	for cle, val := range p.inventaire {
@@ -54,12 +54,12 @@ func (p *Personnage) Boutique() {
 		if answer == cle {
 			if marchand.wallet >= val {
 				marchand.wallet -= val
+				delete(marchand.inventaire, cle)
+				p.AddInventory(answer)
+				return
 			} else {
 				fmt.Println("Pas sur que tu peux te payer ça")
 			}
-			delete(marchand.inventaire, cle)
-			p.AddInventory(answer)
-			return
 		}
 	}
 	fmt.Printf("%#v n'est pas un objet accessible à la PEDA\n", answer)

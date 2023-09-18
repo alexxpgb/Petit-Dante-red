@@ -26,6 +26,19 @@ func Graphisme() {
 	fmt.Println("#                                       ====================\\|//====================  #")
 	fmt.Println("#                                                           `---`                     #")
 	fmt.Println("#######################################################################################")
+	var answer int
+	fmt.Scanln(&answer)
+	switch answer {
+	case 1:
+		fmt.Println("New Game")
+	case 2:
+		fmt.Println("en construction...")
+	case 3:
+		fmt.Println("Bye!")
+		break
+	default:
+		fmt.Println("Wrong answer!")
+	}
 }
 func (p *Personnage) Menu() {
 	var answer int
