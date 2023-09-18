@@ -31,6 +31,9 @@ func Graphisme() {
 	switch answer {
 	case 1:
 		fmt.Println("New Game")
+		var p Personnage
+		p.Init1()
+		p.Menu()
 	case 2:
 		fmt.Println("en construction...")
 	case 3:
