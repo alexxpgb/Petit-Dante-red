@@ -21,6 +21,13 @@ type Equipment struct {
 	foot string
 }
 
+type Mentor struct {
+	name    string
+	notemax int
+	note    int
+	strengh int
+}
+
 func (p *Personnage) Init() {
 	fmt.Println("❖ Quel est ton nom ?")
 	var answer string
