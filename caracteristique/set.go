@@ -9,7 +9,7 @@ func (p *Personnage) TakePot() {
 		if cle == "sucette" { //On parcours l'inventaire et si on a la sucette on l'utilise
 			if p.note > p.notemax-20 { //La sucette rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
 				var answer int
-				fmt.Println("est tu sur de vouloir utiliser la sucette")
+				fmt.Println("❖ Est tu sur de vouloir utiliser la sucette")
 				fmt.Println("1 pour oui")
 				fmt.Println("2 pour non")
 				fmt.Scan(&answer)
@@ -46,10 +46,10 @@ func (p *Personnage) Boutique() {
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
 	for cle, val := range marchand.inventaire {
-		fmt.Printf("%s pour %d € ;", cle, val) //La clé est le nom de l'objet et val est le montant
+		fmt.Printf("๑%s pour %d € ;", cle, val) //La clé est le nom de l'objet et val est le montant
 	}
 	fmt.Println("\n----------------------")
-	fmt.Println("Que veux tu parmi tous ses objets")
+	fmt.Println("❖Que veux tu parmi tous ses objets")
 	var answer string
 	fmt.Scan(&answer)
 	for cle, val := range marchand.inventaire {
@@ -62,10 +62,10 @@ func (p *Personnage) Boutique() {
 				}
 				p.AddInventory(answer) //Je l'ajoute dans mon inventaire
 				fmt.Println("Vous avez ajouté", cle, "à votre inventaire")
-				return
+				p.Menu()
 			} else {
 				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
-				return
+				p.Menu()
 			}
 		}
 		if answer[:4] == "Skill" && answer == cle { //Pour le cas ou il achète un skill
@@ -91,6 +91,6 @@ func (p *Personnage) Forgeron() {
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire du forgeron est composé de")
 	for cle, val := range forgeron.inventaire {
-		fmt.Printf("%s pour %d € ;\n", cle, val)
+		fmt.Printf("๑%s pour %d € ;\n", cle, val)
 	}
 }

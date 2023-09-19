@@ -109,9 +109,9 @@ func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le
 				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
 				p.RemoveInventory("Skill: go")
 				p.BookOfSkills("go")
+			} else {
+				fmt.Println("Vous n'avez pas cette object dans votre inventaire")
 			}
-		} else {
-			fmt.Println("Vous n'avez pas cette object dans votre inventaire")
 		}
 	}
 }

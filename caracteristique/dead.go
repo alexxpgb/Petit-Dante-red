@@ -16,7 +16,7 @@ func (p *Personnage) Redouble() {
 func (p *Personnage) Poison() {
 	for i := 0; i < 3; i++ {
 		p.note -= 10
-		fmt.Printf("Aie tu est a %d/%d\n", p.note, p.notemax)
+		fmt.Printf("๑Aie tu est a %d/%d\n", p.note, p.notemax)
 		time.Sleep(time.Second * 1) //Toute les secondes sa fait un coup
 	}
 }
