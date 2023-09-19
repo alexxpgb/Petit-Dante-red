@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+var marchand Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"sucette": 0, "poison": 15, "Skill: go": 20, "Chapeau de l’aventurier": 5, "Tunique de l’aventurier": 5, "Bottes de l’aventurier": 5, "Upgrade inventaire": 20}}
+
 func (p *Personnage) TakePot() {
 	for cle := range p.inventaire {
 		if cle == "sucette" { //On parcours l'inventaire et si on a la sucette on l'utilise
@@ -42,25 +44,27 @@ func (p *Personnage) TakePot() {
 }
 
 func (p *Personnage) Boutique() {
-	marchand := Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "poison": 30, "Skill: go": 60, "fourrure de loup": 4, "peau de troll": 7, "cuir de sanglier": 3, "cuir de corbeau": 1}} //L'inventaire d'Arthur est la boutique
+	var count int = 1
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
 	for cle, val := range marchand.inventaire {
-		fmt.Printf("๑%s pour %d € ;", cle, val) //La clé est le nom de l'objet et val est le montant
+		fmt.Printf("๑ %d %s pour %d € \n", count, cle, val) //La clé est le nom de l'objet et val est le montant
+		count++
 	}
 	fmt.Println("\n----------------------")
-	fmt.Println("❖Que veux tu parmi tous ses objets")
-	var answer string
+	fmt.Println("❖ Que veux tu parmi tous ses objets")
+	var answer int
 	fmt.Scan(&answer)
+	count = 1
 	for cle, val := range marchand.inventaire {
-		if answer == cle { //Je parcoure mon inventaire et je vérifie que l'objet que l'utilisateur ma selectione est bien dans mon inventaire
+		if answer == count && count != 3 { //Je parcoure mon inventaire et je vérifie que l'objet que l'utilisateur ma selectione est bien dans mon inventaire
 			if marchand.wallet >= val && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 				marchand.wallet -= val //Je lui prends l'argent
 				if cle == "sucette" {  //Car la première sucette est gratuite et après c'est payant
 					delete(marchand.inventaire, cle)
 					marchand.inventaire["sucette"] = 20
 				}
-				p.AddInventory(answer) //Je l'ajoute dans mon inventaire
+				p.AddInventory(cle) //Je l'ajoute dans mon inventaire
 				fmt.Println("Vous avez ajouté", cle, "à votre inventaire")
 				p.Menu()
 			} else {
@@ -68,11 +72,11 @@ func (p *Personnage) Boutique() {
 				p.Menu()
 			}
 		}
-		if answer[:4] == "Skill" && answer == cle { //Pour le cas ou il achète un skill
+		if answer == 3 { //Pour le cas ou il achète un skill
 			if marchand.wallet >= val && p.LimitSpace() {
 				marchand.wallet -= val
 				delete(marchand.inventaire, cle) //La je dois le supprimer de l'inventaire de mon marchand
-				p.AddInventory(answer)
+				p.AddInventory(cle)
 				fmt.Println("Vous avez ajouté", cle, "à votre inventaire")
 				return
 			} else {
@@ -80,7 +84,7 @@ func (p *Personnage) Boutique() {
 				return
 			}
 		}
-
+		count++
 	}
 	fmt.Printf("%#v n'est pas un objet accessible à la PEDA ou alors tu l'a mal écrit\n", answer)
 	p.Menu()

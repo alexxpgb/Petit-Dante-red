@@ -22,12 +22,15 @@ func ReadInputO() {
 		case term.EventKey:
 			switch ev.Key {
 			case term.KeyArrowUp:
+				fmt.Print("\033[H\033[2J")
+
 				if choix == 2 || choix == 3 {
 					choix--
 				} else {
 					choix = 3
 				}
 			case term.KeyArrowDown:
+				fmt.Print("\033[H\033[2J")
 				if choix == 1 || choix == 2 {
 					choix++
 				} else {
@@ -54,7 +57,8 @@ func ReadInputO() {
 		}
 		Graphisme(choix)
 	}
-	return
+	fmt.Print("\033[H\033[2J")
+	p.AccessInventory()
 }
 
 func Graphisme(choix int) {
@@ -137,7 +141,7 @@ func Graphisme(choix int) {
 
 func (p *Personnage) Menu() {
 	var answer int
-	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour retrouver au menu d'accueil, tape 5.")
+	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour arretez le jeu, tape 5.")
 	fmt.Scan(&answer)
 	switch answer {
 	case 1:
@@ -151,10 +155,9 @@ func (p *Personnage) Menu() {
 	case 4:
 		p.Forgeron()
 	case 5:
-		ReadInputO()
-
+		return
 	default:
-		fmt.Println("❖Je n'ai pas compris ta requête, peux tu repeter ? ")
+		fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
 		p.Menu()
 	}
 }
@@ -167,13 +170,13 @@ func (p Personnage) Display() {
 	fmt.Printf("๑ Tu as %d/%d\n", p.note, p.notemax)
 	fmt.Println("Dans ton inventaire tu as :")
 	for cle, val := range p.inventaire {
-		fmt.Printf("๑ %d %s\\n", val, cle)
+		fmt.Printf("๑ %d %s\n", val, cle)
 	}
 	fmt.Println("Ta liste de skills est :")
 	for _, val := range p.skills {
 		fmt.Println("๑ ", val)
 	}
-	fmt.Printf("๑ Tu as %d euros\\n", p.wallet)
+	fmt.Printf("๑ Tu as %d euros\n", p.wallet)
 	fmt.Println("-----------------------")
 	p.Menu()
 }
@@ -184,11 +187,11 @@ func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire
 		fmt.Printf("๑ %d %s\n", val, cle)
 	}
 	fmt.Println("----------------------")
-	fmt.Println("❖Veut tu utiliser un de ses objets?")
+	fmt.Println("❖ Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
 	fmt.Println("2- Non")
 	var answer int
-	fmt.Scanln(&answer)
+	fmt.Scanln(&answer) //il y a une erreur
 	switch answer {
 	case 1:
 		fmt.Println("❖Lequel?")
@@ -200,7 +203,7 @@ func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire
 		p.Menu()
 	default:
 		fmt.Println("❖Je n'ai pas compris ta requête, peux tu repeter? ")
-		p.AccessInventory()
+		//p.AccessInventory()
 	}
 }
 

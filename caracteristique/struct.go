@@ -9,6 +9,7 @@ type Personnage struct {
 	notemax    int
 	note       int
 	inventaire map[string]int
+	leninv     int
 	skills     []string
 	wallet     int
 	armure     Equipment
@@ -40,6 +41,7 @@ func (p *Personnage) Init() {
 	p.notemax = 100
 	p.note = 50
 	p.inventaire = map[string]int{"sucette": 3, "totem": 1}
+	p.leninv = 10
 	p.skills = []string{"python"}
 	p.wallet = 50
 	p.Menu()
