@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
 var marchand Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"sucette": 0, "poison": 15, "Skill: go": 20, "Chapeau de l’aventurier": 5, "Tunique de l’aventurier": 5, "Bottes de l’aventurier": 5, "Upgrade inventaire": 20}}
 
 func (p *Personnage) TakePot() {
@@ -48,16 +49,16 @@ func (p *Personnage) Boutique() {
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
 	for cle, val := range marchand.inventaire {
-		fmt.Printf("๑ %d %s pour %d € \n", count, cle, val) //La clé est le nom de l'objet et val est le montant
+		fmt.Printf("๑ %d %s pour %d € \n", count, cle, val) //le count il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 		count++
 	}
 	fmt.Println("\n----------------------")
 	fmt.Println("❖ Que veux tu parmi tous ses objets")
 	var answer int
 	fmt.Scan(&answer)
-	count = 1
+	count = 1 //Le mec il rentre le numero auquel est attribuéson objet
 	for cle, val := range marchand.inventaire {
-		if answer == count && count != 3 { //Je parcoure mon inventaire et je vérifie que l'objet que l'utilisateur ma selectione est bien dans mon inventaire
+		if answer == count && count != 3 { //Je selectionne l'objet en question sauf si la 3 car c'est un skill et il se passe pas la meme chose
 			if marchand.wallet >= val && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 				marchand.wallet -= val //Je lui prends l'argent
 				if cle == "sucette" {  //Car la première sucette est gratuite et après c'est payant
@@ -69,7 +70,7 @@ func (p *Personnage) Boutique() {
 				p.Menu()
 			} else {
 				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
-				p.Menu()
+				p.Menu() //Je reviens au menu dans tous les cas
 			}
 		}
 		if answer == 3 { //Pour le cas ou il achète un skill
@@ -78,15 +79,15 @@ func (p *Personnage) Boutique() {
 				delete(marchand.inventaire, cle) //La je dois le supprimer de l'inventaire de mon marchand
 				p.AddInventory(cle)
 				fmt.Println("Vous avez ajouté", cle, "à votre inventaire")
-				return
+				p.Menu()
 			} else {
 				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
-				return
+				p.Menu()
 			}
 		}
 		count++
 	}
-	fmt.Printf("%#v n'est pas un objet accessible à la PEDA ou alors tu l'a mal écrit\n", answer)
+	fmt.Printf("%#v J'attendais le numero de l'objet que tu voulais acheter\n", answer)
 	p.Menu()
 }
 

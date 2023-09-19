@@ -45,7 +45,7 @@ func (p Personnage) LimitSpace() bool { // vu que tu fais pas de sport tu peux p
 			count++
 		}
 	}
-	if count > p.leninv {
+	if count > p.leninv { //J'ai crée un element dans la structure pour verifier si on a la place
 		fmt.Println("Vous n'avez plus de place dans votre inventaire") //trop faible...
 		return false
 	}
@@ -109,6 +109,10 @@ func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le
 				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
 				p.RemoveInventory("Skill: go")
 				p.BookOfSkills("go")
+			}
+			if cle == "Upgrade inventaire" {
+				p.UpgradeInventory()
+				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
 			} else {
 				fmt.Println("Vous n'avez pas cette object dans votre inventaire")
 			}
@@ -140,7 +144,7 @@ func ToUpper(s string) string { // Je vais me répetter mais Capitalize?
 }
 
 func (p *Personnage) UpgradeInventory() {
-	if p.leninv < 40 {
+	if p.leninv < 40 { //Car c'est le max qu'il veulent
 		p.leninv += 10
 	}
 }
