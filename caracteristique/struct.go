@@ -20,7 +20,7 @@ type Equipment struct {
 	foot string
 }
 
-func (p *Personnage) Init1() {
+func (p *Personnage) Init() {
 	var answer string
 	var answer2 string
 	fmt.Println("quel est ton nom ?")
@@ -33,7 +33,7 @@ func (p *Personnage) Init1() {
 		p.name = answer2
 	} else {
 		fmt.Println("Ton nom n'est pas valide, met en un autre.")
-		p.Init1()
+		p.Init()
 	}
 	p.classe = "info"
 	p.niveau = "B1"

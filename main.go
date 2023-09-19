@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	pc.Graphisme()
+	pc.ReadInput()
 }
