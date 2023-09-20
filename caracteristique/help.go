@@ -12,6 +12,13 @@ func (p *Personnage) AddInventory(s string) { // quand t'ajoute un item kékiçe
 	p.inventaire[s] = 1 // si je l'ai pas je vais le chercher chez ta mère et je l'initialise
 }
 
+func TransvalseList(tab map[string]int) []string {
+	var lst []string
+	for cle := range tab {
+		lst = append(lst, cle)
+	}
+	return lst
+}
 func (p *Personnage) RemoveInventory(s string) { // la c'est quand on enleve de l'inventaire
 	for cle := range p.inventaire {
 		if cle == s {
@@ -67,7 +74,7 @@ func IsUpper(s string) bool { // on verifies si la lettre est majuscule (t'aurai
 	return false
 }
 
-func IsLower(s string) bool { //(Pk pas Capitalise sale nègre ?)
+func IsLower(s string) bool { //(Pk pas Capitalise sale n ?)
 	nbs := len(s)
 	nb := 0
 	for _, c := range s {
@@ -119,6 +126,7 @@ func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le
 		}
 	}
 }
+
 func ToLower(s string) string { // Capitalize ?
 	var listf string
 	for _, c := range s {
@@ -158,6 +166,7 @@ func (p *Personnage) LastRune(s string) rune {
 	}
 	return '0'
 }
+
 func Capitalize(s string) string {
 	var new string
 	if s == "" {

@@ -189,20 +189,16 @@ func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire
 	fmt.Println("❖ Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
 	fmt.Println("2- Non")
-	var answer int
-	fmt.Scanln(&answer) //il y a une erreur
-	switch answer {
-	case 1:
+	s := Scan()
+	switch s {
+	case "1":
 		fmt.Println("❖Lequel?")
-		var answer2 string
-		fmt.Scanln(&answer2)
-		p.UseObject(answer2)
-	case 2:
+		p.UseObject(Scan())
+	case "2":
 		fmt.Println("Alors tu peux continuer")
 		p.Menu()
 	default:
 		fmt.Println("❖Je n'ai pas compris ta requête, peux tu repeter? ")
-		//p.AccessInventory()
 	}
 }
 
@@ -215,8 +211,7 @@ func (p *Personnage) BookOfSkills(s string) { // fct qui permet d'apprendre des 
 		fmt.Printf("๑ %d %s", val, cle)
 	}
 	fmt.Println("\\n----------------------")
-	var answer string
-	fmt.Scan(&answer)
+	answer := Scan()
 	if !p.IsInSkill(answer) { // si je n'ai pas ce skill dans ma skill liste :
 		if bos.IsInInventory(answer) { // et s'il est proposé dans l'inventaire :
 			p.skills = append(p.skills, answer)      // je l'ajoute a ma liste de skills

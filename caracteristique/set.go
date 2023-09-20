@@ -2,6 +2,7 @@ package piscine
 
 import (
 	"fmt"
+	"strconv"
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
@@ -45,47 +46,34 @@ func (p *Personnage) TakePot() {
 }
 
 func (p *Personnage) Boutique() {
-	var count int = 1
+	lst := TransvalseList(marchand.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
-	for cle, val := range marchand.inventaire {
-		fmt.Printf("๑ %d %s pour %d € \n", count, cle, val) //le count il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
-		count++
+	for ind, val := range lst {
+		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, marchand.inventaire[val]) //le count il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 	}
 	fmt.Println("\n----------------------")
 	fmt.Println("❖ Que veux tu parmi tous ses objets")
-	var answer int
-	fmt.Scan(&answer)
-	count = 1 //Le mec il rentre le numero auquel est attribuéson objet
-	for cle, val := range marchand.inventaire {
-		if answer == count && count != 3 { //Je selectionne l'objet en question sauf si la 3 car c'est un skill et il se passe pas la meme chose
-			if marchand.wallet >= val && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
-				marchand.wallet -= val //Je lui prends l'argent
-				if cle == "sucette" {  //Car la première sucette est gratuite et après c'est payant
-					delete(marchand.inventaire, cle)
-					marchand.inventaire["sucette"] = 20
-				}
-				p.AddInventory(cle) //Je l'ajoute dans mon inventaire
-				fmt.Println("Vous avez ajouté", cle, "à votre inventaire")
-				p.Menu()
-			} else {
-				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
-				p.Menu() //Je reviens au menu dans tous les cas
+	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
+	i, _ := strconv.Atoi(answer)
+	i -= 1
+	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré
+		if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
+			p.wallet -= p.inventaire[lst[i]] //Je lui prends l'argent
+			if string(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
+				delete(marchand.inventaire, string(lst[i]))
+				marchand.inventaire["sucette"] = 20
 			}
-		}
-		if answer == 3 { //Pour le cas ou il achète un skill
-			if marchand.wallet >= val && p.LimitSpace() {
-				marchand.wallet -= val
-				delete(marchand.inventaire, cle) //La je dois le supprimer de l'inventaire de mon marchand
-				p.AddInventory(cle)
-				fmt.Println("Vous avez ajouté", cle, "à votre inventaire")
-				p.Menu()
-			} else {
-				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
-				p.Menu()
+			if string(lst[i])[:4] == "Skill" {
+				delete(marchand.inventaire, string(lst[i]))
 			}
+			p.AddInventory(string(lst[i])) //Je l'ajoute dans mon inventaire
+			fmt.Println("Vous avez ajouté", string(lst[i]), "à votre inventaire")
+			p.Menu()
+		} else {
+			fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
+			p.Menu() //Je reviens au menu dans tous les cas
 		}
-		count++
 	}
 	fmt.Printf("%#v J'attendais le numero de l'objet que tu voulais acheter\n", answer)
 	p.Menu()

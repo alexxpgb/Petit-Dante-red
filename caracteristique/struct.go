@@ -56,11 +56,14 @@ func (p *Personnage) Init() {
 					x -= runewidth.RuneWidth(p.LastRune(p.name))
 					p.name = p.name[:len(p.name)-1]
 					tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, ' ')
+				} else {
+					fmt.Println("Tu veut supprimer quoi la?")
 				}
 
 			default:
 				if IsAlpha(string(ev.Ch)) {
 					x = p.inputs(ev.Ch, x, y)
+					p.name += string(ev.Ch)
 				}
 			}
 		case term.EventError:
@@ -80,27 +83,56 @@ func (p *Personnage) Init() {
 
 }
 
-func (p *Personnage) Scan(c rune, x, y int) {
-	if IsAlpha(string(c)) {
-		p.inputs(c, x, y)
+func Scan() string {
+	fmt.Println("₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪")
+	fmt.Println("₪₪                                                                                                                               ₪₪")
+	fmt.Println("₪₪                                                                                                                               ₪₪")
+	fmt.Println("₪₪                                                                                                                               ₪₪")
+	fmt.Println("₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪")
+
+	x := 2
+	y := 16
+	var s string
+	inputchek := false
+	for inputchek == false {
+		switch ev := term.PollEvent(); ev.Type {
+		case term.EventKey:
+			switch ev.Key {
+			case term.KeyEnter:
+				inputchek = true
+			case term.KeyBackspace:
+				if len(p.name) > 0 {
+					x -= runewidth.RuneWidth(p.LastRune(s))
+					s = s[:len(s)-1]
+					tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, ' ')
+				}
+
+			default:
+				if IsAlpha(string(ev.Ch)) {
+					x = p.inputs(ev.Ch, x, y)
+					s += string(ev.Ch)
+				}
+			}
+		case term.EventError:
+			panic(ev.Err)
+		}
 	}
+	return s
 }
 
 func (p *Personnage) inputs(input rune, x, y int) int {
 	tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, input)
 	x += runewidth.RuneWidth(input)
-	p.name += string(input)
 	return x
 }
 
 func (p *Personnage) class() {
-	var answer string
 	if p.niveau == "B3" {
 		fmt.Println("❖ Quelle est ta specialisation ?")
 		fmt.Println("-------------------------------")
 		fmt.Println("1-IA data  2-infra 3-cybersécurité 4- dev  ")
 		fmt.Println("❖ Saisie le numéro de ta spécialité")
-		fmt.Scan(&answer)
+		answer := Scan()
 		if answer == "1" {
 			p.classe = "IA data"
 		} else if answer == "2" {
