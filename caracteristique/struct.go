@@ -1,6 +1,12 @@
 package piscine
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/mattn/go-runewidth"
+	"github.com/nsf/termbox-go"
+	term "github.com/nsf/termbox-go"
+)
 
 type Personnage struct {
 	name       string
@@ -28,21 +34,40 @@ type Mentor struct {
 	strengh int
 }
 
+func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
+	termbox.SetCell(x, y, c, fg, bg)
+	x += runewidth.RuneWidth(c)
+	termbox.Flush()
+}
+
 func (p *Personnage) Init() {
+	x := 2
+	y := 2
 	fmt.Println("❖ Quel est ton nom ?")
-	var answer string
-	var answer2 string
-	fmt.Scan(&answer)
-	if IsUpper(string(answer[0])) && IsLower(string(answer[1:])) {
-		p.name = answer
-	} else if IsAlpha(answer) {
-		answer2 = ToUpper(string(answer[0]))
-		answer2 += ToLower(answer[1:])
-		p.name = answer2
-	} else {
-		fmt.Println("Ton nom n'est pas valide, met en un autre.")
-		p.Init()
+	inputchek := false
+	for inputchek == false {
+		switch ev := term.PollEvent(); ev.Type {
+		case term.EventKey:
+			switch ev.Key {
+			case term.KeyEnter:
+				inputchek = true
+			case term.KeyBackspace:
+				if len(p.name) > 0 {
+					x -= runewidth.RuneWidth(p.LastRune(p.name))
+					p.name = p.name[:len(p.name)-1]
+					tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, ' ')
+				}
+
+			default:
+				if IsAlpha(string(ev.Ch)) {
+					x = p.inputs(ev.Ch, x, y)
+				}
+			}
+		case term.EventError:
+			panic(ev.Err)
+		}
 	}
+	p.name = Capitalize(p.name)
 	p.classe = "info"
 	p.niveau = "B1"
 	p.notemax = 100
@@ -52,6 +77,20 @@ func (p *Personnage) Init() {
 	p.skills = []string{"python"}
 	p.wallet = 50
 	p.Menu()
+
+}
+
+func (p *Personnage) Scan(c rune, x, y int) {
+	if IsAlpha(string(c)) {
+		p.inputs(c, x, y)
+	}
+}
+
+func (p *Personnage) inputs(input rune, x, y int) int {
+	tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, input)
+	x += runewidth.RuneWidth(input)
+	p.name += string(input)
+	return x
 }
 
 func (p *Personnage) class() {

@@ -2,6 +2,7 @@ package piscine
 
 import (
 	"fmt"
+	"os"
 
 	term "github.com/nsf/termbox-go"
 )
@@ -41,10 +42,8 @@ func ReadInputO() {
 				inputchek = true
 				switch choix {
 				case 1:
-					term.Close()
 					p.Init()
 				case 2:
-					term.Close()
 					var p2 Personnage
 					p2.Init()
 					p.name = p2.name
@@ -140,28 +139,28 @@ func Graphisme(choix int) {
 }
 
 func (p *Personnage) Menu() {
-	var answer int
 	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour arretez le jeu, tape 5.")
-	fmt.Scan(&answer)
-	switch answer {
-	case 1:
-		p.AccessInventory()
-	case 2:
-		p.Display()
+	switch ev := term.PollEvent(); ev.Type {
+	case term.EventKey:
+		switch ev.Ch {
+		case '1':
+			p.AccessInventory()
+		case '2':
+			p.Display()
 
-	case 3:
-		p.Boutique()
+		case '3':
+			p.Boutique()
 
-	case 4:
-		p.Forgeron()
-	case 5:
-		return
-	default:
-		fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
-		p.Menu()
+		case '4':
+			p.Forgeron()
+		case '5':
+			os.Exit(0)
+		default:
+			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
+			p.Menu()
+		}
 	}
 }
-
 func (p Personnage) Display() {
 	fmt.Println("-----------------------")
 	fmt.Println("๑ Ton nom est :", p.name)

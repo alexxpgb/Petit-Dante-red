@@ -148,3 +148,44 @@ func (p *Personnage) UpgradeInventory() {
 		p.leninv += 10
 	}
 }
+
+func (p *Personnage) LastRune(s string) rune {
+	var count int = 0
+	for _, c := range s {
+		if count == len(s)-1 {
+			return c
+		}
+	}
+	return '0'
+}
+func Capitalize(s string) string {
+	var new string
+	if s == "" {
+		return ""
+	}
+	if IsLower(string(s[0])) {
+		new += ToUpper(string(s[0]))
+	} else {
+		new += string(s[0])
+	}
+	for i, c := range s {
+		if i == 0 {
+			continue
+		}
+		if !IsAlpha(string(new[len(new)-1])) {
+			if i == len(s) {
+				break
+			}
+			if IsLower(string(c)) {
+				new += ToUpper(string(c))
+			} else {
+				new += string(c)
+			}
+		} else if IsUpper(string(c)) {
+			new += ToLower(string(c))
+		} else {
+			new += string(c)
+		}
+	}
+	return new
+}
