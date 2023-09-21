@@ -138,3 +138,5 @@ func ToUpper(s string) string { // Je vais me répetter mais Capitalize?
 	}
 	return listf
 }
+
+// bande de merde, vous pouvez utiliser capitalize !!!
