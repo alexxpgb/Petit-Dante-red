@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	pc.ReadInput()
+	pc.ReadInputO()
 }

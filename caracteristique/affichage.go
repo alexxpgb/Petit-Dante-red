@@ -2,232 +2,203 @@ package piscine
 
 import (
 	"fmt"
+	"os"
 
 	term "github.com/nsf/termbox-go"
 )
 
-func ReadInput() {
-	err := term.Init()
-	if err != nil {
-		panic(err)
-	}
-	defer term.Close()
-	Graphisme()
-	inputchek := false
-	for !inputchek {
-		switch ev := term.PollEvent(); ev.Type {
-		case term.EventKey:
-			switch ev.Key {
-			case term.KeyArrowDown:
-				ReadInput2()
-			case term.KeyEnter:
-				inputchek = true
-			default:
-				ReadInput()
-			}
-		case term.EventError:
-			panic(ev.Err)
-		}
-	}
-	var p Personnage
-	p.Init()
-	p.Menu()
-}
+var p Personnage
 
-func ReadInput2() {
+func ReadInputO() {
 	err := term.Init()
 	if err != nil {
 		panic(err)
 	}
 	defer term.Close()
-	Graphisme2()
 	inputchek := false
+	var choix int = 1
+	Graphisme(choix)
 	for !inputchek {
 		switch ev := term.PollEvent(); ev.Type {
 		case term.EventKey:
 			switch ev.Key {
 			case term.KeyArrowUp:
-				ReadInput()
+				fmt.Print("\033[H\033[2J")
+
+				if choix == 2 || choix == 3 {
+					choix--
+				} else {
+					choix = 3
+				}
 			case term.KeyArrowDown:
-				ReadInput3()
+				fmt.Print("\033[H\033[2J")
+				if choix == 1 || choix == 2 {
+					choix++
+				} else {
+					choix = 1
+				}
 			case term.KeyEnter:
+				fmt.Print("\033[H\033[2J")
 				inputchek = true
-			default:
-				ReadInput2()
+				switch choix {
+				case 1:
+					p.Init()
+				case 2:
+					var p2 Personnage
+					p2.Init()
+					p.name = p2.name
+				case 3:
+					return
+				}
 			}
 		case term.EventError:
 			panic(ev.Err)
 		}
+		Graphisme(choix)
 	}
-	fmt.Println("Vous voulez changez de nom ou de classe?")
+	fmt.Print("\033[H\033[2J")
+	p.AccessInventory()
 }
 
-func ReadInput3() {
-	err := term.Init()
-	if err != nil {
-		panic(err)
+func Graphisme(choix int) {
+	switch choix {
+	case 1:
+		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+		fmt.Println("▓                                                                                                                                     ▓")
+		fmt.Println("▓  _       __     __                             __                                                                                   ▓")
+		fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____                                                                             ▓")
+		fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\                                                                            ▓")
+		fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /                                                                            ▓")
+		fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/                                                                             ▓")
+		fmt.Println("▓                             			                                                                                      ▓")
+		fmt.Println("▓                                                         • ▌ ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄      ▓")
+		fmt.Println("▓                     ╔╗╔┌─┐┬ ┬  ┌─┐┌─┐┌┬┐┌─┐             ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
+		fmt.Println("▓                  1• ║║║├┤ │││  │ ┬├─┤│││├┤              ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█▄██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
+		fmt.Println("▓                     ╝╚╝└─┘└┴┘  └─┘┴ ┴┴ ┴└─┘             ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐███▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
+		fmt.Println("▓                                                        ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀     ▓")
+		fmt.Println("▓                             2• SETTINGS                                                                                             ▓")
+		fmt.Println("▓                                                                                                                                     ▓")
+		fmt.Println("▓                                                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
+		fmt.Println("▓                             3• QUIT                                                   //               `V'              \\\\  	      ▓")
+		fmt.Println("▓                                                                                      //                 |                \\\\         ▓")
+		fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
+		fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
+		fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
+		fmt.Println("▓                                                                                           		 `---`                        ▓")
+		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+	case 2:
+		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+		fmt.Println("▓                                                                                                                                     ▓")
+		fmt.Println("▓  _       __     __                             __                                                                                   ▓")
+		fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____                                                                             ▓")
+		fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\                                                                            ▓")
+		fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /                                                                            ▓")
+		fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/                                                                             ▓")
+		fmt.Println("▓                             			                                                                                      ▓")
+		fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄      ▓")
+		fmt.Println("▓                                                         ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
+		fmt.Println("▓                            1• NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█▄██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
+		fmt.Println("▓                                                         ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐███▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
+		fmt.Println("▓                     ╔═╗┌─┐┌┬┐┌┬┐┬┌┐┌┌─┐┌─┐              ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
+		fmt.Println("▓                  2• ╚═╗├┤  │  │ │││││ ┬└─┐                                                                                          ▓")
+		fmt.Println("▓                     ╚═╝└─┘ ┴  ┴ ┴┘└┘└─┘└─┘                                                                                          ▓")
+		fmt.Println("▓                                                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
+		fmt.Println("▓                             3• QUIT                                                   //               `V'              \\\\  	      ▓")
+		fmt.Println("▓                                                                                      //                 |                \\\\         ▓")
+		fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
+		fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
+		fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
+		fmt.Println("▓                                                                                           		 `---`                        ▓")
+		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+	case 3:
+		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+		fmt.Println("▓                                                                                                                                     ▓")
+		fmt.Println("▓  _       __     __                             __                                                                                   ▓")
+		fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____                                                                             ▓")
+		fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\                                                                            ▓")
+		fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /                                                                            ▓")
+		fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/                                                                             ▓")
+		fmt.Println("▓                             			                                                                                      ▓")
+		fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄      ▓")
+		fmt.Println("▓                                                         ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
+		fmt.Println("▓                            1• NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█▄██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
+		fmt.Println("▓                                                         ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐███▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
+		fmt.Println("▓                                                         ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
+		fmt.Println("▓                            2• SETTINGS                                                                                              ▓")
+		fmt.Println("▓                                                                                                                                     ▓")
+		fmt.Println("▓                     ╔═╗ ┬ ┬┬┌┬┐                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
+		fmt.Println("▓                  3• ║═╬╗│ ││ │                                                        //               `V'              \\\\  	      ▓")
+		fmt.Println("▓                     ╚═╝╚└─┘┴ ┴                                                    	//                 |                \\\\         ▓")
+		fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
+		fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
+		fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
+		fmt.Println("▓                                                                                           		 `---`                        ▓")
+		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
 	}
-	defer term.Close()
-	Graphisme3()
-	inputchek := false
-	for !inputchek {
-		switch ev := term.PollEvent(); ev.Type {
-		case term.EventKey:
-			switch ev.Key {
-			case term.KeyArrowUp:
-				ReadInput2()
-			case term.KeyEnter:
-				inputchek = true
-			default:
-				ReadInput3()
-			}
-		case term.EventError:
-			panic(ev.Err)
-		}
-	}
-	return
-}
-
-func Graphisme() {
-	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
-	fmt.Println("▓                                                                                                                                     ▓")
-	fmt.Println("▓  _       __     __                             __                                                                                   ▓")
-	fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____                                                                             ▓")
-	fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\                                                                            ▓")
-	fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /                                                                            ▓")
-	fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/                                                                             ▓")
-	fmt.Println("▓                             			                                                                                      ▓")
-	fmt.Println("▓                                                         • ▌ ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄      ▓")
-	fmt.Println("▓                     ╔╗╔┌─┐┬ ┬  ┌─┐┌─┐┌┬┐┌─┐             ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
-	fmt.Println("▓                  1• ║║║├┤ │││  │ ┬├─┤│││├┤              ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█▄██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
-	fmt.Println("▓                     ╝╚╝└─┘└┴┘  └─┘┴ ┴┴ ┴└─┘             ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐███▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
-	fmt.Println("▓                                                        ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀     ▓")
-	fmt.Println("▓                             2• SETTINGS                                                                                             ▓")
-	fmt.Println("▓                                                                                                                                     ▓")
-	fmt.Println("▓                                                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
-	fmt.Println("▓                             3• QUIT                                                   //               `V'              \\\\  	      ▓")
-	fmt.Println("▓                                                                                      //                 |                \\\\         ▓")
-	fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
-	fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
-	fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
-	fmt.Println("▓                                                                                           		 `---`                        ▓")
-	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
-}
-
-func Graphisme2() {
-	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
-	fmt.Println("▓                                                                                                                                     ▓")
-	fmt.Println("▓  _       __     __                             __                                                                                   ▓")
-	fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____                                                                             ▓")
-	fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\                                                                            ▓")
-	fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /                                                                            ▓")
-	fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/                                                                             ▓")
-	fmt.Println("▓                             			                                                                                      ▓")
-	fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄      ▓")
-	fmt.Println("▓                                                         ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
-	fmt.Println("▓                            1• NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█▄██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
-	fmt.Println("▓                                                         ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐███▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
-	fmt.Println("▓                     ╔═╗┌─┐┌┬┐┌┬┐┬┌┐┌┌─┐┌─┐              ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
-	fmt.Println("▓                  2• ╚═╗├┤  │  │ │││││ ┬└─┐                                                                                          ▓")
-	fmt.Println("▓                     ╚═╝└─┘ ┴  ┴ ┴┘└┘└─┘└─┘                                                                                          ▓")
-	fmt.Println("▓                                                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
-	fmt.Println("▓                             3• QUIT                                                   //               `V'              \\\\  	      ▓")
-	fmt.Println("▓                                                                                      //                 |                \\\\         ▓")
-	fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
-	fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
-	fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
-	fmt.Println("▓                                                                                           		 `---`                        ▓")
-	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
-}
-
-func Graphisme3() {
-	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
-	fmt.Println("▓                                                                                                                                     ▓")
-	fmt.Println("▓  _       __     __                             __                                                                                   ▓")
-	fmt.Println("▓  | |     / ___  / _________  ____ ___  ___     / /_____                                                                             ▓")
-	fmt.Println("▓  | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\                                                                            ▓")
-	fmt.Println("▓  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /                                                                            ▓")
-	fmt.Println("▓  |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/                                                                             ▓")
-	fmt.Println("▓                             			                                                                                      ▓")
-	fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄      ▓")
-	fmt.Println("▓                                                         ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
-	fmt.Println("▓                            1• NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█▄██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
-	fmt.Println("▓                                                         ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐███▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
-	fmt.Println("▓                                                         ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
-	fmt.Println("▓                            2• SETTINGS                                                                                              ▓")
-	fmt.Println("▓                                                                                                                                     ▓")
-	fmt.Println("▓                     ╔═╗ ┬ ┬┬┌┬┐                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
-	fmt.Println("▓                  3• ║═╬╗│ ││ │                                                        //               `V'              \\\\  	      ▓")
-	fmt.Println("▓                     ╚═╝╚└─┘┴ ┴                                                    	//                 |                \\\\         ▓")
-	fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
-	fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
-	fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
-	fmt.Println("▓                                                                                           		 `---`                        ▓")
-	fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
 }
 
 func (p *Personnage) Menu() {
-	var answer int
-	fmt.Println("pour acceder à ton inventaire, tape 1. Pour acceder aux informartions de ton personnage, tape 2. Enfin, pour acceder à la peda , tape 3  ")
-	fmt.Scan(&answer)
-	switch answer {
-	case 1:
-		p.AccessInventory()
-	case 2:
-		p.Display()
+	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour arretez le jeu, tape 5.")
+	switch ev := term.PollEvent(); ev.Type {
+	case term.EventKey:
+		switch ev.Ch {
+		case '1':
+			p.AccessInventory()
+		case '2':
+			p.Display()
 
-	case 3:
-		p.Boutique()
+		case '3':
+			p.Boutique()
 
-	case 4:
-		p.Forgeron()
-
-	default:
-		fmt.Println("Je n'ai pas compris ta requête, peux tu repeter ? ")
-
+		case '4':
+			p.Forgeron()
+		case '5':
+			os.Exit(0)
+		default:
+			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
+			p.Menu()
+		}
 	}
 }
-
 func (p Personnage) Display() {
 	fmt.Println("-----------------------")
 	fmt.Println("๑ Ton nom est :", p.name)
 	fmt.Println("๑ Ta spécialité est :", p.classe)
 	fmt.Println("๑ Ton niveau est :", p.niveau)
-	fmt.Printf("๑ Tu as %d/%d\\n", p.note, p.notemax)
+	fmt.Printf("๑ Tu as %d/%d\n", p.note, p.notemax)
 	fmt.Println("Dans ton inventaire tu as :")
 	for cle, val := range p.inventaire {
-		fmt.Printf("๑ %d %s\\n", val, cle)
+		fmt.Printf("๑ %d %s\n", val, cle)
 	}
 	fmt.Println("Ta liste de skills est :")
 	for _, val := range p.skills {
 		fmt.Println("๑ ", val)
 	}
-	fmt.Printf("๑ Tu as %d euros\\n", p.wallet)
+	fmt.Printf("๑ Tu as %d euros\n", p.wallet)
 	fmt.Println("-----------------------")
+	p.Menu()
 }
 func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire batard
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire est composé de")
 	for cle, val := range p.inventaire {
-		fmt.Printf("๑ %d %s", val, cle)
+		fmt.Printf("๑ %d %s\n", val, cle)
 	}
-	fmt.Println("\\n----------------------")
-	fmt.Println("Veut tu utiliser un de ses objets?")
+	fmt.Println("----------------------")
+	fmt.Println("❖ Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
 	fmt.Println("2- Non")
-	var answer int
-	fmt.Scanln(&answer)
-	switch answer {
-	case 1:
-		fmt.Println("Lequel?")
-		var answer2 string
-		fmt.Scanln(&answer2)
-		p.UseObject(answer2)
-	case 2:
+	s := Scan()
+	switch s {
+	case "1":
+		fmt.Println("❖Lequel?")
+		p.UseObject(Scan())
+	case "2":
 		fmt.Println("Alors tu peux continuer")
+		p.Menu()
 	default:
-		fmt.Println("Je n'ai pas compris ta requête, peux tu repeter? ")
-		p.AccessInventory()
+		fmt.Println("❖Je n'ai pas compris ta requête, peux tu repeter? ")
 	}
 }
 
@@ -235,13 +206,12 @@ func (p *Personnage) BookOfSkills(s string) { // fct qui permet d'apprendre des 
 	bos := Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1}}
 	bos.inventaire[s] = 1
 	fmt.Println("-----------------------")
-	fmt.Println("Quels skills veut tu apprendre?")
+	fmt.Println("❖Quels skills veut tu apprendre?")
 	for cle, val := range bos.inventaire {
 		fmt.Printf("๑ %d %s", val, cle)
 	}
 	fmt.Println("\\n----------------------")
-	var answer string
-	fmt.Scan(&answer)
+	answer := Scan()
 	if !p.IsInSkill(answer) { // si je n'ai pas ce skill dans ma skill liste :
 		if bos.IsInInventory(answer) { // et s'il est proposé dans l'inventaire :
 			p.skills = append(p.skills, answer)      // je l'ajoute a ma liste de skills
