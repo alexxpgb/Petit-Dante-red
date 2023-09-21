@@ -197,3 +197,5 @@ func Capitalize(s string) string {
 	}
 	return new
 }
+
+// bande de merde, vous pouvez utiliser capitalize !!!
