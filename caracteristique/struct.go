@@ -24,7 +24,7 @@ type Personnage struct {
 type Equipment struct {
 	head string
 	body string
-	foot string
+	hand string
 }
 
 type Mentor struct {

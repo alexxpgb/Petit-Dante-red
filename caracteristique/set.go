@@ -6,8 +6,9 @@ import (
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
-var marchand Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "Chapeau de l’aventurier": 5, "Tunique de l’aventurier": 5, "Bottes de l’aventurier": 5, "Upgrade inventaire": 20}}
+var marchand Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "casque gaming": 5, "pull ynov": 5, "multiprice": 5, "Upgrade inventaire": 20}}
 
+// casque gaming =chapeau de l'aventurier; pull ynov =tunique de l'aventurier ; multiprice=Bottes de l’aventurier
 func (p *Personnage) TakePot() {
 	var a bool
 	for cle := range p.inventaire {

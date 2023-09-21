@@ -137,7 +137,7 @@ func Graphisme(choix int) {
 }
 
 func (p *Personnage) Menu() {
-	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour arretez le jeu, tape 5.")
+	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nQui sont t-ils? tape 5 \nPour arretez le jeu, tape 6.")
 	switch ev := term.PollEvent(); ev.Type {
 	case term.EventKey:
 		switch ev.Ch {
@@ -152,6 +152,9 @@ func (p *Personnage) Menu() {
 		case '4':
 			p.Forgeron()
 		case '5':
+			fmt.Println("ABBA ,et Spielberg")
+			p.Menu()
+		case '6':
 			os.Exit(0)
 		default:
 			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
