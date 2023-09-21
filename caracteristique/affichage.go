@@ -57,7 +57,6 @@ func ReadInputO() {
 		Graphisme(choix)
 	}
 	fmt.Print("\033[H\033[2J")
-	p.AccessInventory()
 }
 
 func Graphisme(choix int) {
@@ -134,7 +133,6 @@ func Graphisme(choix int) {
 		fmt.Println("▓                                                                         	    ====================\\\\|//====================     ▓")
 		fmt.Println("▓                                                                                           		 `---`                        ▓")
 		fmt.Println("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
-
 	}
 }
 
@@ -161,7 +159,7 @@ func (p *Personnage) Menu() {
 		}
 	}
 }
-func (p Personnage) Display() {
+func (p *Personnage) Display() {
 	fmt.Println("-----------------------")
 	fmt.Println("๑ Ton nom est :", p.name)
 	fmt.Println("๑ Ta spécialité est :", p.classe)
@@ -179,7 +177,7 @@ func (p Personnage) Display() {
 	fmt.Println("-----------------------")
 	p.Menu()
 }
-func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire batard
+func (p *Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire batard
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire est composé de")
 	for cle, val := range p.inventaire {
@@ -188,17 +186,19 @@ func (p Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire
 	fmt.Println("----------------------")
 	fmt.Println("❖ Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
-	fmt.Println("2- Non")
-	s := Scan()
-	switch s {
+	fmt.Println("2- Non\n\n\n\n\n")
+	switch Scan() {
 	case "1":
-		fmt.Println("❖Lequel?")
-		p.UseObject(Scan())
+		fmt.Println("❖Lequel?\n\n\n\n")
+		ans := Scan()
+		p.UseObject(ans)
+		p.AccessInventory()
 	case "2":
 		fmt.Println("Alors tu peux continuer")
 		p.Menu()
 	default:
 		fmt.Println("❖Je n'ai pas compris ta requête, peux tu repeter? ")
+		p.AccessInventory()
 	}
 }
 

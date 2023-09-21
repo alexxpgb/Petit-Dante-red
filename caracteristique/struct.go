@@ -34,6 +34,13 @@ type Mentor struct {
 	strengh int
 }
 
+func (m *Mentor) InitMentor() {
+	m.name = "Mentor"
+	m.note = 100
+	m.notemax = 100
+	m.strengh = 10
+}
+
 func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
 	termbox.SetCell(x, y, c, fg, bg)
 	x += runewidth.RuneWidth(c)
@@ -75,7 +82,7 @@ func (p *Personnage) Init() {
 	p.niveau = "B1"
 	p.notemax = 100
 	p.note = 50
-	p.inventaire = map[string]int{"sucette": 3, "totem": 1}
+	p.inventaire = map[string]int{"sucette": 2, "totem": 1}
 	p.leninv = 10
 	p.skills = []string{"python"}
 	p.wallet = 50
@@ -84,14 +91,20 @@ func (p *Personnage) Init() {
 }
 
 func Scan() string {
-	fmt.Println("₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪")
-	fmt.Println("₪₪                                                                                                                               ₪₪")
-	fmt.Println("₪₪                                                                                                                               ₪₪")
-	fmt.Println("₪₪                                                                                                                               ₪₪")
-	fmt.Println("₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪")
+	var graph [][]rune
 
-	x := 2
-	y := 16
+	graph = append(graph, []rune("╰┈➤"))
+	y := 20
+
+	for i := range graph {
+		x := 6
+		for _, char := range graph[i] {
+			tbprint(x, y+i, termbox.ColorDefault, termbox.ColorDefault, char)
+			x += runewidth.RuneWidth(char)
+		}
+	}
+	x := 11
+	y = 20
 	var s string
 	inputchek := false
 	for inputchek == false {
@@ -117,6 +130,7 @@ func Scan() string {
 			panic(ev.Err)
 		}
 	}
+	term.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	return s
 }
 

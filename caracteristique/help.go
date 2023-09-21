@@ -105,7 +105,6 @@ func IsAlpha(s string) bool { // male Alpha mes couilles
 func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
 	for cle := range p.inventaire {
 		if cle == s {
-			p.inventaire[cle]--
 			if cle == "sucette" {
 				p.TakePot()
 			}
@@ -118,13 +117,13 @@ func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le
 				p.BookOfSkills("go")
 			}
 			if cle == "Upgrade inventaire" {
+				p.inventaire[cle]--
 				p.UpgradeInventory()
 				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
-			} else {
-				fmt.Println("Vous n'avez pas cette object dans votre inventaire")
 			}
 		}
 	}
+	fmt.Println("Vous n'avez pas cette objet dans votre inventaire")
 }
 
 func ToLower(s string) string { // Capitalize ?
