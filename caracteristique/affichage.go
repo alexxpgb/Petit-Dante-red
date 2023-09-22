@@ -9,7 +9,7 @@ import (
 
 var p Personnage
 
-func ReadInputO() {
+func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts et bas
 	err := term.Init()
 	if err != nil {
 		panic(err)
@@ -31,7 +31,7 @@ func ReadInputO() {
 					choix = 3
 				}
 			case term.KeyArrowDown:
-				fmt.Print("\033[H\033[2J")
+				fmt.Print("\033[H\033[2J") //Clear terminal
 				if choix == 1 || choix == 2 {
 					choix++
 				} else {
@@ -139,7 +139,7 @@ func Graphisme(choix int) {
 func (p *Personnage) Menu() {
 	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nQui sont t-ils? tape 5 \nPour arretez le jeu, tape 6.")
 	switch ev := term.PollEvent(); ev.Type {
-	case term.EventKey:
+	case term.EventKey: //Avec sa a peine tu touche une touche instant la demande est envoyé (pas besoin d'appuyer sur entrée)
 		switch ev.Ch {
 		case '1':
 			p.AccessInventory()
@@ -155,7 +155,7 @@ func (p *Personnage) Menu() {
 			fmt.Println("ABBA ,et Spielberg")
 			p.Menu()
 		case '6':
-			os.Exit(0)
+			os.Exit(0) //Arreter le jeu
 		default:
 			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
 			p.Menu()
@@ -180,7 +180,8 @@ func (p *Personnage) Display() {
 	fmt.Println("-----------------------")
 	p.Menu()
 }
-func (p *Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire batard
+func (p *Personnage) AccessInventory() { // ca permet d'accéder a ton inventaire
+	var m *Mentor
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire est composé de")
 	for cle, val := range p.inventaire {
@@ -189,12 +190,12 @@ func (p *Personnage) AccessInventory() { // ca permet d'accéder a ton inventair
 	fmt.Println("----------------------")
 	fmt.Println("❖ Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
-	fmt.Println("2- Non\n\n\n\n\n")
+	fmt.Println("2- Non\n\n\n\n\n") //Pour qu'on puisse voir l'endroit des réponses
 	switch Scan() {
 	case "1":
-		fmt.Println("❖Lequel?\n\n\n\n")
+		fmt.Println("❖Lequel?\n\n\n\n\n")
 		ans := Scan()
-		p.UseObject(ans)
+		p.UseObject(m, ans)
 		p.AccessInventory()
 	case "2":
 		fmt.Println("Alors tu peux continuer")

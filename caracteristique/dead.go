@@ -13,7 +13,7 @@ func (p *Personnage) Redouble() {
 	}
 }
 
-func (p *Personnage) Poison() {
+func (p *Mentor) Poison() {
 	for i := 0; i < 3; i++ {
 		p.note -= 10
 		fmt.Printf("๑Aie tu est a %d/%d\n", p.note, p.notemax)

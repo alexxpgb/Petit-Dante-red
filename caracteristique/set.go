@@ -45,36 +45,36 @@ func (p *Personnage) TakePot() {
 			}
 		}
 	}
-	if !a {
+	if !a { //Le cas contraire de a donc si on utilise une sucette on peut pas rentrer dans cette boucle
 		fmt.Println("Tu n'as pas de sucette") // j'ai regardé partout dans mon inventaire mais tu n'as pas de sucette
 	}
 }
 
 func (p *Personnage) Boutique() {
-	lst := TransvalseList(marchand.inventaire)
+	lst := TransvalseList(marchand.inventaire) //Je cast ma map en liste
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
 	for ind, val := range lst {
-		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, marchand.inventaire[val]) //le count il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
+		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, marchand.inventaire[val]) //le ind il sert juste pour numeroter les items la val est le nom de l'objet et marchand.inventaire[val] est le montant
 	}
 	fmt.Println("\n----------------------")
 	fmt.Println("❖ Que veux tu parmi tous ses objets\n\n\n\n\n")
-	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
-	i, _ := strconv.Atoi(answer)
-	i -= 1
-	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré
+	answer := Scan()                                     //Le mec il rentre le numero auquel est attribué son objet
+	i, _ := strconv.Atoi(answer)                         //string en int
+	i -= 1                                               //Pour avoir un indice de 0
+	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré qlq chose compris entre 1 et la taille de ma liste
 		if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 			p.wallet -= p.inventaire[lst[i]] //Je lui prends l'argent
 			if string(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
 				delete(marchand.inventaire, string(lst[i]))
 				marchand.inventaire["sucette"] = 20
 			}
-			if string(lst[i])[:4] == "Skill" {
+			if string(lst[i])[:4] == "Skill" { //On supprime quand c'est un skill
 				delete(marchand.inventaire, string(lst[i]))
 			}
 			p.AddInventory(string(lst[i])) //Je l'ajoute dans mon inventaire
 			fmt.Println("Vous avez ajouté", string(lst[i]), "à votre inventaire")
-			p.Menu()
+			p.Menu() //tjr rappelé le menu() sinon fin du programme
 		} else {
 			fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
 			p.Menu() //Je reviens au menu dans tous les cas

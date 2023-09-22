@@ -12,7 +12,7 @@ func (p *Personnage) AddInventory(s string) { // quand t'ajoute un item kékiçe
 	p.inventaire[s] = 1 // si je l'ai pas je vais le chercher chez ta mère et je l'initialise
 }
 
-func TransvalseList(tab map[string]int) []string {
+func TransvalseList(tab map[string]int) []string { //cast une map en liste
 	var lst []string
 	for cle := range tab {
 		lst = append(lst, cle)
@@ -49,7 +49,7 @@ func (p Personnage) LimitSpace() bool { // vu que tu fais pas de sport tu peux p
 	var count int
 	for cle := range p.inventaire {
 		if cle != "" {
-			count++
+			count++ //pour avoir un len
 		}
 	}
 	if count > p.leninv { //J'ai crée un element dans la structure pour verifier si on a la place
@@ -58,7 +58,7 @@ func (p Personnage) LimitSpace() bool { // vu que tu fais pas de sport tu peux p
 	}
 	return true
 }
-func IsUpper(s string) bool { // on verifies si la lettre est majuscule (t'aurais pu utiliser Capitalise PD)
+func IsUpper(s string) bool {
 	nbs := len(s)
 	nb := 0
 	for _, c := range s {
@@ -74,7 +74,7 @@ func IsUpper(s string) bool { // on verifies si la lettre est majuscule (t'aurai
 	return false
 }
 
-func IsLower(s string) bool { //(Pk pas Capitalise sale n ?)
+func IsLower(s string) bool {
 	nbs := len(s)
 	nb := 0
 	for _, c := range s {
@@ -90,7 +90,7 @@ func IsLower(s string) bool { //(Pk pas Capitalise sale n ?)
 	return false
 }
 
-func IsAlpha(s string) bool { // male Alpha mes couilles
+func IsAlpha(s string) bool {
 	for _, c := range s {
 		if c < 48 {
 			return false
@@ -102,7 +102,7 @@ func IsAlpha(s string) bool { // male Alpha mes couilles
 	return true
 }
 
-func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
+func (p *Personnage) UseObject(m *Mentor, s string) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
 	for cle := range p.inventaire {
 		if cle == s {
 			if cle == "sucette" {
@@ -121,12 +121,19 @@ func (p *Personnage) UseObject(s string) { // si on utilise pas ca reste dans le
 				p.UpgradeInventory()
 				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
 			}
+			if cle == "douche" {
+				if m.name == "Mentor" {
+					break
+				} else {
+					m.Poison()
+				}
+			}
 		}
 	}
 	fmt.Println("Vous n'avez pas cette objet dans votre inventaire")
 }
 
-func ToLower(s string) string { // Capitalize ?
+func ToLower(s string) string {
 	var listf string
 	for _, c := range s {
 		if c > 64 && c < 91 {
@@ -138,7 +145,7 @@ func ToLower(s string) string { // Capitalize ?
 	return listf
 }
 
-func ToUpper(s string) string { // Je vais me répetter mais Capitalize?
+func ToUpper(s string) string {
 	var listf string
 	for _, c := range s {
 		if c > 96 && c < 123 {
@@ -156,7 +163,7 @@ func (p *Personnage) UpgradeInventory() {
 	}
 }
 
-func (p *Personnage) LastRune(s string) rune {
+func (p *Personnage) LastRune(s string) rune { //Pour avoir la derniere rune d'une chaine
 	var count int = 0
 	for _, c := range s {
 		if count == len(s)-1 {
@@ -197,5 +204,3 @@ func Capitalize(s string) string {
 	}
 	return new
 }
-
-// bande de merde, vous pouvez utiliser capitalize !!!

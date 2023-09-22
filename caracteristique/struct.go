@@ -19,6 +19,8 @@ type Personnage struct {
 	skills     []string
 	wallet     int
 	armure     Equipment
+	initiative int
+	strengh    int
 }
 
 type Equipment struct {
@@ -28,10 +30,11 @@ type Equipment struct {
 }
 
 type Mentor struct {
-	name    string
-	notemax int
-	note    int
-	strengh int
+	name       string
+	notemax    int
+	note       int
+	strengh    int
+	initiative int
 }
 
 func (m *Mentor) InitMentor() {
@@ -47,7 +50,7 @@ func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
 	termbox.Flush()
 }
 
-func (p *Personnage) Init() {
+func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personnage et ses infos
 	x := 2
 	y := 2
 	fmt.Println("❖ Quel est ton nom ?")
@@ -90,7 +93,7 @@ func (p *Personnage) Init() {
 
 }
 
-func Scan() string {
+func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 	var graph [][]rune
 
 	graph = append(graph, []rune("╰┈➤"))
