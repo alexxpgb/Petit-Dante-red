@@ -9,29 +9,45 @@ import (
 )
 
 type Personnage struct {
-	name       string
-	classe     string
-	niveau     string
-	notemax    int
-	note       int
-	inventaire map[string]int
-	leninv     int
-	skills     []string
-	wallet     int
-	armure     Equipment
+	name         string
+	classe       string
+	niveau       string
+	notemax      int
+	note         int
+	inventaire   map[string]int
+	leninv       int //taille inventaire
+	skills       []string
+	wallet       int
+	armure       Equipment
+	initiative   int
+	strengh      int
+	exp          int
+	intelligence int //mana
+	intmax       int
 }
 
 type Equipment struct {
 	head string
 	body string
-	foot string
+	hand string
 }
 
 type Mentor struct {
-	name    string
-	notemax int
-	note    int
-	strengh int
+	name       string
+	notemax    int
+	note       int
+	strengh    int
+	wallet     int
+	initiative int
+}
+
+func (m *Mentor) InitMentor() {
+	m.name = "Mentor"
+	m.note = 100
+	m.notemax = 100
+	m.strengh = 10
+	m.initiative = 20
+	m.wallet = 100
 }
 
 func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
@@ -40,7 +56,7 @@ func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
 	termbox.Flush()
 }
 
-func (p *Personnage) Init() {
+func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personnage et ses infos
 	x := 2
 	y := 2
 	fmt.Println("❖ Quel est ton nom ?")
@@ -75,23 +91,33 @@ func (p *Personnage) Init() {
 	p.niveau = "B1"
 	p.notemax = 100
 	p.note = 50
-	p.inventaire = map[string]int{"sucette": 3, "totem": 1}
+	p.inventaire = map[string]int{"sucette": 2, "totem": 1}
 	p.leninv = 10
 	p.skills = []string{"python"}
 	p.wallet = 50
+	p.strengh = 5
+	p.intelligence = 100
+	p.intmax = 100
+	p.initiative = 10
 	p.Menu()
 
 }
 
-func Scan() string {
-	fmt.Println("₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪")
-	fmt.Println("₪₪                                                                                                                               ₪₪")
-	fmt.Println("₪₪                                                                                                                               ₪₪")
-	fmt.Println("₪₪                                                                                                                               ₪₪")
-	fmt.Println("₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪₪")
+func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
+	var graph [][]rune
 
-	x := 2
-	y := 16
+	graph = append(graph, []rune("╰┈➤"))
+	y := 24
+
+	for i := range graph {
+		x := 6
+		for _, char := range graph[i] {
+			tbprint(x, y+i, termbox.ColorDefault, termbox.ColorDefault, char)
+			x += runewidth.RuneWidth(char)
+		}
+	}
+	x := 11
+	y = 24
 	var s string
 	inputchek := false
 	for inputchek == false {
@@ -117,6 +143,7 @@ func Scan() string {
 			panic(ev.Err)
 		}
 	}
+	term.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	return s
 }
 

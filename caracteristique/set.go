@@ -85,19 +85,19 @@ func (p *Personnage) Forgeron() {
 	fmt.Println("L'inventaire du forgeron est composé de")
 	for cle, val := range forgeron.inventaire {
 		fmt.Printf("๑%s pour %d € ;\n", cle, val)
-	}
+	} 
 	fmt.Println("\n----------------------")
 	fmt.Println("❖ Que veux tu parmi tous ses objets")
 	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
 	i, _ := strconv.Atoi(answer)
 	i -= 1
-	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré
-		if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
-			p.wallet -= p.inventaire[lst[i]] //Je lui prends l'argent
-			if strin  g(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
-				delete(marchand.inventaire, string(lst[i]))
-				marchand.inventaire["sucette"] = 20
-			}
+	switch asnwer {
+	case answer == "Chapeau de l’aventurier" :
+		
+
+	}
+
+
 			if string(lst[i])[:4] == "Skill" {  
 				delete(marchand.inventaire, string(lst[i]))
 			}
