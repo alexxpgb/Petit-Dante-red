@@ -60,11 +60,11 @@ func (p *Personnage) Boutique() {
 	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré
 		if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 			p.wallet -= p.inventaire[lst[i]] //Je lui prends l'argent
-			if string(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
+			if strin  g(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
 				delete(marchand.inventaire, string(lst[i]))
 				marchand.inventaire["sucette"] = 20
 			}
-			if string(lst[i])[:4] == "Skill" {
+			if string(lst[i])[:4] == "Skill" {  
 				delete(marchand.inventaire, string(lst[i]))
 			}
 			p.AddInventory(string(lst[i])) //Je l'ajoute dans mon inventaire
@@ -86,4 +86,30 @@ func (p *Personnage) Forgeron() {
 	for cle, val := range forgeron.inventaire {
 		fmt.Printf("๑%s pour %d € ;\n", cle, val)
 	}
+	fmt.Println("\n----------------------")
+	fmt.Println("❖ Que veux tu parmi tous ses objets")
+	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
+	i, _ := strconv.Atoi(answer)
+	i -= 1
+	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré
+		if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
+			p.wallet -= p.inventaire[lst[i]] //Je lui prends l'argent
+			if strin  g(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
+				delete(marchand.inventaire, string(lst[i]))
+				marchand.inventaire["sucette"] = 20
+			}
+			if string(lst[i])[:4] == "Skill" {  
+				delete(marchand.inventaire, string(lst[i]))
+			}
+			p.AddInventory(string(lst[i])) //Je l'ajoute dans mon inventaire
+			fmt.Println("Vous avez ajouté", string(lst[i]), "à votre inventaire")
+			p.Menu()
+		} else {
+			fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
+			p.Menu() //Je reviens au menu dans tous les cas
+		}
+	}
+	fmt.Printf("%#v J'attendais le numero de l'objet que tu voulais acheter\n", answer)
+	p.Menu()
 }
+  
