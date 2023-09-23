@@ -2,6 +2,39 @@ package piscine
 
 import "fmt"
 
+var bos Personnage = Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1}} //valeur global pour qu'on puisse l'utiliser dans plsr méthodes
+
+func (p *Personnage) UseObject(m Mentor, s string, nb int) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
+	for cle := range p.inventaire {
+		if cle == s {
+			if cle == "sucette" {
+				p.TakePot(nb)
+			}
+			if cle == "totem" {
+				fmt.Println("Vous ne pouvez utiliser ce totem que si vous mourrez")
+			}
+			if cle == "Skill: go" {
+				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
+				p.RemoveInventory("Skill: go")
+				p.AppendSkill("go")
+			}
+			if cle == "Upgrade inventaire" {
+				p.inventaire[cle]--
+				p.UpgradeInventory()
+				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
+			}
+			if cle == "douche" {
+				if nb == 2 { //Le nb c'est pour savoir si ma commande vient du menu ou d'un fight
+					m.Poison()
+				} else { //Dans ce cas la s'il vient du menu c'est qu'il essaye cette objet sauf qu'il y a personne donc ca fait rien dans l'autre cas c'est sur l'adversaire
+					fmt.Println("La douche est dangereuse dans ce jeu ,rappelle toi que tu est en info")
+				}
+			}
+		}
+	}
+	fmt.Println("Vous n'avez pas cette objet dans votre inventaire")
+}
+
 func (p *Personnage) AddInventory(s string) { // quand t'ajoute un item kékiçepasse ?
 	for cle := range p.inventaire {
 		if cle == s {
@@ -58,6 +91,13 @@ func (p Personnage) LimitSpace() bool { // vu que tu fais pas de sport tu peux p
 	}
 	return true
 }
+
+func (p *Personnage) UpgradeInventory() {
+	if p.leninv < 40 { //Car c'est le max qu'il veulent
+		p.leninv += 10
+	}
+}
+
 func IsUpper(s string) bool {
 	nbs := len(s)
 	nb := 0
@@ -102,37 +142,6 @@ func IsAlpha(s string) bool {
 	return true
 }
 
-func (p *Personnage) UseObject(m *Mentor, s string) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
-	for cle := range p.inventaire {
-		if cle == s {
-			if cle == "sucette" {
-				p.TakePot()
-			}
-			if cle == "totem" {
-				fmt.Println("Vous ne pouvez utiliser ce totem que si vous mourrez")
-			}
-			if cle == "Skill: go" {
-				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
-				p.RemoveInventory("Skill: go")
-				p.BookOfSkills("go")
-			}
-			if cle == "Upgrade inventaire" {
-				p.inventaire[cle]--
-				p.UpgradeInventory()
-				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
-			}
-			if cle == "douche" {
-				if m.name == "Mentor" {
-					break
-				} else {
-					m.Poison()
-				}
-			}
-		}
-	}
-	fmt.Println("Vous n'avez pas cette objet dans votre inventaire")
-}
-
 func ToLower(s string) string {
 	var listf string
 	for _, c := range s {
@@ -157,13 +166,7 @@ func ToUpper(s string) string {
 	return listf
 }
 
-func (p *Personnage) UpgradeInventory() {
-	if p.leninv < 40 { //Car c'est le max qu'il veulent
-		p.leninv += 10
-	}
-}
-
-func (p *Personnage) LastRune(s string) rune { //Pour avoir la derniere rune d'une chaine
+func (p *Personnage) LastRune(s string) rune { //Même moi je sais plus comment sa marche elle est trop compliqué ce package
 	var count int = 0
 	for _, c := range s {
 		if count == len(s)-1 {

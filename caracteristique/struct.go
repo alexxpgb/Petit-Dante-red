@@ -9,18 +9,21 @@ import (
 )
 
 type Personnage struct {
-	name       string
-	classe     string
-	niveau     string
-	notemax    int
-	note       int
-	inventaire map[string]int
-	leninv     int
-	skills     []string
-	wallet     int
-	armure     Equipment
-	initiative int
-	strengh    int
+	name         string
+	classe       string
+	niveau       string
+	notemax      int
+	note         int
+	inventaire   map[string]int
+	leninv       int //taille inventaire
+	skills       []string
+	wallet       int
+	armure       Equipment
+	initiative   int
+	strengh      int
+	exp          int
+	intelligence int //mana
+	intmax       int
 }
 
 type Equipment struct {
@@ -34,6 +37,7 @@ type Mentor struct {
 	notemax    int
 	note       int
 	strengh    int
+	wallet     int
 	initiative int
 }
 
@@ -42,6 +46,8 @@ func (m *Mentor) InitMentor() {
 	m.note = 100
 	m.notemax = 100
 	m.strengh = 10
+	m.initiative = 20
+	m.wallet = 100
 }
 
 func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
@@ -89,6 +95,10 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.leninv = 10
 	p.skills = []string{"python"}
 	p.wallet = 50
+	p.strengh = 5
+	p.intelligence = 100
+	p.intmax = 100
+	p.initiative = 10
 	p.Menu()
 
 }
@@ -97,7 +107,7 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 	var graph [][]rune
 
 	graph = append(graph, []rune("╰┈➤"))
-	y := 20
+	y := 24
 
 	for i := range graph {
 		x := 6
@@ -107,7 +117,7 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 		}
 	}
 	x := 11
-	y = 20
+	y = 24
 	var s string
 	inputchek := false
 	for inputchek == false {
