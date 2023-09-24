@@ -9,19 +9,23 @@ func (p *Personnage) UseObject(m Mentor, s string, nb int) { // si on utilise pa
 		if cle == s {
 			if cle == "sucette" {
 				p.TakePot(nb)
+				return
 			}
 			if cle == "totem" {
 				fmt.Println("Vous ne pouvez utiliser ce totem que si vous mourrez")
+				return
 			}
 			if cle == "Skill: go" {
 				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
 				p.RemoveInventory("Skill: go")
 				p.AppendSkill("go")
+				return
 			}
 			if cle == "Upgrade inventaire" {
 				p.inventaire[cle]--
 				p.UpgradeInventory()
 				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
+				return
 			}
 			if cle == "douche" {
 				if nb == 2 { //Le nb c'est pour savoir si ma commande vient du menu ou d'un fight
@@ -29,6 +33,7 @@ func (p *Personnage) UseObject(m Mentor, s string, nb int) { // si on utilise pa
 				} else { //Dans ce cas la s'il vient du menu c'est qu'il essaye cette objet sauf qu'il y a personne donc ca fait rien dans l'autre cas c'est sur l'adversaire
 					fmt.Println("La douche est dangereuse dans ce jeu ,rappelle toi que tu est en info")
 				}
+				return
 			}
 		}
 	}

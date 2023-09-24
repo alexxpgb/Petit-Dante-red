@@ -57,8 +57,9 @@ func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
 }
 
 func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personnage et ses infos
-	x := 2
-	y := 2
+
+	x := 3
+	y := 5
 	fmt.Println("❖ Quel est ton nom ?")
 	inputchek := false
 	for inputchek == false {
@@ -71,7 +72,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 				if len(p.name) > 0 {
 					x -= runewidth.RuneWidth(p.LastRune(p.name))
 					p.name = p.name[:len(p.name)-1]
-					tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, ' ')
+					tbprint(x, y, termbox.ColorBlack, termbox.ColorDefault, ' ')
 				} else {
 					fmt.Println("Tu veut supprimer quoi la?")
 				}
@@ -107,7 +108,7 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 	var graph [][]rune
 
 	graph = append(graph, []rune("╰┈➤"))
-	y := 24
+	y := 40
 
 	for i := range graph {
 		x := 6
@@ -117,7 +118,7 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 		}
 	}
 	x := 11
-	y = 24
+	y = 40
 	var s string
 	inputchek := false
 	for inputchek == false {
