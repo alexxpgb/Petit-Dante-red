@@ -187,7 +187,7 @@ func (p *Personnage) Display() {
 	}
 	fmt.Println("Ta liste de skills est :")
 	for _, val := range p.skills {
-		fmt.Println("๑ ", val)
+		fmt.Println(" • ", val)
 	}
 	fmt.Printf("๑ Tu as %d euros\n", p.wallet)
 	fmt.Println("-----------------------")

@@ -1,7 +1,7 @@
 package main
 
 import (
-	pc "piscine/caracteristique"
+	pc "piscine/src"
 )
 
 func main() {
