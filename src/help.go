@@ -60,7 +60,10 @@ func TransvalseList(tab map[string]int) []string { //cast une map en liste
 func (p *Personnage) RemoveInventory(s string) { // la c'est quand on enleve de l'inventaire
 	for cle := range p.inventaire {
 		if cle == s {
-			delete(p.inventaire, cle) // ca supprime direct ! comme ton ex avec ton num
+			p.inventaire[cle]--
+			if p.inventaire[cle] == 0 {
+				delete(p.inventaire, cle) // ca supprime direct ! comme ton ex avec ton num
+			}
 		}
 	}
 }

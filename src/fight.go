@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var m Mentor = Mentor{"Eleve", 100, 100, 3, 4, 50}
+var m Mentor = Mentor{"Eleve", 100, 100, 3, 4, 50, 20}
 
 func (m *Mentor) MentorPattern(p *Personnage, i int) {
 	p.note -= m.strengh //Mon perso prend des dégats aie
@@ -70,6 +70,9 @@ func (m *Mentor) Training(p *Personnage) {
 	}
 	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez gagné") //Je pense qu'on va faire en sorte que il regagne ses pv vu que normalement c'est qu'un pnj
+		p.exp += m.exp
+		p.initiative += m.initiative
+		p.wallet += m.wallet
 	} else {
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez perdu")
 	}

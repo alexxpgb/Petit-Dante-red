@@ -22,6 +22,7 @@ type Personnage struct {
 	initiative   int
 	strengh      int
 	exp          int
+	expmax       int
 	intelligence int //mana
 	intmax       int
 }
@@ -39,6 +40,7 @@ type Mentor struct {
 	strengh    int
 	wallet     int
 	initiative int
+	exp        int
 }
 
 func (m *Mentor) InitMentor() {
@@ -100,6 +102,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.intelligence = 100
 	p.intmax = 100
 	p.initiative = 10
+	p.expmax = 65
 	p.Menu()
 
 }

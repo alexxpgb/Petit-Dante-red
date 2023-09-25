@@ -165,7 +165,7 @@ func (p *Personnage) Menu() {
 			fmt.Println("En construction")
 			p.Menu()
 		case '8':
-			fmt.Println("ABBA ,et Spielberg")
+			fmt.Println("ABBA ,Spielberg et QUEEN")
 			p.Menu()
 		case '9':
 			ReadInputO()
