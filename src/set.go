@@ -60,7 +60,7 @@ func (p *Personnage) Boutique() {
 	if answer < strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré
 		if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 			p.wallet -= p.inventaire[lst[i]] //Je lui prends l'argent
-			if strin  g(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
+			if string(lst[i]) == "sucette" { //Car la première sucette est gratuite et après c'est payant
 				delete(marchand.inventaire, string(lst[i]))
 				marchand.inventaire["sucette"] = 20
 			}
@@ -80,6 +80,7 @@ func (p *Personnage) Boutique() {
 }
 
 func (p *Personnage) Forgeron() {
+	lst := TransvalseList(marchand.inventaire)
 	forgeron := Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"Chapeau de l’aventurier": 5, "Tunique de l’aventurier": 5, "Bottes de l’aventurier": 5}}
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire du forgeron est composé de")
@@ -91,25 +92,43 @@ func (p *Personnage) Forgeron() {
 	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
 	i, _ := strconv.Atoi(answer)
 	i -= 1
-	switch asnwer {
-	case answer == "Chapeau de l’aventurier" :
-		
-
-	}
-
-
-			if string(lst[i])[:4] == "Skill" {  
-				delete(marchand.inventaire, string(lst[i]))
-			}
-			p.AddInventory(string(lst[i])) //Je l'ajoute dans mon inventaire
-			fmt.Println("Vous avez ajouté", string(lst[i]), "à votre inventaire")
+	if p.wallet >= p.inventaire[lst[i]] && p.LimitSpace(){
+			switch asnwer {
+	case "Chapeau de l’aventurier" :
+		if p.IsInInventory("Plume de Corbeau") && p.IsInInventory("Cuir de Sanglier"){
+			p.RemoveInventory("Plume de Corbeau")
+			p.RemoveInventory("Cuir de Sanglier")
+			p.AddInventory("Chapeau de l’aventurier")
+			p.wallet -= 5
 			p.Menu()
-		} else {
-			fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
-			p.Menu() //Je reviens au menu dans tous les cas
 		}
+	case "Tunique de l’aventurier":
+		if p.IsInInventory(" Fourrure de loup") && p.IsInInventory("Peau de Troll"){
+			p.RemoveInventory("Peau de Troll")
+			p.RemoveInventory("Fourrure de loup")
+			if p.IsInInventory(" Fourrure de loup"){
+				p.RemoveInventory("Fourrure de loup")
+				p.AddInventory("Tunique de l’aventurier")
+				p.wallet -= 5
+				p.Menu()
+			}else{
+				fmt.Println("tu n'as pas de quoi fabriquer cet objet")
+				p.AddInventory("Fourrure de loup")
+				p.AddInventory("Peau de Troll")
+				p.wallet -= 5
+				p.Menu()
+			}
+		case "Bottes de l’aventurier":
+			if p.IsInInventory("Fourrure de loup") && p.IsInInventory("Cuir de Sanglier"){
+				p.RemoveInventory("Fourrure de loup")
+				p.RemoveInventory("Cuir de Sanglier")
+				p.AddInventory("Bottes de l’aventurier")
+				p.wallet -= 5
+				p.Menu()
+			}
 	}
-	fmt.Printf("%#v J'attendais le numero de l'objet que tu voulais acheter\n", answer)
-	p.Menu()
+
+	
+			
 }
   
