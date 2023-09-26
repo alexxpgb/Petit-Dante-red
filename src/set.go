@@ -3,6 +3,8 @@ package piscine
 import (
 	"fmt"
 	"strconv"
+
+	"github.com/nsf/termbox-go"
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
@@ -11,6 +13,15 @@ var marchand Personnage = Personnage{name: "Arthur", classe: "marchand", inventa
 var forgeron Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"casque gaming": 15, "pull ynov": 15, "multiprice": 15}}
 
 func (p *Personnage) Boutique() {
+	fmt.Print("\033[H\033[2J")
+	fmt.Print("\n\n\n\n\n\n\n\n")
+	TermPrint("______        _                                                ", 1, 1, termbox.ColorCyan)
+	TermPrint("| ___ \\      | |                                              ", 1, 2, termbox.ColorCyan)
+	TermPrint("| |_/ /__  __| | __ _                                          ", 1, 3, termbox.ColorCyan)
+	TermPrint("|  __/ _ \\/ _` |/ _` |                                        ", 1, 4, termbox.ColorCyan)
+	TermPrint("| | |  __/ (_| | (_| |                                         ", 1, 5, termbox.ColorCyan)
+	TermPrint("\\_|  \\___|\\__,_|\\__,_|                                     ", 1, 6, termbox.ColorCyan)
+
 	lst := TransvalseList(marchand.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
@@ -132,8 +143,18 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 		return
 	}
 }
-
 func (p *Personnage) Forgeron() {
+	fmt.Print("\033[H\033[2J")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	TermPrint("______                                                                	", 1, 1, termbox.ColorCyan)
+	TermPrint("|  ___|                                                              	", 1, 2, termbox.ColorCyan)
+	TermPrint("| |_ ___  _   _ _ __ __ _  ___ _ __ ___   _ __                       	", 1, 3, termbox.ColorCyan)
+	TermPrint("|  _/ _ \\| | | | '__/ _` |/ _ \\ '__/ _ \\| '_ \\                    	", 1, 4, termbox.ColorCyan)
+	TermPrint("| || (_) | |_| | | | (_| |  __/ | | (_) | | | |	                        ", 1, 5, termbox.ColorCyan)
+	TermPrint("\\_| \\___/ \\__,_|_|  \\__, |\\___|_|  \\___/|_| |_|                   	", 1, 6, termbox.ColorCyan)
+	TermPrint("	                    __/ |                                               ", 1, 7, termbox.ColorCyan)
+	TermPrint("                    |___/                                                ", 1, 8, termbox.ColorCyan)
+
 	lst := TransvalseList(forgeron.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire du forgeron est composé de")
@@ -142,9 +163,13 @@ func (p *Personnage) Forgeron() {
 	}
 	fmt.Println("\n----------------------")
 	fmt.Print("❖ Que veux tu parmi tous ses objets\n\n\n\n")
-	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
-	i, _ := strconv.Atoi(answer)
+	answer := Scan()               //Le mec il rentre le numero auquel est attribué à son objet
+	i, err := strconv.Atoi(answer) //string en int
 	i -= 1
+	if err != nil {
+		fmt.Println("Pas compris")
+		p.Forgeron()
+	}
 	if p.wallet >= forgeron.inventaire[lst[i]] && p.LimitSpace() {
 		switch answer {
 		case "1":

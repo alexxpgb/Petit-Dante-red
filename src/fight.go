@@ -55,7 +55,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 
 		case "2":
 			if p.IsInSkill("go") {
-				if rand.Float64() < 0.5 { //1 chance sur deux augmenter s'il ameliore une crtn stat damage in red story telling animatedd
+				if rand.Float64() < 0.5 { //1 chance sur deux augmenter s'il ameliore une crtn stat story telling animated
 					if p.energy-bos["go"] >= 0 {
 						p.energy -= bos["go"]
 						m.note -= int(p.strengh) * 2
@@ -89,7 +89,7 @@ func (m *Mentor) Training(p *Personnage) {
 		count++
 	}
 	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
-		fmt.Println("Votre échauffement est maintenant terminé, vous avez gagné") //Je pense qu'on va faire en sorte que il regagne ses pv vu que normalement c'est qu'un pnj
+		fmt.Println("Votre échauffement est maintenant terminé, vous avez gagné")
 		p.exp += m.exp
 		p.LevelUp()
 		p.initiative += m.initiative

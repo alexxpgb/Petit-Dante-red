@@ -168,7 +168,13 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 }
 
 func (p *Personnage) Menu() {
+	fmt.Print("\033[H\033[2J")
 	check = true
+	fmt.Print("\n\n\n\n\n\n")
+	TermPrint(" _ __ ___   ___ _ __  _   _ ", 1, 1, termbox.ColorCyan)
+	TermPrint("| '_ ` _ \\ / _ \\ '_ \\| | | |", 1, 2, termbox.ColorCyan)
+	TermPrint("| | | | | |  __/ | | | |_| |", 1, 3, termbox.ColorCyan)
+	TermPrint("|_| |_| |_|\\___|_| |_|\\__,_|", 1, 4, termbox.ColorCyan)
 	fmt.Println("--------------------------------------------------------")
 	fmt.Println("1/Pour acceder à ton inventaire. \n2/Pour acceder aux informartions de ton personnage. \n3/Pour acceder à la peda . \n4/Pour acceder au forgeron. \n5/Pour acceder a la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Qui sont t-ils? \n9/Pour revenir au menu principal\n0/Pour allez au terrasse tapez 0")
 	fmt.Println("--------------------------------------------------------")
