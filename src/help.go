@@ -63,7 +63,6 @@ func TransvalseList(tab map[string]int) []string { //cast une map en liste
 	}
 	return lst
 }
-
 func (p *Personnage) RemoveInventory(s string) { // la c'est quand on enleve de l'inventaire
 	for cle := range p.inventaire {
 		if cle == s {
