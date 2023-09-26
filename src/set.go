@@ -145,15 +145,18 @@ func (p *Personnage) Forgeron() {
 			if p.IsInInventory("febreze") && p.IsInInventory("clavier mecanique") {
 				p.RemoveInventory("clavier mecanique")
 				p.RemoveInventory("febreze")
-				if p.IsInInventory(" febreze") {
-					p.RemoveInventory("febreze")
-					p.AddInventory("pull ynov")
-					p.wallet -= forgeron.inventaire[lst[i]]
-					p.Menu()
-				} else {
+				if !p.IsInInventory(" febreze") {
 					fmt.Println("tu n'as pas de quoi fabriquer cet objet")
 					p.AddInventory("febreze")
 					p.AddInventory("clavier mecanique")
+					fmt.Println("tu possèdes maintenant un clavier mecanique")
+					p.Menu()
+				}
+				else {
+					p.RemoveInventory("febreze")
+					p.AddInventory("pull ynov")
+					fmt.Println("tu possèdes maintenant un pull ynov ")
+					p.wallet -= forgeron.inventaire[lst[i]]
 					p.Menu()
 				}
 			}
@@ -161,10 +164,19 @@ func (p *Personnage) Forgeron() {
 			if p.IsInInventory("febreze") && p.IsInInventory("souris") {
 				p.RemoveInventory("febreze")
 				p.RemoveInventory("souris")
-				p.AddInventory("multiprice")
+				p.AddInventory("multiprise")
+				fmt.Println("tu possèdes maintenant une multiprise")
 				p.wallet -= forgeron.inventaire[lst[i]]
 				p.Menu()
-			}
+
+			default: 
+			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
+			p.Forgeron()
+				}
+		}
+		else{
+			fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
+			p.Forgeron()
 		}
 	}
 }
