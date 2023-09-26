@@ -76,6 +76,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 					p.name = p.name[:len(p.name)-1]
 					tbprint(x, y, termbox.ColorCyan, termbox.ColorDefault, ' ')
 				} else {
+					fmt.Print("\033[H\033[2J")
 					fmt.Println("Tu veut supprimer quoi la?")
 				}
 

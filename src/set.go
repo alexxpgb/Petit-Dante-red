@@ -17,14 +17,18 @@ func (p *Personnage) Boutique() {
 	for ind, val := range lst {
 		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, marchand.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 	}
-	fmt.Println("\n----------------------")
-	fmt.Print("❖ Veux tu quelque chose parmi tous ses objets ou peut être vendre\n1-Acheter\n2-Vendre\n\n\n\n\n")
+	fmt.Print("\n----------------------\n\n\n")
+	fmt.Print("❖ Veux tu quelque chose parmi tous ses objets ou peut être vendre\n1-Acheter\n2-Vendre\n\n\n\n\n\n\n")
 	answer := Scan()
 	if answer == "1" {
-		fmt.Print("Quel objet veut tu ?\n\n\n\n")
-		answer = Scan()                                       //Le mec il rentre le numero auquel est attribué son objet
-		i, _ := strconv.Atoi(answer)                          //string en int
-		i -= 1                                                //Pour avoir un indice de 0
+		fmt.Print("Quel objet veut tu ?\n\n\n\n\n\n")
+		answer = Scan()                //Le mec il rentre le numero auquel est attribué son objet
+		i, err := strconv.Atoi(answer) //string en int
+		i -= 1                         //Pour avoir un indice de 0
+		if err != nil {
+			fmt.Println("Pas compris")
+			p.Boutique()
+		}
 		if answer <= strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré qlq chose compris entre 1 et la taille de ma liste
 			if p.wallet >= marchand.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 				p.wallet -= marchand.inventaire[lst[i]] //Je lui prends l'argent
@@ -53,9 +57,13 @@ func (p *Personnage) Boutique() {
 			fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, AllOfObject[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 		}
 		fmt.Print("\n----------------------\n\n\n\n\n")
-		answer = Scan()              //Le mec il rentre le numero auquel est attribué son objet
-		i, _ := strconv.Atoi(answer) //string en int
+		answer = Scan()                //Le mec il rentre le numero auquel est attribué son objet
+		i, err := strconv.Atoi(answer) //string en int
 		i -= 1
+		if err != nil {
+			fmt.Println("Pas compris")
+			p.Boutique()
+		}
 		if answer <= strconv.Itoa(len(lst)) && answer > "0" {
 			if IsInMap(AllOfObject, string(lst[i])) {
 				p.wallet += AllOfObject[(lst[i])]
@@ -71,7 +79,13 @@ func (p *Personnage) Boutique() {
 			}
 			fmt.Printf("Vous avez bien vendu votre objet pour %d€\n", AllOfObject[lst[i]])
 			p.Menu()
+		} else {
+			fmt.Println("Pas compris")
+			p.Boutique()
 		}
+	} else {
+		fmt.Println("Pas compris")
+		p.Boutique()
 	}
 }
 

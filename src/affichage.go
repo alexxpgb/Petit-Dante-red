@@ -58,12 +58,12 @@ func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts 
 						b := Scan()
 						if b == "1" {
 							color = termbox.ColorRed
-						}
-						if b == "2" {
+						} else if b == "2" {
 							color = termbox.ColorCyan
-						}
-						if b == "3" {
+						} else if b == "3" {
 							color = termbox.ColorGreen
+						} else {
+							fmt.Println("Il était pas si compliqué ce choix")
 						}
 					}
 					fmt.Println("Voulez vous recommencer le jeux\n1-Oui\n2-Non")
@@ -73,6 +73,9 @@ func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts 
 						var p2 Personnage
 						p2.Init()
 					} else if a == "2" {
+						ReadInputO()
+					} else {
+						fmt.Println("Il était pas si compliqué ce choix")
 						ReadInputO()
 					}
 				case 3:
@@ -167,7 +170,7 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 func (p *Personnage) Menu() {
 	check = true
 	fmt.Println("--------------------------------------------------------")
-	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour acceder a la liste de skill dans ta bibliothèque tape 5 \nPour aller s'entrainer tape 6 \nPour commencer le mode histoire tape 7\nQui sont t-ils? tape 8 \nPour revenir au menu principal tape 9\nPour allez au terrasse tapez 0")
+	fmt.Println("1/Pour acceder à ton inventaire. \n2/Pour acceder aux informartions de ton personnage. \n3/Pour acceder à la peda . \n4/Pour acceder au forgeron. \n5/Pour acceder a la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Qui sont t-ils? \n9/Pour revenir au menu principal\n0/Pour allez au terrasse tapez 0")
 	fmt.Println("--------------------------------------------------------")
 	switch ev := term.PollEvent(); ev.Type {
 	case term.EventKey: //Avec sa a peine tu touche une touche instant la demande est envoyé (pas besoin d'appuyer sur entrée)
@@ -248,7 +251,7 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 			p.Menu()
 		}
 	default:
-		fmt.Println("❖Je n'ai pas compris ta requête, peux tu repeter? ")
+		fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter? ")
 		p.AccessInventory(nb)
 	}
 }
