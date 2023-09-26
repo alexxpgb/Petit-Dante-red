@@ -59,7 +59,7 @@ func (p *Personnage) Boutique() {
 		if answer <= strconv.Itoa(len(lst)) && answer > "0" {
 			if IsInMap(AllOfObject, string(lst[i])) {
 				p.wallet += AllOfObject[(lst[i])]
-				marchand.inventaire[lst[i]+"reconditionée"] = AllOfObject[lst[i]] * 2
+				marchand.inventaire[lst[i]+" reconditionée"] = AllOfObject[lst[i]] * 2
 			} else {
 				fmt.Println("Le marchand ne peut pas t'acheter cette objet")
 				p.Menu()
@@ -167,4 +167,8 @@ func (p *Personnage) Forgeron() {
 			}
 		}
 	}
+}
+
+func (p *Personnage) Garden() {
+	fmt.Println("Bienvenue dans la terrasse")
 }

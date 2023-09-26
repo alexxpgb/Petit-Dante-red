@@ -47,7 +47,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 
 		case "2":
 			if p.IsInSkill("go") {
-				if rand.Float64() < 0.5 { //1 chance sur deux
+				if rand.Float64() < 0.5 { //1 chance sur deux augmenter s'il ameliore une crtn stat damage in red story telling animatedd
 					if p.energy-bos["go"] >= 0 {
 						p.energy -= bos["go"]
 						m.note -= int(p.strengh) * 2
