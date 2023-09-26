@@ -151,8 +151,8 @@ func (p *Personnage) Forgeron() {
 					p.AddInventory("clavier mecanique")
 					fmt.Println("tu possèdes maintenant un clavier mecanique")
 					p.Menu()
-				}
-				else {
+				} else {
+
 					p.RemoveInventory("febreze")
 					p.AddInventory("pull ynov")
 					fmt.Println("tu possèdes maintenant un pull ynov ")
@@ -168,16 +168,14 @@ func (p *Personnage) Forgeron() {
 				fmt.Println("tu possèdes maintenant une multiprise")
 				p.wallet -= forgeron.inventaire[lst[i]]
 				p.Menu()
-
-			default: 
+			}
+		default:
 			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
 			p.Forgeron()
-				}
 		}
-		else{
-			fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
-			p.Forgeron()
-		}
+	} else {
+		fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
+		p.Forgeron()
 	}
 }
 

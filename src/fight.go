@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+
+	"github.com/nsf/termbox-go"
 )
 
 var m Mentor = Mentor{"Eleve", 100, 100, 3, 4, 50, 20}
@@ -11,12 +13,18 @@ var m Mentor = Mentor{"Eleve", 100, 100, 3, 4, 50, 20}
 func (m *Mentor) MentorPattern(p *Personnage, i int) {
 	if i%3 == 0 { // tous les 3 tour la force du mentor double
 		p.note -= m.strengh * 2
+		fmt.Print("\033[H\033[2J")
+		TermPrint("Damage Critique", 20, 0, termbox.ColorRed)
+		fmt.Printf("\n%s a attaqué %s de %v point de degat \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh*2, p.note, p.notemax)
+		if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
+			p.Redouble()
+		}
 	} else {
 		p.note -= m.strengh //Mon perso prend des dégats aie
-	}
-	fmt.Printf("%s a attaqué %s de %v point de degat \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh, p.note, p.notemax)
-	if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
-		p.Redouble()
+		fmt.Printf("%s a attaqué %s de %v point de degat \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh, p.note, p.notemax)
+		if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
+			p.Redouble()
+		}
 	}
 
 }

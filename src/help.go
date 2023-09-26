@@ -3,6 +3,9 @@ package piscine
 import (
 	"fmt"
 	"math/rand"
+
+	"github.com/mattn/go-runewidth"
+	"github.com/nsf/termbox-go"
 )
 
 func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
@@ -62,6 +65,16 @@ func TransvalseList(tab map[string]int) []string { //cast une map en liste
 		lst = append(lst, cle)
 	}
 	return lst
+}
+func TermPrint(s string, x, y int, color termbox.Attribute) {
+	var graph [][]rune
+	graph = append(graph, []rune(s))
+	for i := range graph {
+		for _, char := range graph[i] {
+			tbprint(x, y+i, color, termbox.ColorDefault, char)
+			x += runewidth.RuneWidth(char)
+		}
+	}
 }
 func (p *Personnage) RemoveInventory(s string) { // la c'est quand on enleve de l'inventaire
 	for cle := range p.inventaire {
