@@ -183,6 +183,15 @@ func ToLower(s string) string {
 	return listf
 }
 
+func IsNum(str string) bool {
+	for _, chr := range str {
+		if chr > 47 && chr < 58 {
+			return true
+		}
+	}
+	return false
+}
+
 func ToUpper(s string) string {
 	var listf string
 	for _, c := range s {
@@ -245,7 +254,13 @@ func (p *Personnage) RandomObjects(nb float64) {
 	if rand <= 0.3 {
 		p.AddInventory("Bouteille en plastique")
 		fmt.Println("Bravo vous avez gagné une bouteille en plastique")
-	} else if rand > 0.3 && rand <= 0.5 {
-		p.AddInventory("plume du truc")
+	} else if rand == 0.4 {
+		p.AddInventory("carte graphique")
+	} else if rand == 0.5 {
+		p.AddInventory("febreze")
+	} else if rand == 0.6 {
+		p.AddInventory("clavier mecanique")
+	} else if rand == 0.7 {
+		p.AddInventory("souris")
 	}
 }

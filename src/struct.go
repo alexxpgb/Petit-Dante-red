@@ -60,9 +60,18 @@ func tbprint(x, y int, fg, bg termbox.Attribute, c rune) {
 
 func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personnage et ses infos
 
-	x := 3
-	y := 5
-	fmt.Println("❖ Quel est ton nom ?")
+	x := 25
+	y := 0
+	var graph [][]rune
+
+	graph = append(graph, []rune("❖ Quel est ton nom ?"))
+	for i := range graph {
+		x := 0
+		for _, char := range graph[i] {
+			tbprint(x, y+i, termbox.ColorDefault, termbox.ColorDefault, char)
+			x += runewidth.RuneWidth(char)
+		}
+	}
 	inputchek := false
 	for inputchek == false {
 		switch ev := term.PollEvent(); ev.Type {
@@ -88,6 +97,12 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 		case term.EventError:
 			panic(ev.Err)
 		}
+	}
+	if IsNum(p.name) {
+		fmt.Print("\033[H\033[2J")
+		fmt.Println("Pseudo non acceptée")
+		p.name = ""
+		p.Init()
 	}
 	p.name = Capitalize(p.name)
 	p.classe = "info"
