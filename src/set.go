@@ -6,7 +6,7 @@ import (
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
-var marchand Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "casque gaming": 5, "pull ynov": 5, "multiprice": 5, "Upgrade inventaire": 20}}
+var marchand Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "casque gaming": 5, "pull ynov": 5, "multiprice": 5, "Upgrade inventaire": 20, "skittles": 15}}
 
 // casque gaming =chapeau de l'aventurier; pull ynov =tunique de l'aventurier ; multiprice=Bottes de l’aventurier
 
@@ -20,7 +20,7 @@ func (p *Personnage) Boutique() {
 		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, marchand.inventaire[val]) //le ind il sert juste pour numeroter les items la val est le nom de l'objet et marchand.inventaire[val] est le montant
 	}
 	fmt.Println("\n----------------------")
-	fmt.Println("❖ Que veux tu parmi tous ses objets\n\n\n\n\n")
+	fmt.Print("❖ Que veux tu parmi tous ses objets\n\n\n\n\n\n")
 	answer := Scan()                                      //Le mec il rentre le numero auquel est attribué son objet
 	i, _ := strconv.Atoi(answer)                          //string en int
 	i -= 1                                                //Pour avoir un indice de 0
@@ -44,6 +44,50 @@ func (p *Personnage) Boutique() {
 	}
 	fmt.Printf("%#v J'attendais le numero de l'objet que tu voulais acheter\n", answer)
 	p.Menu()
+}
+
+func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
+	var a bool
+	for cle := range p.inventaire {
+		if cle == "skittles" { //On parcours l'inventaire et si on a la skittles on l'utilise
+			if p.energy > int(p.intmax)-20 { //La skittles rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
+				fmt.Println("❖ Est tu sur de vouloir utiliser un skittles")
+				fmt.Println("1 pour oui")
+				fmt.Println("2 pour non")
+				switch Scan() {
+				case "1":
+					p.inventaire["skittles"] -= 1      //Je lui enlève une skittles dans mon inventaire
+					if p.inventaire["skittles"] == 0 { //Si j'en ai plus je la supprime de mon inventaire
+						delete(p.inventaire, "skittles")
+					}
+					p.energy = int(p.intmax) //Dans le cas où ma note est superieur à ma note max - ma skittles donc ma note est au max car ma skittles fait un +20
+					fmt.Println("Tu as pris une skittles tu à maintenant", p.energy, "energie")
+					a = true
+				case "2":
+					fmt.Println("Fais plus attention la prochaine fois")
+					a = true
+				default:
+					fmt.Println("Tu peux répéter ?")
+					p.TakeInt(nb) //On le relance
+
+				}
+			} else {
+				p.inventaire["skittles"] -= 1
+				if p.inventaire["skittles"] == 0 {
+					delete(p.inventaire, "skittles")
+				}
+				p.energy += 20
+				fmt.Println("Tu as pris une skittles tu à maintenant ", p.energy, "energie")
+				a = true
+			}
+		}
+	}
+	if !a { //Le cas contraire de a donc si on utilise une skittles on peut pas rentrer dans cette boucle
+		fmt.Println("Tu n'as pas de skittles") // j'ai regardé partout dans mon inventaire mais tu n'as pas de skittles
+	}
+	if nb == 2 {
+		return
+	}
 }
 
 func (p *Personnage) Forgeron() {

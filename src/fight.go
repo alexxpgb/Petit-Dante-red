@@ -9,41 +9,53 @@ import (
 var m Mentor = Mentor{"Eleve", 100, 100, 3, 4, 50, 20}
 
 func (m *Mentor) MentorPattern(p *Personnage, i int) {
-	p.note -= m.strengh //Mon perso prend des dégats aie
-	fmt.Printf("%s a attaqué %s de %d point de degat \nTu est maintenant à %d/%d\n\n", m.name, p.name, m.strengh, p.note, p.notemax)
+	if i%3 == 0 { // tous les 3 tour la force du mentor double
+		p.note -= m.strengh * 2
+	} else {
+		p.note -= m.strengh //Mon perso prend des dégats aie
+	}
+	fmt.Printf("%s a attaqué %s de %v point de degat \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh, p.note, p.notemax)
 	if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
 		p.Redouble()
 	}
-	if i%3 == 0 { // tous les 3 tour la force du mentor double
-		m.strengh *= 2
-	}
+
 }
 
 func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueur
 	fmt.Println("C'est maintenant à vous de jouer")
 	fmt.Println("Menu:")
 	fmt.Println("1 - Attaquer")
-	fmt.Println("2 - Inventaire\n\n\n\n\n\n")
+	fmt.Print("2 - Inventaire\n\n\n\n\n\n\n")
 	a := Scan()
 	switch a {
 	case "1":
-		fmt.Println("Avec quels skills veut tu attaquer?\n") //On attaque avec nos skills
+		fmt.Print("Avec quels skills veut tu attaquer?\n\n") //On attaque avec nos skills
 		for i, c := range p.skills {
 			fmt.Println(i+1, "-", c) // J'affiche les skills avec leurs indice+1 pour commancer à 1
 		}
-		fmt.Println("\n\n\n\n")
+		fmt.Print("\n\n\n\n\n")
 		b := Scan()
 		switch b {
 		case "1": // A revoir
-			m.note -= 7
-			fmt.Printf("%s a attaqué %s de 7 point de degat \nIl est maintenant à %d/%d\n", p.name, m.name, m.note, m.notemax)
+			if p.energy-bos["python"] >= 0 {
+				p.energy -= bos["python"]
+				m.note -= int(p.strengh)
+				fmt.Printf("%s a attaqué %s de %v point de degat \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh, m.note, m.notemax)
+			} else {
+				fmt.Println("Tu n'a plus assez d'energie")
+			}
 
 		case "2":
-			if rand.Float64() < 0.5 { //1 chance sur deux
-				m.note -= 12
-				fmt.Printf("%s a attaqué %s de 12 point de degat \nIl est maintenant à %d/%d\n", p.name, m.name, m.note, m.notemax)
-			} else {
-				fmt.Println("Tu a rater ton coup")
+			if p.IsInSkill("go") {
+				if rand.Float64() < 0.5 { //1 chance sur deux
+					if p.energy-bos["go"] >= 0 {
+						p.energy -= bos["go"]
+						m.note -= int(p.strengh) * 2
+						fmt.Printf("%s a attaqué %s de %v point de degat \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh*2, m.note, m.notemax)
+					}
+				} else {
+					fmt.Println("Tu a rater ton coup")
+				}
 			}
 		}
 	case "2":
@@ -71,8 +83,10 @@ func (m *Mentor) Training(p *Personnage) {
 	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez gagné") //Je pense qu'on va faire en sorte que il regagne ses pv vu que normalement c'est qu'un pnj
 		p.exp += m.exp
+		p.LevelUp()
 		p.initiative += m.initiative
 		p.wallet += m.wallet
+		p.RandomObjects(0.5)
 	} else {
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez perdu")
 	}

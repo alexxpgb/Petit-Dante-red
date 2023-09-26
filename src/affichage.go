@@ -2,11 +2,16 @@ package piscine
 
 import (
 	"fmt"
+	"strconv"
 
+	"github.com/nsf/termbox-go"
 	term "github.com/nsf/termbox-go" //En vrai sans ça le jeu il serai fini en 2jour donc tant mieux que je l'ai mit pour me faire chier
 )
 
 var p Personnage
+var bos map[string]int = map[string]int{"python": 5}
+var check bool
+var color termbox.Attribute = termbox.ColorDefault
 
 func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts et bas
 	err := term.Init()
@@ -41,15 +46,33 @@ func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts 
 				inputchek = true
 				switch choix {
 				case 1:
+					if check {
+						p.Menu()
+					}
 					p.Init()
 				case 2:
-					fmt.Println("Voulez vous recommencer le jeux\n1-Oui\n2-Non")
+					fmt.Println("Voulez-vous changer la couleur du jeu\n1-Oui\n2-Non")
 					a := Scan()
+					if a == "1" {
+						fmt.Println("Quel couleur voulez-vous\n1-Rouge\n2-Bleu\n3-Vert")
+						b := Scan()
+						if b == "1" {
+							color = termbox.ColorRed
+						}
+						if b == "2" {
+							color = termbox.ColorCyan
+						}
+						if b == "3" {
+							color = termbox.ColorGreen
+						}
+					}
+					fmt.Println("Voulez vous recommencer le jeux\n1-Oui\n2-Non")
+					a = Scan()
 					if a == "1" {
 						var p2 Personnage
 						p2.Init()
 					} else if a == "2" {
-						p.Menu()
+						ReadInputO()
 					}
 				case 3:
 					return
@@ -141,6 +164,7 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 }
 
 func (p *Personnage) Menu() {
+	check = true
 	fmt.Println("--------------------------------------------------------")
 	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour acceder a la liste de skill dans ta bibliothèque tape 5 \nPour aller s'entrainer tape 6 \nPour commencer le mode histoire tape 7\nQui sont t-ils? tape 8 \nPour revenir au menu principal tape 9 ")
 	fmt.Println("--------------------------------------------------------")
@@ -175,21 +199,25 @@ func (p *Personnage) Menu() {
 		}
 	}
 }
-func (p *Personnage) Display() {
+func (p *Personnage) Display() { //A modifier
 	fmt.Println("-----------------------")
 	fmt.Println("๑ Ton nom est :", p.name)
 	fmt.Println("๑ Ta spécialité est :", p.classe)
 	fmt.Println("๑ Ton niveau est :", p.niveau)
-	fmt.Printf("๑ Tu as %d/%d\n", p.note, p.notemax)
+	fmt.Printf("๑ Tu as %v/%v\n", p.note, p.notemax)
 	fmt.Println("Dans ton inventaire tu as :")
 	for cle, val := range p.inventaire {
-		fmt.Printf("๑ %d %s\n", val, cle)
+		fmt.Printf("๑ %v %s\n", val, cle)
 	}
 	fmt.Println("Ta liste de skills est :")
 	for _, val := range p.skills {
 		fmt.Println(" • ", val)
 	}
-	fmt.Printf("๑ Tu as %d euros\n", p.wallet)
+	fmt.Printf("๑ Tu as %v euros\n", p.wallet)
+	fmt.Printf("๑ Tu as %v point de force\n", p.strengh)
+	fmt.Printf("๑ Tu as %v/%v force mental\n", p.energy, p.intmax)
+	fmt.Printf("๑ Tu as %v point d'initiative\n", p.initiative)
+	fmt.Printf("๑ Tu as %v/%v point d'experience\n", p.exp, p.expmax)
 	fmt.Println("-----------------------")
 	p.Menu()
 }
@@ -202,12 +230,12 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 	fmt.Println("----------------------")
 	fmt.Println("❖ Veut tu utiliser un de ses objets?")
 	fmt.Println("1- Oui")
-	fmt.Println("2- Non\n\n\n\n\n") //Pour qu'on puisse voir l'endroit des réponses
+	fmt.Print("2- Non\n\n\n\n\n\n") //Pour qu'on puisse voir l'endroit des réponses
 	switch Scan() {
 	case "1":
-		fmt.Println("❖Lequel?\n\n\n\n\n")
+		fmt.Print("❖Lequel?\n\n\n\n\n\n")
 		ans := Scan()
-		p.UseObject(m, ans, nb)
+		p.UseObject(&m, ans, nb)
 		if nb == 1 {
 			p.Menu()
 		}
@@ -222,26 +250,28 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 	}
 }
 
-func (p *Personnage) AppendSkill(s string) {
-	if bos.inventaire[s] == 1 {
+func AppendSkill(s string, m int) {
+	if IsInMap(bos, s) {
 		fmt.Println("Tu as déjà ce skill")
 	} else {
-		bos.inventaire[s] = 1
+		bos[s] = m
 	}
 }
 
 func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compétences
-	bos := Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1}}
+	lst := TransvalseList(bos) //Je cast ma map en liste
 	fmt.Println("-----------------------")
 	fmt.Println("❖ Quels skills veut tu apprendre?")
-	for cle, val := range bos.inventaire {
-		fmt.Printf("๑ %d %s", val, cle)
+	for i, skl := range lst {
+		fmt.Printf(" • %d %s (Off: %d Int)\n", i+1, skl, bos[skl])
 	}
-	fmt.Println("\n----------------------")
-	answer := Scan()          //Sans doute une erreur par la
+	fmt.Print("\n----------------------\n\n\n\n")
+	answer := Scan()                   //Sans doute une erreur par la
+	answint, _ := strconv.Atoi(answer) //string en int
+	answint -= 1
 	if !p.IsInSkill(answer) { // si je n'ai pas ce skill dans ma skill liste :
-		if bos.IsInInventory(answer) { // et s'il est proposé dans l'inventaire :
-			p.skills = append(p.skills, answer) // je l'ajoute a ma liste de skills
+		if answint < len(lst) && answint > 0 { // et s'il est proposé dans l'inventaire :
+			p.skills = append(p.skills, lst[answint]) // je l'ajoute a ma liste de skills
 			fmt.Println("Vous avez appris ce skill")
 		} else {
 			fmt.Println("Le skill que tu m'a proposé ne fait pas partie de ma liste de skills")

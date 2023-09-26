@@ -29,7 +29,7 @@ func (p *Personnage) TakePot(nb int) {
 	var a bool
 	for cle := range p.inventaire {
 		if cle == "sucette" { //On parcours l'inventaire et si on a la sucette on l'utilise
-			if p.note > p.notemax-20 { //La sucette rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
+			if p.note > int(p.notemax)-20 { //La sucette rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
 				fmt.Println("❖ Est tu sur de vouloir utiliser la sucette")
 				fmt.Println("1 pour oui")
 				fmt.Println("2 pour non")
@@ -39,7 +39,7 @@ func (p *Personnage) TakePot(nb int) {
 					if p.inventaire["sucette"] == 0 { //Si j'en ai plus je la supprime de mon inventaire
 						delete(p.inventaire, "sucette")
 					}
-					p.note = p.notemax //Dans le cas où ma note est superieur à ma note max - ma sucette donc ma note est au max car ma sucette fait un +20
+					p.note = int(p.notemax) //Dans le cas où ma note est superieur à ma note max - ma sucette donc ma note est au max car ma sucette fait un +20
 					fmt.Println("Tu as pris une sucette tu est maintenant à", p.note)
 					a = true
 				case "2":

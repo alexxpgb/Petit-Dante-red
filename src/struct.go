@@ -9,22 +9,22 @@ import (
 )
 
 type Personnage struct {
-	name         string
-	classe       string
-	niveau       string
-	notemax      int
-	note         int
-	inventaire   map[string]int
-	leninv       int //taille inventaire
-	skills       []string
-	wallet       int
-	armure       Equipment
-	initiative   int
-	strengh      int
-	exp          int
-	expmax       int
-	intelligence int //mana
-	intmax       int
+	name       string
+	classe     string
+	niveau     string
+	notemax    float64
+	note       int
+	inventaire map[string]int
+	leninv     int //taille inventaire
+	skills     []string
+	wallet     int
+	armure     Equipment
+	initiative float64
+	strengh    float64
+	exp        int
+	expmax     float64
+	energy     int //mana
+	intmax     float64
 }
 
 type Equipment struct {
@@ -39,7 +39,7 @@ type Mentor struct {
 	note       int
 	strengh    int
 	wallet     int
-	initiative int
+	initiative float64
 	exp        int
 }
 
@@ -74,7 +74,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 				if len(p.name) > 0 {
 					x -= runewidth.RuneWidth(p.LastRune(p.name))
 					p.name = p.name[:len(p.name)-1]
-					tbprint(x, y, termbox.ColorBlack, termbox.ColorDefault, ' ')
+					tbprint(x, y, termbox.ColorCyan, termbox.ColorDefault, ' ')
 				} else {
 					fmt.Println("Tu veut supprimer quoi la?")
 				}
@@ -99,7 +99,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.skills = []string{"python"}
 	p.wallet = 50
 	p.strengh = 5
-	p.intelligence = 100
+	p.energy = 50
 	p.intmax = 100
 	p.initiative = 10
 	p.expmax = 65
@@ -128,13 +128,18 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 		switch ev := term.PollEvent(); ev.Type {
 		case term.EventKey:
 			switch ev.Key {
+			case term.KeySpace:
+				x = p.inputs(' ', x, y)
+				s += string(' ')
 			case term.KeyEnter:
 				inputchek = true
 			case term.KeyBackspace:
 				if len(p.name) > 0 {
 					x -= runewidth.RuneWidth(p.LastRune(s))
 					s = s[:len(s)-1]
-					tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, ' ')
+					tbprint(x, y, color, termbox.ColorDefault, ' ')
+				} else {
+					fmt.Println("Tu veut supprimer quoi la?")
 				}
 
 			default:
@@ -147,16 +152,59 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 			panic(ev.Err)
 		}
 	}
-	term.Clear(termbox.ColorDefault, termbox.ColorDefault)
+	term.Clear(color, termbox.ColorDefault)
 	return s
 }
 
 func (p *Personnage) inputs(input rune, x, y int) int {
-	tbprint(x, y, termbox.ColorDefault, termbox.ColorDefault, input)
+	tbprint(x, y, color, termbox.ColorDefault, input)
 	x += runewidth.RuneWidth(input)
 	return x
 }
 
+func (p *Personnage) LevelUp() {
+	if p.exp >= int(p.expmax) {
+		p.exp = int(p.expmax) - p.exp
+		p.expmax *= 1/2 + 1
+		if p.niveau == "B1" {
+			p.niveau = "B2"
+			p.notemax *= 1.3
+			p.initiative += 1.3
+			p.strengh *= 2
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+		} else if p.niveau == "B2" {
+			p.niveau = "B3"
+			p.class()
+		} else if p.niveau == "B3" {
+			p.niveau = "M1"
+			p.notemax += 60
+			p.initiative += 60
+			p.strengh *= 4
+			p.expmax += 100
+			p.intmax += 60
+		} else if p.niveau == "M1" {
+			p.niveau = "M2"
+			p.notemax += 120
+			p.initiative += 120
+			p.strengh *= 8
+			p.expmax += 200
+			p.intmax += 120
+			fmt.Println("Vous etes au niveau max")
+		}
+	}
+}
+
+// d
+// o
+// n
+// t
+// f
+// o
+// r
+// g
+// e
+// t
 func (p *Personnage) class() {
 	if p.niveau == "B3" {
 		fmt.Println("❖ Quelle est ta specialisation ?")
@@ -164,7 +212,7 @@ func (p *Personnage) class() {
 		fmt.Println("1-IA data  2-infra 3-cybersécurité 4- dev  ")
 		fmt.Println("❖ Saisie le numéro de ta spécialité")
 		answer := Scan()
-		if answer == "1" {
+		if answer == "1" { //Mettre des niveau different selon la classe
 			p.classe = "IA data"
 		} else if answer == "2" {
 			p.classe = "infra "

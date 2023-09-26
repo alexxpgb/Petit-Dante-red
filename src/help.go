@@ -1,10 +1,11 @@
 package piscine
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
-var bos Personnage = Personnage{name: "book", classe: "book", inventaire: map[string]int{"python": 1}} //valeur global pour qu'on puisse l'utiliser dans plsr méthodes
-
-func (p *Personnage) UseObject(m Mentor, s string, nb int) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
+func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
 	for cle := range p.inventaire {
 		if cle == s {
 			if cle == "sucette" {
@@ -18,7 +19,7 @@ func (p *Personnage) UseObject(m Mentor, s string, nb int) { // si on utilise pa
 			if cle == "Skill: go" {
 				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
 				p.RemoveInventory("Skill: go")
-				p.AppendSkill("go")
+				AppendSkill("go", 7)
 				return
 			}
 			if cle == "Upgrade inventaire" {
@@ -30,9 +31,14 @@ func (p *Personnage) UseObject(m Mentor, s string, nb int) { // si on utilise pa
 			if cle == "douche" {
 				if nb == 2 { //Le nb c'est pour savoir si ma commande vient du menu ou d'un fight
 					m.Poison()
+					p.RemoveInventory("douche")
 				} else { //Dans ce cas la s'il vient du menu c'est qu'il essaye cette objet sauf qu'il y a personne donc ca fait rien dans l'autre cas c'est sur l'adversaire
 					fmt.Println("La douche est dangereuse dans ce jeu ,rappelle toi que tu est en info")
 				}
+				return
+			}
+			if cle == "skittles" {
+				p.TakeInt(nb)
 				return
 			}
 		}
@@ -76,7 +82,22 @@ func (p Personnage) IsInInventory(s string) bool { // on regarde si c'est dans l
 	}
 	return false
 }
-
+func IsInMap(m map[string]int, s string) bool { // on regarde si c'est dans l'inventaire ou pas
+	for cle := range m {
+		if cle == s {
+			return true // si ca y'est tu peux te le mettre dans le trou
+		}
+	}
+	return false
+}
+func IsInList(s string, lst []string) bool {
+	for _, l := range lst {
+		if l == s {
+			return true
+		}
+	}
+	return false
+}
 func (p Personnage) IsInSkill(s string) bool { // la on regarde si c'est dans ta skill list
 	for _, c := range p.skills {
 		if c == s {
@@ -214,4 +235,17 @@ func Capitalize(s string) string {
 		}
 	}
 	return new
+}
+
+func (p *Personnage) RandomObjects(nb float64) {
+	rand := rand.Float64() * nb
+	if rand >= 1 {
+		rand = 0.9
+	}
+	if rand <= 0.3 {
+		p.AddInventory("Bouteille en plastique")
+		fmt.Println("Bravo vous avez gagné une bouteille en plastique")
+	} else if rand > 0.3 && rand <= 0.5 {
+		p.AddInventory("plume du truc")
+	}
 }
