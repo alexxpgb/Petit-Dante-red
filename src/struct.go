@@ -12,19 +12,20 @@ type Personnage struct {
 	name       string
 	classe     string
 	niveau     string
-	notemax    float64
+	notemax    float64 //infra
 	note       int
 	inventaire map[string]int
 	leninv     int //taille inventaire
 	skills     []string
 	wallet     int
 	armure     Equipment
-	initiative float64
-	strengh    float64
+	initiative float64 //dev
+	strengh    float64 //cyber
 	exp        int
 	expmax     float64
 	energy     int //mana
 	intmax     float64
+	agilite    float64 //IA Data
 }
 
 type Equipment struct {
@@ -110,6 +111,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.intmax = 100
 	p.initiative = 10
 	p.expmax = 65
+	p.agilite = 10
 	p.Menu()
 
 }
@@ -176,57 +178,76 @@ func (p *Personnage) LevelUp() {
 		if p.niveau == "B1" {
 			p.niveau = "B2"
 			p.notemax *= 1.3
-			p.initiative += 1.3
+			p.initiative *= 1.3
 			p.strengh *= 2
 			p.expmax *= 1.5
 			p.intmax *= 1.3
+			p.agilite *= 1.3
 		} else if p.niveau == "B2" {
 			p.niveau = "B3"
 			p.class()
 		} else if p.niveau == "B3" {
 			p.niveau = "M1"
-			p.notemax += 60
-			p.initiative += 60
-			p.strengh *= 4
-			p.expmax += 100
-			p.intmax += 60
+			p.notemax *= 1.3
+			p.initiative *= 1.3
+			p.strengh *= 2
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+			p.agilite *= 1.3
 		} else if p.niveau == "M1" {
 			p.niveau = "M2"
-			p.notemax += 120
-			p.initiative += 120
-			p.strengh *= 8
-			p.expmax += 200
-			p.intmax += 120
+			p.notemax *= 1.3
+			p.initiative *= 1.3
+			p.strengh *= 2
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+			p.agilite *= 1.3
 			fmt.Println("Vous etes au niveau max")
 		}
+		p.Display()
 	}
 }
 
-// d
-// o
-// n
-// t
-// f
-// o
-// r
-// g
-// e
-// t
 func (p *Personnage) class() {
 	if p.niveau == "B3" {
 		fmt.Println("❖ Quelle est ta specialisation ?")
 		fmt.Println("-------------------------------")
-		fmt.Println("1-IA data  2-infra 3-cybersécurité 4- dev  ")
+		fmt.Println("1-IA data (+ agilite) 2-infra(+ notemax) 3-cybersécurité(+ strengh) 4- dev (+ initiative) ")
 		fmt.Println("❖ Saisie le numéro de ta spécialité")
 		answer := Scan()
 		if answer == "1" { //Mettre des niveau different selon la classe
 			p.classe = "IA data"
+			p.notemax *= 1.3
+			p.initiative *= 1.3
+			p.strengh *= 2
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+			p.agilite *= 4
 		} else if answer == "2" {
 			p.classe = "infra "
+			p.notemax *= 4
+			p.initiative *= 1.3
+			p.strengh *= 2
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+			p.agilite *= 1.3
 		} else if answer == "3" {
 			p.classe = "cybersécurité"
+			p.notemax *= 1.3
+			p.initiative *= 1.3
+			p.strengh *= 4
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+			p.agilite *= 1.3
 		} else if answer == "4" {
 			p.classe = "dev"
+			p.notemax *= 1.3
+			p.initiative *= 4
+			p.strengh *= 2
+			p.expmax *= 1.5
+			p.intmax *= 1.3
+			p.agilite *= 1.3
 		}
+		p.Display()
 	}
 }

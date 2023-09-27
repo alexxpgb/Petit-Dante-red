@@ -5,12 +5,15 @@ import (
 	"strconv"
 
 	"github.com/nsf/termbox-go"
+	term "github.com/nsf/termbox-go"
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
 var AllOfObject map[string]int = map[string]int{"sucette": 20, "douche": 15, "Skill: go": 20, "febreze": 5, "carte graphique": 5, "souris": 5, "clavier mecanique": 5, "Upgrade inventaire": 20, "skittles": 15, "pull ynov": 25, "multiprice": 25, "casque gaming": 25}
 var marchand Personnage = Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "febreze": 5, "carte graphique": 5, "souris": 5, "clavier mecanique": 5, "Upgrade inventaire": 20, "skittles": 15}}
 var forgeron Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"casque gaming": 15, "pull ynov": 15, "multiprice": 15}}
+var jardin map[string]int = map[string]int{}
+var min int
 
 func (p *Personnage) Boutique() {
 	fmt.Print("\033[H\033[2J")
@@ -144,13 +147,13 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 	}
 }
 func (p *Personnage) Forgeron() {
-
+	var chck bool
 	fmt.Print("\033[H\033[2J")
 	TermPrint("    ___       __          _                                              	", 1, 1, termbox.ColorCyan)
 	TermPrint("   /   | ____/ /___ ___  (_)___                                            	", 1, 2, termbox.ColorCyan)
 	TermPrint("  / /| |/ __  / __ `__ \\/ / __ \\                                       	", 1, 3, termbox.ColorCyan)
-	TermPrint(" / ___ / /_/ / / / / / / / / / /                   	", 1, 4, termbox.ColorCyan)
-	TermPrint("/_/  |_\\__,_/_/ /_/ /_/_/_/ /_/ 	                        ", 1, 5, termbox.ColorCyan)
+	TermPrint(" / ___ / /_/ / / / / / / / / / /                                            	", 1, 4, termbox.ColorCyan)
+	TermPrint("/_/  |_\\__,_/_/ /_/ /_/_/_/ /_/ 	                                        ", 1, 5, termbox.ColorCyan)
 	fmt.Print("\n\n\n\n\n\n")
 	lst := TransvalseList(forgeron.inventaire)
 	fmt.Println("-----------------------")
@@ -213,6 +216,17 @@ func (p *Personnage) Forgeron() {
 		fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
 		p.Forgeron()
 	}
+	fmt.Println("Tu n'a pas les objets requis pour te fabriquer cette objet")
+	for !chck {
+		switch ev := term.PollEvent(); ev.Type {
+		case term.EventKey:
+			switch ev.Key {
+			case term.KeyEnter:
+				chck = true
+			}
+		}
+	}
+	p.Menu()
 }
 
 func (p *Personnage) Equip() {
@@ -220,12 +234,23 @@ func (p *Personnage) Equip() {
 	fmt.Println("-----------------------")
 	fmt.Println("Ton inventaire est composé de")
 	for ind, val := range lst {
-		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, forgeron.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
+		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, p.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 	}
 	fmt.Println("\n----------------------")
 	fmt.Print("❖ Que veux tu equiper parmis tous ses objets\n\n\n\n")
 }
 
 func (p *Personnage) Garden() {
-	fmt.Println("Bienvenue dans la terrasse")
+	if p.IsInInventory("graine") {
+		fmt.Println("Bienvenue dans la terrasse\nVoulez vous planter votre graines\n1-Oui\n2-Non")
+		ans := Scan()
+		if ans == "1" {
+			min = time.minute.now()
+		} else if ans == "2" {
+
+		} else {
+			fmt.Println("Pas compris")
+			p.Garden()
+		}
+	}
 }

@@ -55,7 +55,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 
 		case "2":
 			if p.IsInSkill("go") {
-				if rand.Float64() < 0.5 { //1 chance sur deux augmenter s'il ameliore une crtn stat story telling animated
+				if rand.Float64() < 5.0/p.agilite { //1 chance sur deux augmenter s'il ameliore une crtn stat story telling animated
 					if p.energy-bos["go"] >= 0 {
 						p.energy -= bos["go"]
 						m.note -= int(p.strengh) * 2
@@ -95,6 +95,10 @@ func (m *Mentor) Training(p *Personnage) {
 		p.initiative += m.initiative
 		p.wallet += m.wallet
 		p.RandomObjects(0.5)
+		if p.LimitSpace() {
+			p.AddInventory("graine")
+		}
+		p.Display()
 	} else {
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez perdu")
 	}

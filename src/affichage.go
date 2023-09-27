@@ -103,13 +103,13 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 		fmt.Println("▓                             			                                                                                      ▓")
 		fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄     ▓")
 		fmt.Println("▓                     ╔╗╔┌─┐┬ ┬  ┌─┐┌─┐┌┬┐┌─┐             ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
-		fmt.Println("▓                  1• ║║║├┤ │││  │ ┬├─┤│││├┤              ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█ ██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
+		fmt.Println("▓                   • ║║║├┤ │││  │ ┬├─┤│││├┤              ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█ ██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
 		fmt.Println("▓                     ╝╚╝└─┘└┴┘  └─┘┴ ┴┴ ┴└─┘             ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐ ██▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
 		fmt.Println("▓                                                         ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
-		fmt.Println("▓                             2• SETTINGS                                                                                             ▓")
+		fmt.Println("▓                              • SETTINGS                                                                                             ▓")
 		fmt.Println("▓                                                                                                                                     ▓")
 		fmt.Println("▓                                                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
-		fmt.Println("▓                             3• QUIT                                                   //               `V'              \\\\  	      ▓")
+		fmt.Println("▓                              • QUIT                                                   //               `V'              \\\\  	      ▓")
 		fmt.Println("▓                                                                                      //                 |                \\\\         ▓")
 		fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
 		fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
@@ -127,13 +127,13 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 		fmt.Println("▓                             			                                                                                      ▓")
 		fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄     ▓")
 		fmt.Println("▓                                                         ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
-		fmt.Println("▓                            1• NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█ ██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
+		fmt.Println("▓                             • NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█ ██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
 		fmt.Println("▓                                                         ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐ ██▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
 		fmt.Println("▓                     ╔═╗┌─┐┌┬┐┌┬┐┬┌┐┌┌─┐┌─┐              ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
-		fmt.Println("▓                  2• ╚═╗├┤  │  │ │││││ ┬└─┐                                                                                          ▓")
+		fmt.Println("▓                   • ╚═╗├┤  │  │ │││││ ┬└─┐                                                                                          ▓")
 		fmt.Println("▓                     ╚═╝└─┘ ┴  ┴ ┴┘└┘└─┘└─┘                                                                                          ▓")
 		fmt.Println("▓                                                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
-		fmt.Println("▓                             3• QUIT                                                   //               `V'              \\\\  	      ▓")
+		fmt.Println("▓                              • QUIT                                                   //               `V'              \\\\  	      ▓")
 		fmt.Println("▓                                                                                      //                 |                \\\\         ▓")
 		fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
 		fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
@@ -151,13 +151,13 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 		fmt.Println("▓                             			                                                                                      ▓")
 		fmt.Println("▓                                                         • ▌  ▄ ·. ▄▄▄ . ▐ ▄ ▄▄▄▄▄      ▄▄▄      ·▄▄▄▪   ▄▄ •  ▄ .▄▄▄▄▄▄▄▄▄ .▄▄▄     ▓")
 		fmt.Println("▓                                                         ·██ ▐███▪▀▄.▀·•█▌▐█•██  ▪     ▀▄ █·    ▐▄▄· █ ▐█ ▀ ▪██▪▐█•██  ▀▄.▀·▀▄ █·    ▓")
-		fmt.Println("▓                            1• NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█ ██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
+		fmt.Println("▓                             • NEW GAME                  ▐█ ▌▐▌▐█·▐▀▀▪▄▐█▐▐▌ ▐█.▪ ▄█▀▄ ▐▀▀▄     ██▪ ▐█·▄█ ▀█ ██▀▐█ ▐█.▪▐▀▀▪▄▐▀▀▄     ▓")
 		fmt.Println("▓                                                         ██ ██▌▐█▌▐█▄▄▌██▐█▌ ▐█▌·▐█▌.▐▌▐█•█▌    █▌ .▐█▌▐█▄▪▐ ██▌▐▀ ▐█▌·▐█▄▄▌▐█•█▌    ▓")
 		fmt.Println("▓                                                         ▀▀  █▪▀▀▀ ▀▀▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪.▀  ▀    ▀▀▀ ▀▀▀·▀▀▀▀ ▀▀▀ · ▀▀▀  ▀▀▀ .▀  ▀    ▓")
-		fmt.Println("▓                            2• SETTINGS                                                                                              ▓")
+		fmt.Println("▓                             • SETTINGS                                                                                              ▓")
 		fmt.Println("▓                                                                                                                                     ▓")
 		fmt.Println("▓                     ╔═╗ ┬ ┬┬┌┬┐                                                         __...--~~~~~-._   _.-~~~~~--...__           ▓")
-		fmt.Println("▓                  3• ║═╬╗│ ││ │                                                        //               `V'              \\\\  	      ▓")
+		fmt.Println("▓                   • ║═╬╗│ ││ │                                                        //               `V'              \\\\  	      ▓")
 		fmt.Println("▓                     ╚═╝╚└─┘┴ ┴                                                       //                 |                \\\\         ▓")
 		fmt.Println("▓                                                                                     //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\       ▓")
 		fmt.Println("▓                                                                                   //__.....----~~~~._\\\\ | //_.~~~~----.....__\\\\     ▓")
@@ -214,6 +214,7 @@ func (p *Personnage) Menu() {
 	}
 }
 func (p *Personnage) Display() { //A modifier
+	var chck bool
 	fmt.Println("-----------------------")
 	fmt.Println("๑ Ton nom est :", p.name)
 	fmt.Println("๑ Ta spécialité est :", p.classe)
@@ -233,6 +234,15 @@ func (p *Personnage) Display() { //A modifier
 	fmt.Printf("๑ Tu as %v point d'initiative\n", p.initiative)
 	fmt.Printf("๑ Tu as %v/%v point d'experience\n", p.exp, p.expmax)
 	fmt.Println("-----------------------")
+	for !chck {
+		switch ev := term.PollEvent(); ev.Type {
+		case term.EventKey:
+			switch ev.Key {
+			case term.KeyEnter:
+				chck = true
+			}
+		}
+	}
 	p.Menu()
 }
 func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inventaire
