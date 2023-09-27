@@ -235,19 +235,24 @@ func (p *Personnage) Equip() {
 			p.armure.body = "pull ynov"
 			p.RemoveInventory("pull ynov")
 			fmt.Println(("Ton pull ynov est maintenant equipé "))
+			p.notemax += 10 
+			p.note +=10 
 			p.menu()
 		case "multiprise":
-			p.armure.body = "multiprise"
+			p.armure.hand = "multiprise"
 			p.RemoveInventory("multiprise")
 			fmt.Println((" ta multiprise est maintenant equipé "))
+			p.strengh += 10
 			p.menu()
-		case "clavier mecanique":
-			p.armure.body = "clavier mecanique"
-			p.RemoveInventory("clavier mecanique")
-			fmt.Println((" ton clavier mecanique est maintenant equipé "))
+		case "casque gaming":
+			p.armure.head = "casque gaming"
+			p.RemoveInventory("casque gaming")
+			fmt.Println((" ton casque gaming est maintenant equipé "))
+			p.intmax += 10 
+			p.energie +=10 
 			p.menu()
 		default:
-			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
+			fmt.Println("je n'ai pas compris ta réponse, peux tu repeter ? ")
 			p.Equip()	
 
 
@@ -259,3 +264,6 @@ func (p *Personnage) Equip() {
 func (p *Personnage) Garden() {
 	fmt.Println("Bienvenue dans la terrasse")
 }
+default:
+	fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
+	p.Forgeron()
