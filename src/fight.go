@@ -13,6 +13,7 @@ var m Mentor = Mentor{"Eleve", 100, 70, 3, 50, 4, 20}
 func (m *Mentor) MentorPattern(p *Personnage, i int) {
 	if i%3 == 0 { // tous les 3 tour la force du mentor double
 		p.note -= m.strengh * 2
+		Enter()
 		fmt.Print("\033[H\033[2J")
 		TermPrint("Damage Critique", 20, 0, termbox.ColorRed)
 		fmt.Printf("\n%s a attaqué %s de %v point de degats \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh*2, p.note, p.notemax)
@@ -38,16 +39,16 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 	switch a {
 	case "1":
 		fmt.Print("Avec quels skills veux tu attaquer?\n\n") //On attaque avec nos skills
-		fmt.Println("1 - Cuisine")
+		fmt.Println("1 / Cuisine")
 		for i, c := range p.skills {
-			fmt.Println(i+2, "-", c) // J'affiche les skills avec leurs indice+1 pour commancer à 1
+			fmt.Println(i+2, "/", c) // J'affiche les skills avec leurs indice+1 pour commancer à 1
 		}
 		fmt.Print("\n\n\n\n\n")
 		b := Scan()
 		switch b {
 		case "1":
 			m.note -= int(p.strengh) / 2
-			fmt.Printf("%s a attaqué %s de %v point de degats \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh, m.note, m.notemax)
+			fmt.Printf("%s a attaqué %s de %v point de degats \nIl est maintenant à %v/%v\n", p.name, m.name, int(p.strengh)/2, m.note, m.notemax)
 		case "2": // A revoir
 			if p.energy-bos["python"] >= 0 {
 				p.energy -= bos["python"]

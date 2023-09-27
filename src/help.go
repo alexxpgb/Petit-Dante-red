@@ -29,7 +29,6 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 				fmt.Println(("Ton pull ynov est maintenant equipé "))
 				p.notemax += 10
 				p.note += 10
-				Enter()
 				return
 			}
 			if cle == "casque gaming" {
@@ -38,7 +37,6 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 				fmt.Println((" ton casque gaming est maintenant equipé "))
 				p.intmax += 10
 				p.energy += 10
-				Enter()
 				return
 			}
 			if cle == "totem" {
@@ -294,22 +292,32 @@ func Capitalize(s string) string {
 	return new
 }
 
-func (p *Personnage) RandomObjects(nb float64) {
+func (p *Personnage) RandomObjects(nb float64) { //Add item
 	rand := rand.Float64() * nb
 	if rand >= 1 {
 		rand = 0.9
 	}
-	if rand <= 0.3 {
-		p.AddInventory("Bouteille en plastique")
-		fmt.Println("Bravo vous avez gagné une bouteille en plastique")
-	} else if rand == 0.4 {
-		p.AddInventory("carte graphique")
-	} else if rand == 0.5 {
-		p.AddInventory("febreze")
-	} else if rand == 0.6 {
-		p.AddInventory("clavier mecanique")
-	} else if rand == 0.7 {
-		p.AddInventory("souris")
+	if p.LimitSpace() {
+		if rand <= 0.3 {
+			p.AddInventory("Bouteille en plastique")
+			fmt.Println("Bravo vous avez gagné une bouteille en plastique")
+		} else if rand == 0.4 {
+			p.AddInventory("carte graphique")
+			fmt.Println("Bravo vous avez gagné une carte graphique")
+		} else if rand == 0.5 {
+			p.AddInventory("febreze")
+			fmt.Println("Bravo vous avez gagné un febreze")
+		} else if rand == 0.6 {
+			p.AddInventory("clavier mecanique")
+			fmt.Println("Bravo vous avez gagné un clavier mecanique")
+		} else if rand == 0.7 {
+			p.AddInventory("souris")
+			fmt.Println("Bravo vous avez gagné une souris")
+		} else if rand == 0.8 {
+			p.AddInventory("")
+		} else if rand == 0.9 {
+			p.AddInventory("")
+		}
 	}
 }
 

@@ -32,7 +32,7 @@ func (p *Personnage) TakePot(nb int) {
 			if p.note > int(p.notemax)-20 { //La sucette rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
 				fmt.Println("❖ Es-tu sur de vouloir utiliser la sucette")
 				fmt.Println("1 pour oui")
-				fmt.Println("2 pour non")
+				fmt.Print("2 pour non\n\n\n\n")
 				switch Scan() {
 				case "1":
 					p.inventaire["sucette"] -= 1      //Je lui enlève une sucette dans mon inventaire

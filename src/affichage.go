@@ -176,7 +176,7 @@ func (p *Personnage) Menu() {
 	TermPrint("| | | | | |  __/ | | | |_| |", 1, 3, termbox.ColorCyan)
 	TermPrint("|_| |_| |_|\\___|_| |_|\\__,_|", 1, 4, termbox.ColorCyan)
 	fmt.Println("--------------------------------------------------------")
-	fmt.Println("1/Pour accéder à ton inventaire. \n2/Pour accéder aux informations de ton personnage. \n3/Pour accéder à la PEDA . \n4/Pour accéder a l'admin. \n5/Pour accéder à la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Qui sont t-ils? \n9/Pour revenir au menu principal\n0/Pour aller au terrasse tapez 0")
+	fmt.Println("1/Pour accéder à ton inventaire. \n2/Pour accéder aux informations de ton personnage. \n3/Pour accéder à la PEDA . \n4/Pour accéder a l'admin. \n5/Pour accéder à la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Pour aller au terrasse \n9/Pour revenir au menu principal\n0/Qui sont t-ils?")
 	fmt.Println("--------------------------------------------------------")
 	switch ev := term.PollEvent(); ev.Type {
 	case term.EventKey: //Avec sa a peine tu touche une touche instant la demande est envoyé (pas besoin d'appuyer sur entrée)
@@ -200,31 +200,28 @@ func (p *Personnage) Menu() {
 			Enter()
 			p.Menu()
 		case '8':
+			p.Garden()
+		case '9':
+			ReadInputO()
+		case '0':
 			fmt.Println("ABBA ,Spielberg et QUEEN")
 			Enter()
 			p.Menu()
-		case '9':
-			ReadInputO()
-		case 'e':
-			p.Equip()
-		case '0':
-			p.Garden()
 		default:
 			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu répèter ? ")
 			p.Menu()
 		}
 	}
 }
-func (p *Personnage) Display() { //A modifier
-	var chck bool
+func (p *Personnage) Display() {
 	fmt.Println("-----------------------")
 	fmt.Println("๑ Ton nom est :", p.name)
 	fmt.Println("๑ Ta spécialité est :", p.classe)
 	fmt.Println("๑ Ton niveau est :", p.niveau)
-	fmt.Printf("๑ Tu as %v/%v\n", p.note, p.notemax)
+	fmt.Printf("๑ Ta note est de %v/%v\n", p.note, p.notemax)
 	fmt.Println("Dans ton inventaire tu as :")
 	for cle, val := range p.inventaire {
-		fmt.Printf("๑ %v %s\n", val, cle)
+		fmt.Printf("• %v %s\n", val, cle)
 	}
 	fmt.Println("Ta liste de skills est :")
 	for _, val := range p.skills {
@@ -235,21 +232,13 @@ func (p *Personnage) Display() { //A modifier
 	fmt.Printf("๑ Tu as %v/%v force mental\n", p.energy, p.intmax)
 	fmt.Printf("๑ Tu as %v point d'initiative\n", p.initiative)
 	fmt.Printf("๑ Tu as %v/%v point d'experience\n", p.exp, p.expmax)
-	fmt.Println("( )<-", p.armure.head)
-	fmt.Println("/|\\<-", p.armure.body)
-	fmt.Println(" |<-", p.armure.hand)
-	fmt.Println(" /\\")
+	fmt.Println("  __")
+	fmt.Println(" (๏๏)←", p.armure.head)
+	fmt.Printf(" /||\\←%v\n", p.armure.body)
+	fmt.Println("° /\\ ° ←", p.armure.hand)
 
 	fmt.Println("-----------------------")
-	for !chck {
-		switch ev := term.PollEvent(); ev.Type {
-		case term.EventKey:
-			switch ev.Key {
-			case term.KeyEnter:
-				chck = true
-			}
-		}
-	}
+	Enter()
 	p.Menu()
 }
 func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inventaire
@@ -295,7 +284,7 @@ func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compéte
 	fmt.Println("-----------------------")
 	fmt.Println("❖ Quels skills veut tu apprendre?")
 	for i, skl := range lst {
-		fmt.Printf(" • %d %s (Off: %d Int)\n", i+1, skl, bos[skl])
+		fmt.Printf(" •%d/ %s (Off: %d Int)\n", i+1, skl, bos[skl])
 	}
 	fmt.Print("\n----------------------\n\n\n\n")
 	answer := Scan()                   //Sans doute une erreur par la

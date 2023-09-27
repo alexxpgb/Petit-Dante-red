@@ -114,7 +114,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.agilite = 10
 	p.armure.head = "rien"
 	p.armure.body = "rien"
-	p.armure.hand = "nen"
+	p.armure.hand = "rien"
 	p.Menu()
 
 }
@@ -207,6 +207,7 @@ func (p *Personnage) LevelUp() {
 			p.intmax *= 1.3
 			p.agilite *= 1.3
 			fmt.Println("Vous etes au niveau max")
+			Enter()
 		}
 		p.Display()
 	}
@@ -216,8 +217,8 @@ func (p *Personnage) class() {
 	if p.niveau == "B3" {
 		fmt.Println("❖ Quelle est ta specialisation ?")
 		fmt.Println("-------------------------------")
-		fmt.Println("1-IA data (+ agilite) 2-infra(+ notemax) 3-cybersécurité(+ strengh) 4- dev (+ initiative) ")
-		fmt.Println("❖ Saisie le numéro de ta spécialité")
+		fmt.Println("1/IA data (+ agilite) \n2/infra(+ notemax) \n3/cybersécurité(+ strengh) \n4/dev (+ initiative) ")
+		fmt.Print("❖ Saisie le numéro de ta spécialité\n\n\n\n\n")
 		answer := Scan()
 		if answer == "1" { //Mettre des niveau different selon la classe
 			p.classe = "IA data"
