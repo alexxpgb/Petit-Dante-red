@@ -144,17 +144,14 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 	}
 }
 func (p *Personnage) Forgeron() {
-	fmt.Print("\033[H\033[2J")
-	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
-	TermPrint("______                                                                	", 1, 1, termbox.ColorCyan)
-	TermPrint("|  ___|                                                              	", 1, 2, termbox.ColorCyan)
-	TermPrint("| |_ ___  _   _ _ __ __ _  ___ _ __ ___   _ __                       	", 1, 3, termbox.ColorCyan)
-	TermPrint("|  _/ _ \\| | | | '__/ _` |/ _ \\ '__/ _ \\| '_ \\                    	", 1, 4, termbox.ColorCyan)
-	TermPrint("| || (_) | |_| | | | (_| |  __/ | | (_) | | | |	                        ", 1, 5, termbox.ColorCyan)
-	TermPrint("\\_| \\___/ \\__,_|_|  \\__, |\\___|_|  \\___/|_| |_|                   	", 1, 6, termbox.ColorCyan)
-	TermPrint("	                    __/ |                                               ", 1, 7, termbox.ColorCyan)
-	TermPrint("                    |___/                                                ", 1, 8, termbox.ColorCyan)
 
+	fmt.Print("\033[H\033[2J")
+	TermPrint("    ___       __          _                                              	", 1, 1, termbox.ColorCyan)
+	TermPrint("   /   | ____/ /___ ___  (_)___                                            	", 1, 2, termbox.ColorCyan)
+	TermPrint("  / /| |/ __  / __ `__ \\/ / __ \\                                       	", 1, 3, termbox.ColorCyan)
+	TermPrint(" / ___ / /_/ / / / / / / / / / /                   	", 1, 4, termbox.ColorCyan)
+	TermPrint("/_/  |_\\__,_/_/ /_/ /_/_/_/ /_/ 	                        ", 1, 5, termbox.ColorCyan)
+	fmt.Print("\n\n\n\n\n\n")
 	lst := TransvalseList(forgeron.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire du forgeron est composé de")
