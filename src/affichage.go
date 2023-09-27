@@ -197,9 +197,11 @@ func (p *Personnage) Menu() {
 			m.Training(p)
 		case '7':
 			fmt.Println("En construction")
+			Enter()
 			p.Menu()
 		case '8':
 			fmt.Println("ABBA ,Spielberg et QUEEN")
+			Enter()
 			p.Menu()
 		case '9':
 			ReadInputO()
@@ -260,6 +262,7 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 		fmt.Print("❖Lequel?\n\n\n\n\n\n")
 		ans := Scan()
 		p.UseObject(&m, ans, nb)
+		Enter()
 		if nb == 1 {
 			p.Menu()
 		}
@@ -297,10 +300,16 @@ func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compéte
 		if answint < len(lst) && answint > 0 { // et s'il est proposé dans l'inventaire :
 			p.skills = append(p.skills, lst[answint]) // je l'ajoute a ma liste de skills
 			fmt.Println("Vous avez appris ce skill")
+			Enter()
+			p.Menu()
 		} else {
 			fmt.Println("Le skill que tu m'a proposé ne fait pas partie de ma liste de skills")
+			Enter()
+			p.Menu()
 		}
 	} else {
 		fmt.Println("Vous avez déjà appris ce skill")
+		Enter()
+		p.Menu()
 	}
 }

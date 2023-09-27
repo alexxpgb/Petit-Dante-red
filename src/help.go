@@ -6,6 +6,7 @@ import (
 
 	"github.com/mattn/go-runewidth"
 	"github.com/nsf/termbox-go"
+	term "github.com/nsf/termbox-go"
 )
 
 func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise pas ca reste dans le stock et si ca reste... ca périme et après.. C'EST DEGEULASSE !
@@ -118,6 +119,15 @@ func (p Personnage) IsInSkill(s string) bool { // la on regarde si c'est dans ta
 		}
 	}
 	return false
+}
+
+func Len(inv map[string]int) int {
+	var count int
+	for _, s := range inv {
+		count++
+		s++
+	}
+	return count
 }
 
 func (p Personnage) LimitSpace() bool { // vu que tu fais pas de sport tu peux pas trop porter de truc donc on va bien regarder et choisir ce que tu peux porter sale faible
@@ -275,5 +285,18 @@ func (p *Personnage) RandomObjects(nb float64) {
 		p.AddInventory("clavier mecanique")
 	} else if rand == 0.7 {
 		p.AddInventory("souris")
+	}
+}
+
+func Enter() {
+	var chck bool
+	for !chck {
+		switch ev := term.PollEvent(); ev.Type {
+		case term.EventKey:
+			switch ev.Key {
+			case term.KeyEnter:
+				chck = true
+			}
+		}
 	}
 }

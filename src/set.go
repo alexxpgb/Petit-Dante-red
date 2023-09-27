@@ -3,9 +3,9 @@ package piscine
 import (
 	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/nsf/termbox-go"
-	term "github.com/nsf/termbox-go"
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
@@ -50,18 +50,22 @@ func (p *Personnage) Boutique() {
 					delete(marchand.inventaire, string(lst[i]))
 					marchand.inventaire["sucette"] = 20
 				}
-				if string(lst[i])[:4] == "Skill" {
+				if string(lst[i])[:5] == "Skill" {
+					fmt.Print("b")
 					delete(marchand.inventaire, string(lst[i]))
 				}
 				p.AddInventory(string(lst[i])) //Je l'ajoute dans mon inventaire
 				fmt.Println("Vous avez ajouté", string(lst[i]), "à votre inventaire")
+				Enter()
 				p.Menu()
 			} else {
 				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
+				Enter()
 				p.Menu() //Je reviens au menu dans tous les cas
 			}
 		}
 		fmt.Printf("%#v J'attendais le numero de l'objet que tu voulais acheter\n", answer)
+		Enter()
 		p.Menu()
 	} else if answer == "2" {
 		lst = TransvalseList(p.inventaire)
@@ -84,6 +88,7 @@ func (p *Personnage) Boutique() {
 				marchand.inventaire[lst[i]+" reconditionée"] = AllOfObject[lst[i]] * 2
 			} else {
 				fmt.Println("Le marchand ne peut pas t'acheter cette objet")
+				Enter()
 				p.Menu()
 
 			}
@@ -91,7 +96,9 @@ func (p *Personnage) Boutique() {
 			if p.inventaire[lst[i]] == 0 {
 				delete(p.inventaire, string(lst[i]))
 			}
+			Enter()
 			fmt.Printf("Vous avez bien vendu votre objet pour %d€\n", AllOfObject[lst[i]])
+			Enter()
 			p.Menu()
 		} else {
 			fmt.Println("Pas compris")
@@ -147,7 +154,6 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 	}
 }
 func (p *Personnage) Forgeron() {
-	var chck bool
 	fmt.Print("\033[H\033[2J")
 	TermPrint("    ___       __          _                                              	", 1, 1, termbox.ColorCyan)
 	TermPrint("   /   | ____/ /___ ___  (_)___                                            	", 1, 2, termbox.ColorCyan)
@@ -178,6 +184,7 @@ func (p *Personnage) Forgeron() {
 				p.RemoveInventory("souris")
 				p.AddInventory("casque gaming")
 				p.wallet -= forgeron.inventaire[lst[i]]
+				Enter()
 				p.Menu()
 			}
 		case "2":
@@ -189,6 +196,7 @@ func (p *Personnage) Forgeron() {
 					p.AddInventory("febreze")
 					p.AddInventory("clavier mecanique")
 					fmt.Println("tu possèdes maintenant un clavier mecanique")
+					Enter()
 					p.Menu()
 				} else {
 
@@ -196,6 +204,7 @@ func (p *Personnage) Forgeron() {
 					p.AddInventory("pull ynov")
 					fmt.Println("tu possèdes maintenant un pull ynov ")
 					p.wallet -= forgeron.inventaire[lst[i]]
+					Enter()
 					p.Menu()
 				}
 			}
@@ -206,26 +215,21 @@ func (p *Personnage) Forgeron() {
 				p.AddInventory("multiprise")
 				fmt.Println("tu possèdes maintenant une multiprise")
 				p.wallet -= forgeron.inventaire[lst[i]]
+				Enter()
 				p.Menu()
 			}
 		default:
 			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
+			Enter()
 			p.Forgeron()
 		}
 	} else {
-		fmt.Println("tu ne possèdes pas suffisament d'argent ou ton invnetiare est plein. reviens plus tard . ")
-		p.Forgeron()
+		fmt.Println("tu ne possèdes pas suffisament d'argent ou ton inventiare est plein. reviens plus tard . ")
+		Enter()
+		p.Menu()
 	}
 	fmt.Println("Tu n'a pas les objets requis pour te fabriquer cette objet")
-	for !chck {
-		switch ev := term.PollEvent(); ev.Type {
-		case term.EventKey:
-			switch ev.Key {
-			case term.KeyEnter:
-				chck = true
-			}
-		}
-	}
+	Enter()
 	p.Menu()
 }
 
@@ -238,49 +242,81 @@ func (p *Personnage) Equip() {
 	}
 	fmt.Println("\n----------------------")
 	fmt.Print("❖ Que veux tu equiper parmis tous ses objets\n\n\n\n")
-	answer := Scan()              
-	i, err := strconv.Atoi(answer) 
+	answer := Scan()
+	i, err := strconv.Atoi(answer)
 	i -= 1
 	if err != nil {
 		fmt.Println("Pas compris")
 		p.Equip()
-		switch answer{
-		case "pull ynov":
-			p.armure.body = "pull ynov"
-			p.RemoveInventory("pull ynov")
-			fmt.Println(("Ton pull ynov est maintenant equipé "))
-			p.menu()
-		case "multiprise":
-			p.armure.body = "multiprise"
-			p.RemoveInventory("multiprise")
-			fmt.Println((" ta multiprise est maintenant equipé "))
-			p.menu()
-		case "clavier mecanique":
-			p.armure.body = "clavier mecanique"
-			p.RemoveInventory("clavier mecanique")
-			fmt.Println((" ton clavier mecanique est maintenant equipé "))
-			p.menu()
-		default:
-			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
-			p.Equip()	
-
-
-
-
-		}
+	}
+	switch answer {
+	case "1":
+		p.armure.body = "pull ynov"
+		p.RemoveInventory("pull ynov")
+		fmt.Println(("Ton pull ynov est maintenant equipé "))
+		Enter()
+		p.Menu()
+	case "2":
+		p.armure.hand = "multiprise"
+		p.RemoveInventory("multiprise")
+		fmt.Println((" ta multiprise est maintenant equipé "))
+		Enter()
+		p.Menu()
+	case " 3":
+		p.armure.head = "clavier mecanique"
+		p.RemoveInventory("clavier mecanique")
+		fmt.Println((" ton clavier mecanique est maintenant equipé "))
+		Enter()
+		p.Menu()
+	default:
+		fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
+		Enter()
+		p.Equip()
+	}
 }
 
 func (p *Personnage) Garden() {
 	if p.IsInInventory("graine") {
-		fmt.Println("Bienvenue dans la terrasse\nVoulez vous planter votre graines\n1-Oui\n2-Non")
+		min = time.Now().Minute()
+		fmt.Print("Bienvenue dans la terrasse\nVoulez vous planter votre graines\n1-Oui\n2-Non\n\n\n\n")
 		ans := Scan()
-		if ans == "1" {
-			min = time.minute.now()
-		} else if ans == "2" {
-
-		} else {
-			fmt.Println("Pas compris")
-			p.Garden()
+		if ans == "1" && Len(jardin) > 0 {
+			if Len(jardin) == 0 {
+				jardin["graine 1"] = 0
+				fmt.Println("Vous avez ajouté une graine")
+				p.Menu()
+			}
+			fmt.Println("Voici votre jardin")
+			jardin["graine "+strconv.Itoa(Len(jardin)+1)] = 0
+			for val, cle := range jardin {
+				jardin[val] = cle + min
+				fmt.Println(val, cle, "point de puissance")
+			}
+			fmt.Print("Veut tu recolter une graine\n1-Oui\n2-Non\n\n\n\n")
+			ans = Scan()
+			if ans == "1" {
+				fmt.Print("Laquelle?\n\n\n\n")
+				ans = Scan()
+				p.strengh += float64(jardin[ans])
+				delete(jardin, ans)
+				fmt.Println("T'a force est à", p.strengh)
+				p.Menu()
+			} else if ans == "2" {
+				fmt.Println("Degage")
+				p.Menu()
+			} else {
+				fmt.Println("Pas Compris")
+				p.Garden()
+			}
+		} else if ans == "2" && Len(jardin) > 0 {
+			fmt.Println("Degage")
+			p.Menu()
 		}
+		fmt.Println("Pas compris")
+		p.Garden()
+	} else {
+		fmt.Println("T'a pas de graine salaud")
+		Enter()
+		p.Menu()
 	}
 }
