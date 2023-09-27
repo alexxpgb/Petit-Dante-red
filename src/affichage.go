@@ -176,7 +176,7 @@ func (p *Personnage) Menu() {
 	TermPrint("| | | | | |  __/ | | | |_| |", 1, 3, termbox.ColorCyan)
 	TermPrint("|_| |_| |_|\\___|_| |_|\\__,_|", 1, 4, termbox.ColorCyan)
 	fmt.Println("--------------------------------------------------------")
-	fmt.Println("1/Pour acceder à ton inventaire. \n2/Pour acceder aux informartions de ton personnage. \n3/Pour acceder à la peda . \n4/Pour acceder a l'admin. \n5/Pour acceder a la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Qui sont t-ils? \n9/Pour revenir au menu principal\n0/Pour allez au terrasse tapez 0\n Pour utiliser un ou des equipements, tape e")
+	fmt.Println("1/Pour accéder à ton inventaire. \n2/Pour accéder aux informations de ton personnage. \n3/Pour accéder à la PEDA . \n4/Pour accéder a l'admin. \n5/Pour accéder à la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Qui sont t-ils? \n9/Pour revenir au menu principal\n0/Pour aller au terrasse tapez 0")
 	fmt.Println("--------------------------------------------------------")
 	switch ev := term.PollEvent(); ev.Type {
 	case term.EventKey: //Avec sa a peine tu touche une touche instant la demande est envoyé (pas besoin d'appuyer sur entrée)
@@ -210,7 +210,7 @@ func (p *Personnage) Menu() {
 		case '0':
 			p.Garden()
 		default:
-			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
+			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu répèter ? ")
 			p.Menu()
 		}
 	}
@@ -235,6 +235,11 @@ func (p *Personnage) Display() { //A modifier
 	fmt.Printf("๑ Tu as %v/%v force mental\n", p.energy, p.intmax)
 	fmt.Printf("๑ Tu as %v point d'initiative\n", p.initiative)
 	fmt.Printf("๑ Tu as %v/%v point d'experience\n", p.exp, p.expmax)
+	fmt.Println("( )<-", p.armure.head)
+	fmt.Println("/|\\<-", p.armure.body)
+	fmt.Println(" |<-", p.armure.hand)
+	fmt.Println(" /\\")
+
 	fmt.Println("-----------------------")
 	for !chck {
 		switch ev := term.PollEvent(); ev.Type {
@@ -254,7 +259,7 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 		fmt.Printf("๑ %d %s\n", val, cle)
 	}
 	fmt.Println("----------------------")
-	fmt.Println("❖ Veut tu utiliser un de ses objets?")
+	fmt.Println("❖ Veux-tu utiliser un de ces objets?")
 	fmt.Println("1- Oui")
 	fmt.Print("2- Non\n\n\n\n\n\n") //Pour qu'on puisse voir l'endroit des réponses
 	switch Scan() {

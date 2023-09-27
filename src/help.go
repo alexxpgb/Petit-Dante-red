@@ -16,6 +16,31 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 				p.TakePot(nb)
 				return
 			}
+			if cle == "multiprise" {
+				p.armure.hand = "multiprise"
+				p.RemoveInventory("multiprise")
+				fmt.Println((" ta multiprise est maintenant equipée "))
+				p.strengh += 10
+				return
+			}
+			if cle == "pull ynov" {
+				p.armure.body = "pull ynov"
+				p.RemoveInventory("pull ynov")
+				fmt.Println(("Ton pull ynov est maintenant equipé "))
+				p.notemax += 10
+				p.note += 10
+				Enter()
+				return
+			}
+			if cle == "casque gaming" {
+				p.armure.head = "casque gaming"
+				p.RemoveInventory("casque gaming")
+				fmt.Println((" ton casque gaming est maintenant equipé "))
+				p.intmax += 10
+				p.energy += 10
+				Enter()
+				return
+			}
 			if cle == "totem" {
 				fmt.Println("Vous ne pouvez utiliser ce totem que si vous mourrez")
 				return
@@ -29,7 +54,7 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 			if cle == "Upgrade inventaire" {
 				p.inventaire[cle]--
 				p.UpgradeInventory()
-				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'a %d places disponible\n", p.leninv)
+				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'à %d places disponible\n", p.leninv)
 				return
 			}
 			if cle == "douche" {
@@ -37,7 +62,7 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 					m.Poison()
 					p.RemoveInventory("douche")
 				} else { //Dans ce cas la s'il vient du menu c'est qu'il essaye cette objet sauf qu'il y a personne donc ca fait rien dans l'autre cas c'est sur l'adversaire
-					fmt.Println("La douche est dangereuse dans ce jeu ,rappelle toi que tu est en info")
+					fmt.Println("La douche est dangereuse dans ce jeu ,rappelle toi que tu es en info")
 				}
 				return
 			}
@@ -47,7 +72,7 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 			}
 		}
 	}
-	fmt.Println("Vous n'avez pas cette objet dans votre inventaire")
+	fmt.Println("Vous n'avez pas cet objet dans votre inventaire")
 }
 
 func (p *Personnage) AddInventory(s string) { // quand t'ajoute un item kékiçepasse ?

@@ -78,7 +78,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 					tbprint(x, y, termbox.ColorCyan, termbox.ColorDefault, ' ')
 				} else {
 					fmt.Print("\033[H\033[2J")
-					fmt.Println("Tu veut supprimer quoi la?")
+					fmt.Println("Tu veux supprimer quoi là?")
 				}
 
 			default:
@@ -93,7 +93,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	}
 	if IsNum(p.name) {
 		fmt.Print("\033[H\033[2J")
-		fmt.Println("Pseudo non acceptée")
+		fmt.Println("Pseudo non accepté")
 		p.name = ""
 		p.Init()
 	}
@@ -112,6 +112,9 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.initiative = 10
 	p.expmax = 65
 	p.agilite = 10
+	p.armure.head = "rien"
+	p.armure.body = "rien"
+	p.armure.hand = "nen"
 	p.Menu()
 
 }
@@ -143,12 +146,13 @@ func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
 			case term.KeyEnter:
 				inputchek = true
 			case term.KeyBackspace:
-				if len(p.name) > 0 {
+				if len(s) > 0 {
 					x -= runewidth.RuneWidth(p.LastRune(s))
 					s = s[:len(s)-1]
 					tbprint(x, y, color, termbox.ColorDefault, ' ')
 				} else {
-					fmt.Println("Tu veut supprimer quoi la?")
+					fmt.Print("\033[H\033[2J")
+					fmt.Println("Tu veux supprimer quoi là?")
 				}
 
 			default:

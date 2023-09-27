@@ -37,7 +37,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 	a := Scan()
 	switch a {
 	case "1":
-		fmt.Print("Avec quels skills veut tu attaquer?\n\n") //On attaque avec nos skills
+		fmt.Print("Avec quels skills veux tu attaquer?\n\n") //On attaque avec nos skills
 		fmt.Println("1 - Cuisine")
 		for i, c := range p.skills {
 			fmt.Println(i+2, "-", c) // J'affiche les skills avec leurs indice+1 pour commancer à 1
@@ -68,7 +68,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 						fmt.Printf("%s a attaqué %s de %v point de degats \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh*2, m.note, m.notemax)
 					}
 				} else {
-					fmt.Println("Tu a rater ton coup")
+					fmt.Println("Tu as raté ton coup")
 				}
 			} else {
 				fmt.Println("Veuillez choisir une option valide")
