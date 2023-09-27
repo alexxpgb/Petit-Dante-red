@@ -127,7 +127,7 @@ func (p *Personnage) Forgeron() {
 		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, forgeron.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 	}
 	fmt.Println("\n----------------------")
-	fmt.Print("❖ Que veux tu parmi tous ses objets\n\n\n\n")
+	fmt.Print("❖ Que veux tu parmis tous ses objets\n\n\n\n")
 	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
 	i, _ := strconv.Atoi(answer)
 	i -= 1
@@ -180,3 +180,15 @@ func (p *Personnage) Forgeron() {
 		}
 	}
 }
+
+func (p *Personnage) Equip(){
+	lst := TransvalseList(personnage.inventaire)
+	fmt.Println("-----------------------")
+	fmt.Println("Ton inventaire est composé de")
+	for ind, val := range lst {
+		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, forgeron.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
+	}
+	fmt.Println("\n----------------------")
+	fmt.Print("❖ Que veux tu equiper parmis tous ses objets\n\n\n\n")
+}
+  

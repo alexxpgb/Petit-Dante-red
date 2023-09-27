@@ -167,7 +167,7 @@ func Graphisme(choix int) { //Mes affichage  de menu principal
 func (p *Personnage) Menu() {
 	check = true
 	fmt.Println("--------------------------------------------------------")
-	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour acceder a la liste de skill dans ta bibliothèque tape 5 \nPour aller s'entrainer tape 6 \nPour commencer le mode histoire tape 7\nQui sont t-ils? tape 8 \nPour revenir au menu principal tape 9 ")
+	fmt.Println("Pour acceder à ton inventaire, tape 1. \nPour acceder aux informartions de ton personnage, tape 2. \nPour acceder à la peda , tape 3. \nPour acceder au forgeron, tape 4. \nPour acceder a la liste de skill dans ta bibliothèque tape 5 \nPour aller s'entrainer tape 6 \nPour commencer le mode histoire tape 7\nQui sont t-ils? tape 8 \nPour revenir au menu principal tape 9 \n Pour utiliser un ou des equipements, tape -e)
 	fmt.Println("--------------------------------------------------------")
 	switch ev := term.PollEvent(); ev.Type {
 	case term.EventKey: //Avec sa a peine tu touche une touche instant la demande est envoyé (pas besoin d'appuyer sur entrée)
@@ -194,6 +194,8 @@ func (p *Personnage) Menu() {
 			p.Menu()
 		case '9':
 			ReadInputO()
+		case'e':
+			p.Equip	
 		default:
 			fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter ? ")
 			p.Menu()
