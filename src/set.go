@@ -213,7 +213,7 @@ func (p *Personnage) Forgeron() {
 			p.Forgeron()
 		}
 	} else {
-		fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
+		fmt.Println("tu ne possèdes pas suffisament d'argent ou ton invnetiare est plein. reviens plus tard . ")
 		p.Forgeron()
 	}
 	fmt.Println("Tu n'a pas les objets requis pour te fabriquer cette objet")
@@ -238,6 +238,36 @@ func (p *Personnage) Equip() {
 	}
 	fmt.Println("\n----------------------")
 	fmt.Print("❖ Que veux tu equiper parmis tous ses objets\n\n\n\n")
+	answer := Scan()              
+	i, err := strconv.Atoi(answer) 
+	i -= 1
+	if err != nil {
+		fmt.Println("Pas compris")
+		p.Equip()
+		switch answer{
+		case "pull ynov":
+			p.armure.body = "pull ynov"
+			p.RemoveInventory("pull ynov")
+			fmt.Println(("Ton pull ynov est maintenant equipé "))
+			p.menu()
+		case "multiprise":
+			p.armure.body = "multiprise"
+			p.RemoveInventory("multiprise")
+			fmt.Println((" ta multiprise est maintenant equipé "))
+			p.menu()
+		case "clavier mecanique":
+			p.armure.body = "clavier mecanique"
+			p.RemoveInventory("clavier mecanique")
+			fmt.Println((" ton clavier mecanique est maintenant equipé "))
+			p.menu()
+		default:
+			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
+			p.Equip()	
+
+
+
+
+		}
 }
 
 func (p *Personnage) Garden() {
