@@ -3,6 +3,8 @@ package piscine
 import (
 	"fmt"
 	"strconv"
+
+	"github.com/nsf/termbox-go"
 )
 
 // Je l'initialise ici pour que ce soit une variable globale et qu'elle puisse etre modifiée(pour sucette)
@@ -11,20 +13,33 @@ var marchand Personnage = Personnage{name: "Arthur", classe: "marchand", inventa
 var forgeron Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"casque gaming": 15, "pull ynov": 15, "multiprice": 15}}
 
 func (p *Personnage) Boutique() {
+	fmt.Print("\033[H\033[2J")
+	fmt.Print("\n\n\n\n\n\n\n\n")
+	TermPrint("______        _                                                ", 1, 1, termbox.ColorCyan)
+	TermPrint("| ___ \\      | |                                              ", 1, 2, termbox.ColorCyan)
+	TermPrint("| |_/ /__  __| | __ _                                          ", 1, 3, termbox.ColorCyan)
+	TermPrint("|  __/ _ \\/ _` |/ _` |                                        ", 1, 4, termbox.ColorCyan)
+	TermPrint("| | |  __/ (_| | (_| |                                         ", 1, 5, termbox.ColorCyan)
+	TermPrint("\\_|  \\___|\\__,_|\\__,_|                                     ", 1, 6, termbox.ColorCyan)
+
 	lst := TransvalseList(marchand.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire de la PEDA est composé de")
 	for ind, val := range lst {
 		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, marchand.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 	}
-	fmt.Println("\n----------------------")
-	fmt.Print("❖ Veux tu quelque chose parmi tous ses objets ou peut être vendre\n1-Acheter\n2-Vendre\n\n\n\n\n")
+	fmt.Print("\n----------------------\n\n\n")
+	fmt.Print("❖ Veux tu quelque chose parmi tous ses objets ou peut être vendre\n1-Acheter\n2-Vendre\n\n\n\n\n\n\n")
 	answer := Scan()
 	if answer == "1" {
-		fmt.Print("Quel objet veut tu ?\n\n\n\n")
-		answer = Scan()                                       //Le mec il rentre le numero auquel est attribué son objet
-		i, _ := strconv.Atoi(answer)                          //string en int
-		i -= 1                                                //Pour avoir un indice de 0
+		fmt.Print("Quel objet veut tu ?\n\n\n\n\n\n")
+		answer = Scan()                //Le mec il rentre le numero auquel est attribué son objet
+		i, err := strconv.Atoi(answer) //string en int
+		i -= 1                         //Pour avoir un indice de 0
+		if err != nil {
+			fmt.Println("Pas compris")
+			p.Boutique()
+		}
 		if answer <= strconv.Itoa(len(lst)) && answer > "0" { //On vérifie que l'utilisateur a bien rentré qlq chose compris entre 1 et la taille de ma liste
 			if p.wallet >= marchand.inventaire[lst[i]] && p.LimitSpace() { //Je vérifie si j'ai assez d'argent dans mon portefeuille et que j'ai la place dans mon inventaire
 				p.wallet -= marchand.inventaire[lst[i]] //Je lui prends l'argent
@@ -53,13 +68,17 @@ func (p *Personnage) Boutique() {
 			fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, AllOfObject[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 		}
 		fmt.Print("\n----------------------\n\n\n\n\n")
-		answer = Scan()              //Le mec il rentre le numero auquel est attribué son objet
-		i, _ := strconv.Atoi(answer) //string en int
+		answer = Scan()                //Le mec il rentre le numero auquel est attribué son objet
+		i, err := strconv.Atoi(answer) //string en int
 		i -= 1
+		if err != nil {
+			fmt.Println("Pas compris")
+			p.Boutique()
+		}
 		if answer <= strconv.Itoa(len(lst)) && answer > "0" {
 			if IsInMap(AllOfObject, string(lst[i])) {
 				p.wallet += AllOfObject[(lst[i])]
-				marchand.inventaire[lst[i]+"reconditionée"] = AllOfObject[lst[i]] * 2
+				marchand.inventaire[lst[i]+" reconditionée"] = AllOfObject[lst[i]] * 2
 			} else {
 				fmt.Println("Le marchand ne peut pas t'acheter cette objet")
 				p.Menu()
@@ -71,7 +90,13 @@ func (p *Personnage) Boutique() {
 			}
 			fmt.Printf("Vous avez bien vendu votre objet pour %d€\n", AllOfObject[lst[i]])
 			p.Menu()
+		} else {
+			fmt.Println("Pas compris")
+			p.Boutique()
 		}
+	} else {
+		fmt.Println("Pas compris")
+		p.Boutique()
 	}
 }
 
@@ -118,8 +143,15 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 		return
 	}
 }
-
 func (p *Personnage) Forgeron() {
+
+	fmt.Print("\033[H\033[2J")
+	TermPrint("    ___       __          _                                              	", 1, 1, termbox.ColorCyan)
+	TermPrint("   /   | ____/ /___ ___  (_)___                                            	", 1, 2, termbox.ColorCyan)
+	TermPrint("  / /| |/ __  / __ `__ \\/ / __ \\                                       	", 1, 3, termbox.ColorCyan)
+	TermPrint(" / ___ / /_/ / / / / / / / / / /                   	", 1, 4, termbox.ColorCyan)
+	TermPrint("/_/  |_\\__,_/_/ /_/ /_/_/_/ /_/ 	                        ", 1, 5, termbox.ColorCyan)
+	fmt.Print("\n\n\n\n\n\n")
 	lst := TransvalseList(forgeron.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("L'inventaire du forgeron est composé de")
@@ -128,9 +160,13 @@ func (p *Personnage) Forgeron() {
 	}
 	fmt.Println("\n----------------------")
 	fmt.Print("❖ Que veux tu parmis tous ses objets\n\n\n\n")
-	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
-	i, _ := strconv.Atoi(answer)
+	answer := Scan()               //Le mec il rentre le numero auquel est attribué à son objet
+	i, err := strconv.Atoi(answer) //string en int
 	i -= 1
+	if err != nil {
+		fmt.Println("Pas compris")
+		p.Forgeron()
+	}
 	if p.wallet >= forgeron.inventaire[lst[i]] && p.LimitSpace() {
 		switch answer {
 		case "1":
@@ -151,8 +187,8 @@ func (p *Personnage) Forgeron() {
 					p.AddInventory("clavier mecanique")
 					fmt.Println("tu possèdes maintenant un clavier mecanique")
 					p.Menu()
-				}
-				else {
+				} else {
+
 					p.RemoveInventory("febreze")
 					p.AddInventory("pull ynov")
 					fmt.Println("tu possèdes maintenant un pull ynov ")
@@ -168,21 +204,19 @@ func (p *Personnage) Forgeron() {
 				fmt.Println("tu possèdes maintenant une multiprise")
 				p.wallet -= forgeron.inventaire[lst[i]]
 				p.Menu()
-
-			default: 
+			}
+		default:
 			fmt.Println("je n'ai pas compris ta répone, peux tu repeter ? ")
 			p.Forgeron()
-				}
 		}
-		else{
-			fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
-			p.Forgeron()
-		}
+	} else {
+		fmt.Println("tu ne possèdes pas suffisaement d'argent ou ton invnetiare est plein. reviens plus tard . ")
+		p.Forgeron()
 	}
 }
 
-func (p *Personnage) Equip(){
-	lst := TransvalseList(personnage.inventaire)
+func (p *Personnage) Equip() {
+	lst := TransvalseList(p.inventaire)
 	fmt.Println("-----------------------")
 	fmt.Println("Ton inventaire est composé de")
 	for ind, val := range lst {
@@ -191,4 +225,7 @@ func (p *Personnage) Equip(){
 	fmt.Println("\n----------------------")
 	fmt.Print("❖ Que veux tu equiper parmis tous ses objets\n\n\n\n")
 }
-  
+
+func (p *Personnage) Garden() {
+	fmt.Println("Bienvenue dans la terrasse")
+}

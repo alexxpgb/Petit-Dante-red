@@ -62,16 +62,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 
 	x := 25
 	y := 0
-	var graph [][]rune
-
-	graph = append(graph, []rune("❖ Quel est ton nom ?"))
-	for i := range graph {
-		x := 0
-		for _, char := range graph[i] {
-			tbprint(x, y+i, termbox.ColorDefault, termbox.ColorDefault, char)
-			x += runewidth.RuneWidth(char)
-		}
-	}
+	TermPrint("❖ Quel est ton nom ?", 0, 0, termbox.ColorDefault)
 	inputchek := false
 	for inputchek == false {
 		switch ev := term.PollEvent(); ev.Type {
@@ -85,6 +76,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 					p.name = p.name[:len(p.name)-1]
 					tbprint(x, y, termbox.ColorCyan, termbox.ColorDefault, ' ')
 				} else {
+					fmt.Print("\033[H\033[2J")
 					fmt.Println("Tu veut supprimer quoi la?")
 				}
 
