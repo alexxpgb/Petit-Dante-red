@@ -3,6 +3,7 @@ package piscine
 import (
 	"fmt"
 	"math/rand"
+	"time"
 
 	"github.com/mattn/go-runewidth"
 	"github.com/nsf/termbox-go"
@@ -110,7 +111,12 @@ func (p *Personnage) RemoveInventory(s string) { // la c'est quand on enleve de 
 		}
 	}
 }
-
+func Printtime(story1 string) {
+	for _, c := range story1 {
+		fmt.Print(string(c))
+		time.Sleep(5 * time.Millisecond)
+	}
+}
 func (p Personnage) IsInInventory(s string) bool { // on regarde si c'est dans l'inventaire ou pas
 	for cle := range p.inventaire {
 		if cle == s {

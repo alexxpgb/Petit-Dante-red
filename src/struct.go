@@ -95,14 +95,15 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 		fmt.Print("\033[H\033[2J")
 		fmt.Println("Pseudo non accepté")
 		p.name = ""
-		p.Init()
+		Enter()
+		ReadInputO()
 	}
 	p.name = Capitalize(p.name)
 	p.classe = "info"
 	p.niveau = "B1"
 	p.notemax = 100
 	p.note = 50
-	p.inventaire = map[string]int{"sucette": 2, "totem": 1}
+	p.inventaire = map[string]int{"sucette": 2, "totem": 1, "multiprise": 1}
 	p.leninv = 10
 	p.skills = []string{"python"}
 	p.wallet = 50
@@ -115,6 +116,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.armure.head = "rien"
 	p.armure.body = "rien"
 	p.armure.hand = "rien"
+	p.agilite = 5
 	p.Menu()
 
 }
@@ -178,7 +180,7 @@ func (p *Personnage) inputs(input rune, x, y int) int {
 func (p *Personnage) LevelUp() {
 	if p.exp >= int(p.expmax) {
 		p.exp = int(p.expmax) - p.exp
-		p.expmax *= 1/2 + 1
+		p.expmax *= 1.5
 		if p.niveau == "B1" {
 			p.niveau = "B2"
 			p.notemax *= 1.3
@@ -209,6 +211,8 @@ func (p *Personnage) LevelUp() {
 			fmt.Println("Vous etes au niveau max")
 			Enter()
 		}
+		fmt.Println("Bravo vous avez level up!!!!\nVous êtes maintenant en ", p.niveau)
+		fmt.Printf("\nVous avez évolué voici votre niveau actuel\nNote max : %v←%v\nInitiative : : %v←%v\nForce : %v←%v\nForce vital : %v←%v\nAgilité : %v←%v\n\n\n", p.notemax/1.3, p.notemax, p.initiative/1.3, p.initiative, p.strengh/2, p.strengh, p.intmax/1.3, p.intmax, p.agilite/1.3, p.agilite)
 		p.Display()
 	}
 }
@@ -218,6 +222,7 @@ func (p *Personnage) class() {
 		fmt.Println("❖ Quelle est ta specialisation ?")
 		fmt.Println("-------------------------------")
 		fmt.Println("1/IA data (+ agilite) \n2/infra(+ notemax) \n3/cybersécurité(+ strengh) \n4/dev (+ initiative) ")
+		fmt.Print("-------------------------------\n\n")
 		fmt.Print("❖ Saisie le numéro de ta spécialité\n\n\n\n\n")
 		answer := Scan()
 		if answer == "1" { //Mettre des niveau different selon la classe

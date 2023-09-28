@@ -8,7 +8,8 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-var m Mentor = Mentor{"Eleve", 100, 70, 3, 50, 4, 20}
+var round int = 4
+var m Mentor = Mentor{"Eleve", 100, 50, 3, 50, 4, 20}
 
 func (m *Mentor) MentorPattern(p *Personnage, i int) {
 	if i%3 == 0 { // tous les 3 tour la force du mentor double
@@ -94,6 +95,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 func (m *Mentor) Training(p *Personnage) {
 
 	var count int = 1
+	fmt.Println("Vous êtes rentrés dans le tournoi \nVous êtes au ", round, "round")
 	for p.IsAlive() && m.note > 0 { //Tant qu'il y en a un en vie
 		if p.initiative > m.initiative { //s'il a plus d'initiative que moi il commence
 			time.Sleep(time.Second * 1) //Juste pour que ce soit plus lissible et pratique
@@ -109,16 +111,19 @@ func (m *Mentor) Training(p *Personnage) {
 	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez gagné")
 		p.exp += m.exp
-		p.LevelUp()
 		p.initiative += m.initiative
 		p.wallet += m.wallet
 		p.RandomObjects(0.5)
+		fmt.Println("Vous avez battue ", m.name, " vous gagnez +", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
 		if p.LimitSpace() {
 			p.AddInventory("graine")
 		}
+		p.LevelUp()
+		round--
 		p.Display()
 	} else {
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez perdu")
+		round = 4
 	}
 	Enter()
 	p.Menu()
