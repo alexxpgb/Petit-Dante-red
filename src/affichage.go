@@ -9,7 +9,7 @@ import (
 )
 
 var p Personnage
-var bos map[string]int = map[string]int{"python": 5, "go": 10}
+var bos map[string]int = map[string]int{"python": 5}
 var check bool
 var color termbox.Attribute = termbox.ColorDefault
 
@@ -292,6 +292,9 @@ func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compéte
 		if answint < len(lst) && answint > 0 { // et s'il est proposé dans l'inventaire :
 			p.skills = append(p.skills, lst[answint]) // je l'ajoute a ma liste de skills
 			fmt.Println("Vous avez appris ce skill")
+			if lst[answint] == "go" {
+				bos["go"] = 10
+			}
 			Enter()
 			p.Menu()
 		} else {

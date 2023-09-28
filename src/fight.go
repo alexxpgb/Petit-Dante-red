@@ -85,12 +85,10 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 			} else {
 				fmt.Println("Veuillez choisir une option valide")
 				Enter()
-				m.Training(p)
 			}
 		default:
 			fmt.Println("Veuillez choisir une option valide")
 			Enter()
-			m.Training(p)
 		}
 
 	case "2":
@@ -98,12 +96,12 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 	default:
 		fmt.Println("Veuillez choisir une option valide")
 		Enter()
-		m.Training(p)
 	}
 }
 func (m *Mentor) Battle(p *Personnage) {
 	var count int = 1
 	Printtime("Quelle erreur... Tu vas te combattre contre un mentor. Bonne chance tu en auras besoin")
+	fmt.Println("")
 	for p.IsAlive() && m.note > 0 { //Tant qu'il y en a un en vie
 		if p.initiative > m.initiative { //s'il a plus d'initiative que moi il commence
 			time.Sleep(time.Second * 1) //Juste pour que ce soit plus lissible et pratique
@@ -117,12 +115,15 @@ func (m *Mentor) Battle(p *Personnage) {
 		count++
 	}
 	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
+		fmt.Println("")
 		Printtime("Cela est incroyable mais votre combat est maintenant terminé, vous avez gagné")
+		fmt.Println("")
 		p.exp += m.exp
 		p.initiative += m.initiative
 		p.wallet += m.wallet
 		p.RandomObjects(0.5)
 		fmt.Println("Vous avez raquetté ", m.name, " vous gagnez +", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
+		fmt.Println("")
 		if p.LimitSpace() {
 			p.AddInventory("graine")
 		}

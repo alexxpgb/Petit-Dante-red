@@ -86,13 +86,13 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 		if v == s {
 			if v == "qcm" {
 				fmt.Println(m.name, " utilise le skill qcm")
-				m.note += 10
-				p.note -= 10
+				m.note += 30
+				p.note -= 30
 				fmt.Println(m.name, " t'a volé 10 points de note")
 			}
 			if v == "audi TT" {
 				fmt.Println(m.name, " utilise le skill audi TT")
-				m.initiative += 10
+				m.initiative += 30
 				fmt.Println(m.name, " augmente de 10 points son initiative")
 			}
 			if v == "entretiens" {
@@ -102,13 +102,13 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			}
 			if v == "kimono" {
 				fmt.Println(m.name, " utilise le skill kimono")
-				m.initiative += 10
+				m.initiative += 30
 				fmt.Println(m.name, " augmente de 10 points son initiative")
 			}
 			if v == "jugement" {
 				fmt.Println(m.name, " utilise le skill jugement")
-				m.note += 10
-				p.note -= 10
+				m.note += 30
+				p.note -= 30
 				fmt.Println(m.name, " t'a volé 10 points de note")
 			}
 			if v == "sarcasme" {
@@ -118,7 +118,7 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			}
 			if v == "excès de vitesse" {
 				fmt.Println(m.name, " utilise le skill excès de vitesse")
-				m.initiative += 10
+				m.initiative += 30
 				fmt.Println(m.name, " augmente de 10 points son initiative")
 			}
 			if v == "voleur" {
@@ -148,13 +148,13 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			}
 			if v == "air force one" {
 				fmt.Println(m.name, " utilise le skill air force one")
-				m.initiative += 10
+				m.initiative += 30
 				fmt.Println(m.name, " augmente de 10 points son initiative")
 			}
 			if v == "Ytrack" {
 				fmt.Println(m.name, " utilise le skill Ytrack")
-				m.note += 10
-				p.note -= 10
+				m.note += 30
+				p.note -= 30
 				fmt.Println(m.name, " t'a volé 10 points de note")
 			}
 			if v == "go" {

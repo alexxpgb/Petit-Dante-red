@@ -10,8 +10,8 @@ import (
 )
 
 // J'initialise toute mes variables pour qu'elles soit globale et qu'elle puisse etre modifiée
-var AllOfObject map[string]int = map[string]int{"sucette": 20, "douche": 15, "Skill: go": 20, "febreze": 5, "carte graphique": 5, "souris": 5, "clavier mecanique": 5, "Upgrade inventaire": 20, "skittles": 15, "pull ynov": 20, "multiprise": 15, "casque gaming": 15}
-var marchand Personnage = Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "febreze": 5, "carte graphique": 5, "souris": 5, "clavier mecanique": 5, "Upgrade inventaire": 20, "skittles": 15, "Chat gpt": 150}}
+var AllOfObject map[string]int = map[string]int{"sucette": 20, "douche": 15, "Skill: go": 20, "febreze": 5, "carte graphique": 5, "souris": 5, "clavier mecanique": 5, "Upgrade inventaire": 20, "skittles": 15, "pull ynov": 20, "multiprise": 15, "casque gaming": 15, "Chat gpt": 150}
+var marchand Personnage = Personnage{name: "Arthur", classe: "marchand", inventaire: map[string]int{"sucette": 0, "douche": 15, "Skill: go": 20, "febreze": 5, "carte graphique": 5, "souris": 5, "clavier mecanique": 5, "Upgrade inventaire": 20, "skittles": 15}}
 var forgeron Personnage = Personnage{name: "Vito", classe: "forgeron", inventaire: map[string]int{"casque gaming": 15, "pull ynov": 20, "multiprise": 15}}
 var jardin map[string]int = map[string]int{}
 var min int
@@ -312,52 +312,54 @@ func (p *Personnage) Forgeron() {
 		Enter()
 		p.Forgeron()
 	}
-	if p.wallet >= forgeron.inventaire[lst[i]] && p.LimitSpace() {
-		switch answer {
-		case "1":
-			if p.IsInInventory("carte graphique") && p.IsInInventory("souris") {
-				p.RemoveInventory("carte graphique")
-				p.RemoveInventory("souris")
-				p.AddInventory("casque gaming")
-				p.wallet -= forgeron.inventaire[lst[i]]
-				Enter()
-				p.Menu()
-			}
-		case "2":
-			if p.IsInInventory("febreze") && p.IsInInventory("clavier mecanique") {
-				p.RemoveInventory("clavier mecanique")
-				p.RemoveInventory("febreze")
-				if !p.IsInInventory("febreze") {
-					fmt.Println("Tu n'as pas les objets requis pour te fabriquer cet objet ou t'a plus de place")
-					p.AddInventory("febreze")
-					p.AddInventory("clavier mecanique")
-					Enter()
-					p.Menu()
-				} else {
-					p.RemoveInventory("febreze")
-					p.AddInventory("pull ynov")
-					fmt.Println("tu possèdes maintenant un pull ynov ")
+	if i > 0 && i < 4 {
+		if p.wallet >= forgeron.inventaire[lst[i]] && p.LimitSpace() {
+			switch answer {
+			case "1":
+				if p.IsInInventory("carte graphique") && p.IsInInventory("souris") {
+					p.RemoveInventory("carte graphique")
+					p.RemoveInventory("souris")
+					p.AddInventory("casque gaming")
 					p.wallet -= forgeron.inventaire[lst[i]]
 					Enter()
 					p.Menu()
 				}
-			}
-		case "3":
-			if p.IsInInventory("febreze") && p.IsInInventory("souris") {
-				p.RemoveInventory("febreze")
-				p.RemoveInventory("souris")
-				p.AddInventory("multiprise")
-				fmt.Println("tu possèdes maintenant une multiprise")
-				p.wallet -= forgeron.inventaire[lst[i]]
-				Enter()
+			case "2":
+				if p.IsInInventory("febreze") && p.IsInInventory("clavier mecanique") {
+					p.RemoveInventory("clavier mecanique")
+					p.RemoveInventory("febreze")
+					if !p.IsInInventory("febreze") {
+						fmt.Println("Tu n'as pas les objets requis pour te fabriquer cet objet ou t'a plus de place")
+						p.AddInventory("febreze")
+						p.AddInventory("clavier mecanique")
+						Enter()
+						p.Menu()
+					} else {
+						p.RemoveInventory("febreze")
+						p.AddInventory("pull ynov")
+						fmt.Println("tu possèdes maintenant un pull ynov ")
+						p.wallet -= forgeron.inventaire[lst[i]]
+						Enter()
+						p.Menu()
+					}
+				}
+			case "3":
+				if p.IsInInventory("febreze") && p.IsInInventory("souris") {
+					p.RemoveInventory("febreze")
+					p.RemoveInventory("souris")
+					p.AddInventory("multiprise")
+					fmt.Println("tu possèdes maintenant une multiprise")
+					p.wallet -= forgeron.inventaire[lst[i]]
+					Enter()
+					p.Menu()
+				}
+			case "0":
 				p.Menu()
+			default:
+				fmt.Println("je n'ai pas compris ta réponse, peux tu repeter ? ")
+				Enter()
+				p.Forgeron()
 			}
-		case "0":
-			p.Menu()
-		default:
-			fmt.Println("je n'ai pas compris ta réponse, peux tu repeter ? ")
-			Enter()
-			p.Forgeron()
 		}
 	} else {
 		fmt.Println("tu ne possèdes pas suffisament d'argent ou ton inventaire est plein. reviens plus tard . ")
