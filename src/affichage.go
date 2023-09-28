@@ -252,7 +252,8 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 	fmt.Println("----------------------")
 	fmt.Println("❖ Veux-tu utiliser un de ces objets?")
 	fmt.Println("1- Oui")
-	fmt.Print("2- Non\n\n\n\n\n\n") //Pour qu'on puisse voir l'endroit des réponses
+	fmt.Println("2- Non") //Pour qu'on puisse voir l'endroit des réponses
+	fmt.Print("3- Jeter\n\n\n\n\n\n")
 	switch Scan() {
 	case "1":
 		fmt.Print("❖Lequel?\n\n\n\n\n\n")
@@ -266,6 +267,20 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 		fmt.Println("Alors tu peux continuer")
 		if nb == 1 {
 			p.Menu()
+		}
+	case "3":
+		fmt.Print("❖Lequel?\n\n\n\n\n\n")
+		ans := Scan()
+		if p.IsInInventory(ans) {
+			p.RemoveInventory(ans)
+			fmt.Println("L'objet a été supprimer")
+			Enter()
+			p.Menu()
+		} else {
+			fmt.Println("Cet objet n'est pas dans votre inventaire")
+			if nb == 1 {
+				p.Menu()
+			}
 		}
 	default:
 		fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter? ")
