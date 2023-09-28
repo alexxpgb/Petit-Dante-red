@@ -236,6 +236,7 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 		return
 	}
 }
+
 func (p *Personnage) Forgeron() {
 	fmt.Print("\033[H\033[2J")
 	TermPrint("    ___       __          _                                              	", 1, 1, termbox.ColorCyan)
@@ -417,53 +418,80 @@ func (p *Personnage) Equip() {
 }
 
 func (p *Personnage) Garden() {
-	if p.IsInInventory("graine") {
-		min = time.Now().Minute()
-		fmt.Print("Bienvenue dans la terrasse\nVoulez vous planter votre graine\n1-Oui\n2-Non\n\n\n\n")
-		ans := Scan()
+	min = time.Now().Minute()
+	fmt.Println("Bienvenue dans la terrasse")
+	if Len(jardin) == 0 {
+		fmt.Println("Votre jardin est vide")
+	} else {
+		fmt.Println("Voici votre jardin")
+		for val := range jardin {
+			jardin[val] += min
+			fmt.Println(val, jardin[val], "point de puissance")
+		}
+	}
+	fmt.Print("Voulez vous planter votre graine\n1-Oui\n2-Non\n\n\n\n")
+	ans := Scan()
+	if ans == "1" && p.IsInInventory("graine") {
+		if Len(jardin) == 0 {
+			jardin["graine 1"] = 0
+			fmt.Println("Vous avez ajouté une graine")
+			p.RemoveInventory("graine")
+			Enter()
+			p.Menu()
+		}
+		jardin["graine "+strconv.Itoa(Len(jardin)+1)] = 0
+		fmt.Println("Vous avez ajouté une graine")
+		fmt.Print("Veux tu recolter une graine\n1-Oui\n2-Non\n\n\n\n")
+		ans = Scan()
 		if ans == "1" {
-			if Len(jardin) == 0 {
-				jardin["graine 1"] = 0
-				fmt.Println("Vous avez ajouté une graine")
-				Enter()
-				p.Menu()
-			}
-			fmt.Println("Voici votre jardin")
-			jardin["graine "+strconv.Itoa(Len(jardin)+1)] = 0
-			for val, cle := range jardin {
-				jardin[val] = cle + min
-				fmt.Println(val, cle, "point de puissance")
-			}
-			fmt.Print("Veux tu recolter une graine\n1-Oui\n2-Non\n\n\n\n")
+			fmt.Print("Laquelle?\n\n\n\n")
 			ans = Scan()
-			if ans == "1" {
-				fmt.Print("Laquelle?\n\n\n\n")
-				ans = Scan()
+			p.strengh += float64(jardin[ans])
+			delete(jardin, ans)
+			fmt.Println("Ta force est à", p.strengh)
+			Enter()
+			p.Menu()
+		} else if ans == "2" {
+			fmt.Println("Dégage")
+			Enter()
+			p.Menu()
+		} else {
+			fmt.Println("Pas compris")
+			Enter()
+			p.Garden()
+		}
+	} else if ans == "2" && Len(jardin) > 0 {
+		fmt.Println("Veux tu recolter une graine\n1-Oui\n2-Non\n\n\n\n")
+		ans = Scan()
+		if ans == "1" {
+			fmt.Print("Laquelle?\n\n\n\n")
+			ans = Scan()
+			if IsInMap(jardin, ans) {
 				p.strengh += float64(jardin[ans])
 				delete(jardin, ans)
 				fmt.Println("Ta force est à", p.strengh)
 				Enter()
 				p.Menu()
-			} else if ans == "2" {
-				fmt.Println("Dégage")
-				Enter()
-				p.Menu()
 			} else {
-				fmt.Println("Pas compris")
+				fmt.Println("Il faut mettre une graine qui fait partie de ton jardin")
 				Enter()
 				p.Garden()
 			}
-		} else if ans == "2" && Len(jardin) > 0 {
+		} else if ans == "2" {
 			fmt.Println("Dégage")
 			Enter()
 			p.Menu()
+		} else {
+			fmt.Println("Pas compris")
+			Enter()
+			p.Garden()
 		}
-		fmt.Println("Pas compris")
-		Enter()
-		p.Garden()
-	} else {
-		fmt.Println("T'as pas de graine salaud")
+	} else if ans == "1" {
+		fmt.Println("Tu n'as pas de graine ")
 		Enter()
 		p.Menu()
 	}
+	fmt.Println("Tu ne peux rien faire ici alors")
+	Enter()
+	p.Menu()
 }

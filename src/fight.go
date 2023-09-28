@@ -95,7 +95,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 func (m *Mentor) Training(p *Personnage) {
 
 	var count int = 1
-	fmt.Println("Vous êtes rentrés dans le tournoi \nVous êtes au ", round, "round")
+	fmt.Println("Vous êtes rentrés dans le tournoi \nVous êtes au ", round, " round")
 	for p.IsAlive() && m.note > 0 { //Tant qu'il y en a un en vie
 		if p.initiative > m.initiative { //s'il a plus d'initiative que moi il commence
 			time.Sleep(time.Second * 1) //Juste pour que ce soit plus lissible et pratique

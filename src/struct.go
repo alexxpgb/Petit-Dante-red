@@ -103,7 +103,7 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.niveau = "B1"
 	p.notemax = 100
 	p.note = 50
-	p.inventaire = map[string]int{"sucette": 2, "totem": 1, "multiprise": 1}
+	p.inventaire = map[string]int{"sucette": 2, "totem": 1}
 	p.leninv = 10
 	p.skills = []string{"python"}
 	p.wallet = 50
