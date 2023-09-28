@@ -42,6 +42,7 @@ type Mentor struct {
 	wallet     int
 	initiative float64
 	exp        int
+	skill      []string
 }
 
 func (m *Mentor) InitMentor() {

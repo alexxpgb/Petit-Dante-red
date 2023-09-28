@@ -69,9 +69,106 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 				p.TakeInt(nb)
 				return
 			}
+			if cle == "Chat gpt" {
+				p.armure.hand = "Chat gpt"
+				p.RemoveInventory("Chat gpt")
+				fmt.Println((" Chat gpt est maintenant equipée "))
+				p.strengh += 30
+				return
+			}
 		}
 	}
 	fmt.Println("Vous n'avez pas cet objet dans votre inventaire")
+}
+
+func (p *Personnage) UseSkills(m *Mentor, s string) {
+	for _, v := range m.skill {
+		if v == s {
+			if v == "qcm" {
+				fmt.Println(m.name, " utilise le skill qcm")
+				m.note += 10
+				p.note -= 10
+				fmt.Println(m.name, " t'a volé 10 points de note")
+			}
+			if v == "audi TT" {
+				fmt.Println(m.name, " utilise le skill audi TT")
+				m.initiative += 10
+				fmt.Println(m.name, " augmente de 10 points son initiative")
+			}
+			if v == "entretiens" {
+				fmt.Println(m.name, " utilise le skill entretiens")
+				p.note -= m.strengh
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+			if v == "kimono" {
+				fmt.Println(m.name, " utilise le skill kimono")
+				m.initiative += 10
+				fmt.Println(m.name, " augmente de 10 points son initiative")
+			}
+			if v == "jugement" {
+				fmt.Println(m.name, " utilise le skill jugement")
+				m.note += 10
+				p.note -= 10
+				fmt.Println(m.name, " t'a volé 10 points de note")
+			}
+			if v == "sarcasme" {
+				fmt.Println(m.name, " utilise le skill sarcasme")
+				p.note -= m.strengh
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+			if v == "excès de vitesse" {
+				fmt.Println(m.name, " utilise le skill excès de vitesse")
+				m.initiative += 10
+				fmt.Println(m.name, " augmente de 10 points son initiative")
+			}
+			if v == "voleur" {
+				fmt.Println(m.name, " utilise le skill voleur")
+				fmt.Println(m.name, " t'a volé ton skill")
+				a := rand.Intn(len(p.skills))
+				a--
+				for _, c := range p.skills {
+					if c != v {
+						m.skill = append(m.skill, c)
+					} else {
+						m.skill = append(m.skill, p.skills[a])
+					}
+				}
+				p.skills = append(p.skills[:a], p.skills[a+1:]...)
+
+			}
+			if v == "origami" {
+				fmt.Println(m.name, " utilise le skill origami")
+				p.note -= m.strengh
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+			if v == "live coding" {
+				fmt.Println(m.name, " utilise le skill live coding")
+				p.note -= m.strengh
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+			if v == "air force one" {
+				fmt.Println(m.name, " utilise le skill air force one")
+				m.initiative += 10
+				fmt.Println(m.name, " augmente de 10 points son initiative")
+			}
+			if v == "Ytrack" {
+				fmt.Println(m.name, " utilise le skill Ytrack")
+				m.note += 10
+				p.note -= 10
+				fmt.Println(m.name, " t'a volé 10 points de note")
+			}
+			if v == "go" {
+				fmt.Println(m.name, " utilise le skill go \"volé\"")
+				p.note -= m.strengh
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+			if v == "python" {
+				fmt.Println(m.name, " utilise le skill go \"volé\"")
+				p.note -= m.strengh / 2
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+		}
+	}
 }
 
 func (p *Personnage) AddInventory(s string) { // quand t'ajoute un item kékiçepasse ?

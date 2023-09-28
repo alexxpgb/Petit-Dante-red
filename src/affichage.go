@@ -9,7 +9,7 @@ import (
 )
 
 var p Personnage
-var bos map[string]int = map[string]int{"python": 5}
+var bos map[string]int = map[string]int{"python": 5, "go": 10}
 var check bool
 var color termbox.Attribute = termbox.ColorDefault
 
@@ -329,70 +329,119 @@ func (p *Personnage) Story() {
 		Printtime(" Ces quêtes étaient réputées pour être extrêmement difficiles, et peu d'étudiants les avaient réussies par le passé")
 		fmt.Println("")
 		fmt.Println("")
+		var Alan Mentor = Mentor{"Alan", 300, 150, 40, 500, 50, 500, []string{"qcm", "audi TT", "entretiens"}}
+		var Ethan Mentor = Mentor{"Ethan", 300, 170, 40, 300, 435, 500, []string{"kimono", "jugement", "sarcasme"}}
+		var Kheir Mentor = Mentor{"Kheir", 200, 100, 30, 150, 7, 250, []string{"excès de vitesse", "voleur", "origami"}}
+		var Cyril Mentor = Mentor{"Cyril", 200, 100, 20, 150, 50, 250, []string{"live coding", "air force one", "Ytrack"}}
 		Printtime("4 mentors viennent Alan ,Ethan ,Kheir ,et Cyril un combat va arriver")
 		fmt.Println("")
-		Printtime("Choissisez votre adversaire")
-		fmt.Println("")
-		Printtime("1/Alan")
-		fmt.Println("")
-		Printtime("2/Ethan")
-		fmt.Println("")
-		Printtime("3/Kheir")
-		fmt.Println("")
-		Printtime("4/Cyril")
-		fmt.Println("")
-		var Alan Mentor = Mentor{"Alan", 285, 142, 24, 500, 35, 500}
-		var Ethan Mentor = Mentor{"Ethan", 285, 160, 24, 300, 435, 500}
-		var Kheir Mentor = Mentor{"Kheir", 170, 85, 20, 150, 7, 250}
-		var Cyril Mentor = Mentor{"Cyril", 170, 85, 15, 150, 20, 250}
-		answer := Scan()
-		switch answer {
-		case "1":
-			Alan.Training(p)
+		for Alan.note > 0 && Ethan.note > 0 && Kheir.note > 0 && Cyril.note > 0 {
+			Printtime("Choissisez votre adversaire(0 pour partir)")
+			if Alan.note > 0 {
+				fmt.Println("")
+				Printtime("1/Alan")
+			}
+			if Ethan.note > 0 {
+				fmt.Println("")
+				Printtime("2/Ethan")
+			}
+			if Kheir.note > 0 {
+				fmt.Println("")
+				Printtime("3/Kheir")
+			}
+			if Cyril.note > 0 {
+				fmt.Println("")
+				Printtime("4/Cyril")
+			}
 			fmt.Println("")
-			fmt.Print(p.name)
-			Printtime(" rencontra le mentor Allan.")
-			fmt.Println("")
-			Printtime("Il était un expert en dev d’appli et défia ")
-			fmt.Print(p.name)
-			Printtime(" de maîtriser les techniques lunar et de capacitor les plus avancées. ")
-			fmt.Println("")
-			fmt.Print(p.name)
-			Printtime(" fut envoyé dans une forêt mystérieuse où il dut affronter des créatures légendaires et maîtriser les mouvements complexes du my sql .")
-			fmt.Println("")
-			Printtime(" Il était déterminé à ne pas échouer, car il savait que son avenir à Ynov en dépendait.")
-		case "2":
-			Ethan.Training(p)
-			fmt.Println("")
-			fmt.Print(p.name)
-			Printtime(" rencontra le mentor Ethan,il était un génie en dev gaming.")
-			fmt.Println("")
-			Printtime(" Il posa à ")
-			fmt.Print(p.name)
-			Printtime(" un défi intellectuel qui le plongea dans un labyrinthe de problèmes mathématiques complexes et d'expériences scientifiques dangereuses.")
-			fmt.Println("")
-			fmt.Print(p.name)
-			Printtime(" passa des nuits blanches à résoudre des énigmes, mais il ne se laissa pas décourager.")
-		case "3":
-			Kheir.Training(p)
-			Printtime("Lucas rencontra le mentor Kheir-Eddine, il était un philosophe renommé qui enseignait la sagesse et la réflexion profonde. Il guida Lucas dans une quête intérieure pour explorer ses croyances et ses valeurs, l'aidant à trouver un sens plus profond dans son parcours éducatif. Sous la direction de Kheir-Eddine, Lucas apprit à réfléchir de manière critique et à prendre des décisions éclairées.")
-		case "4":
-			Cyril.Training(p)
-			fmt.Println("")
-			fmt.Print(p.name)
-			Printtime(" rencontra le mystérieux Cyril, un artiste renommé.")
-			fmt.Println("")
-			Printtime(" Il demanda à ")
-			fmt.Print(p.name)
-			Printtime(" de créer une œuvre d'art qui refléterait son âme.")
-			fmt.Println("")
-			fmt.Print(p.name)
-			Printtime(" se mit à travailler sur une toile géante, exprimant ses émotions les plus profondes à travers la peinture.")
-			fmt.Println("")
-			Printtime(" Il découvrit que l'art était bien plus qu'une simple technique, c'était une façon de communiquer avec son moi intérieur.")
 
-		default:
-			fmt.Println("No comprendo")
+			answer := Scan()
+
+			switch answer {
+			case "1":
+				Alan.Battle(p)
+				if Alan.note > 0 {
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" rencontra le mentor Allan.")
+					fmt.Println("")
+					Printtime("Il était un expert en dev d’appli et défia ")
+					fmt.Print(p.name)
+					Printtime(" de maîtriser les techniques lunar et de capacitor les plus avancées. ")
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" fut envoyé dans une forêt mystérieuse où il dut affronter des créatures légendaires et maîtriser les mouvements complexes du my sql .")
+					fmt.Println("")
+					Printtime(" Il était déterminé à ne pas échouer, car il savait que son avenir à Ynov en dépendait.")
+				} else {
+					Printtime("Bon tu peux revenir quand tu auras le niveau")
+					Alan = Mentor{"Alan", 300, 150, 40, 500, 50, 500, []string{"qcm", "audi TT", "entretiens"}}
+					p.Menu()
+				}
+			case "2":
+				Ethan.Battle(p)
+				if Ethan.note > 0 {
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" rencontra le mentor Ethan,il était un génie en dev gaming.")
+					fmt.Println("")
+					Printtime(" Il posa à ")
+					fmt.Print(p.name)
+					Printtime(" un défi intellectuel qui le plongea dans un labyrinthe de problèmes mathématiques complexes et d'expériences scientifiques dangereuses.")
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" passa des nuits blanches à résoudre des énigmes, mais il ne se laissa pas décourager.")
+				} else {
+					Printtime("Bon tu peux revenir quand tu auras le niveau")
+					Ethan = Mentor{"Ethan", 300, 170, 40, 300, 435, 500, []string{"kimono", "jugement", "sarcasme"}}
+					p.Menu()
+				}
+			case "3":
+				Kheir.Battle(p)
+				if Kheir.note > 0 {
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" rencontra le mentor Kheir-Eddine, il était un philosophe renommé qui enseignait la sagesse et la réflexion profonde.")
+					fmt.Println("")
+					Printtime("Il guida ")
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" dans une quête intérieure pour explorer ses croyances et ses valeurs, l'aidant à trouver un sens plus profond dans son parcours éducatif.")
+					fmt.Println("")
+					fmt.Println("Sous la direction de Kheir-Eddine, ")
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" apprit à réfléchir de manière critique et à prendre des décisions éclairées.")
+				} else {
+					Printtime("Bon tu peux revenir quand tu auras le niveau")
+					Kheir = Mentor{"Kheir", 200, 100, 30, 150, 7, 250, []string{"excès de vitesse", "voleur", "origami"}}
+					p.Menu()
+				}
+			case "4":
+				Cyril.Battle(p)
+				if Cyril.note > 0 {
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" rencontra le mystérieux Cyril, un artiste renommé.")
+					fmt.Println("")
+					Printtime(" Il demanda à ")
+					fmt.Print(p.name)
+					Printtime(" de créer une œuvre d'art qui refléterait son âme.")
+					fmt.Println("")
+					fmt.Print(p.name)
+					Printtime(" se mit à travai,ller sur une toile géante, exprimant ses émotions les plus profondes à travers la peinture.")
+					fmt.Println("")
+					Printtime(" Il découvrit que l'art était bien plus qu'une simple technique, c'était une façon de communiquer avec son moi intérieur.")
+				} else {
+					Printtime("Bon tu peux revenir quand tu auras le niveau")
+					Cyril = Mentor{"Cyril", 200, 100, 20, 150, 50, 250, []string{"live coding", "air force one", "Ytrack"}}
+					p.Menu()
+				}
+			case "0":
+				p.Menu()
+			default:
+				fmt.Println("No comprendo")
+			}
 		}
 		Printtime("Lors de la cérémonie de remise des diplômes, les mentors lui remirent son parchemin avec fierté.")
 		Printtime(" Ils avaient vu en ")

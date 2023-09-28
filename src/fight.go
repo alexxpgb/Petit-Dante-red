@@ -9,23 +9,33 @@ import (
 )
 
 var round int = 4
-var m Mentor = Mentor{"Eleve", 100, 50, 3, 50, 4, 20}
+var m Mentor = Mentor{"Eleve", 100, 50, 3, 65, 4, 40, []string{}}
 
 func (m *Mentor) MentorPattern(p *Personnage, i int) {
-	if i%3 == 0 { // tous les 3 tour la force du mentor double
-		p.note -= m.strengh * 2
-		Enter()
-		fmt.Print("\033[H\033[2J")
-		TermPrint("Damage Critique", 20, 0, termbox.ColorRed)
-		fmt.Printf("\n%s a attaqué %s de %v point de degats \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh*2, p.note, p.notemax)
-		if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
-			p.Redouble()
+	if m.name == "Eleve" {
+		if i%3 == 0 { // tous les 3 tour la force du mentor double
+			p.note -= m.strengh * 2
+			Enter()
+			fmt.Print("\033[H\033[2J")
+			TermPrint("Damage Critique", 20, 0, termbox.ColorRed)
+			fmt.Printf("\n%s a attaqué %s de %v point de degats \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh*2, p.note, p.notemax)
+			if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
+				p.Redouble()
+			}
+		} else {
+			p.note -= m.strengh //Mon perso prend des dégats aie
+			fmt.Printf("%s a attaqué %s de %v point de degats \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh, p.note, p.notemax)
+			if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
+				p.Redouble()
+			}
 		}
 	} else {
-		p.note -= m.strengh //Mon perso prend des dégats aie
-		fmt.Printf("%s a attaqué %s de %v point de degats \nTu est maintenant à %v/%v\n\n", m.name, p.name, m.strengh, p.note, p.notemax)
-		if !p.IsAlive() { //Je regarde s'il est vivant et s'il peut ressuciter
-			p.Redouble()
+		if rand.Intn(3) == 1 {
+			p.UseSkills(m, m.skill[0])
+		} else if rand.Intn(3) == 2 {
+			p.UseSkills(m, m.skill[1])
+		} else if rand.Intn(3) == 3 {
+			p.UseSkills(m, m.skill[2])
 		}
 	}
 
@@ -91,7 +101,36 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 		m.Training(p)
 	}
 }
-
+func (m *Mentor) Battle(p *Personnage) {
+	var count int = 1
+	Printtime("Quelle erreur... Tu vas te combattre contre un mentor. Bonne chance tu en auras besoin")
+	for p.IsAlive() && m.note > 0 { //Tant qu'il y en a un en vie
+		if p.initiative > m.initiative { //s'il a plus d'initiative que moi il commence
+			time.Sleep(time.Second * 1) //Juste pour que ce soit plus lissible et pratique
+			p.CharTurn(m)
+			m.MentorPattern(p, count)
+		} else {
+			time.Sleep(time.Second * 1)
+			m.MentorPattern(p, count)
+			p.CharTurn(m)
+		}
+		count++
+	}
+	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
+		Printtime("Cela est incroyable mais votre combat est maintenant terminé, vous avez gagné")
+		p.exp += m.exp
+		p.initiative += m.initiative
+		p.wallet += m.wallet
+		p.RandomObjects(0.5)
+		fmt.Println("Vous avez raquetté ", m.name, " vous gagnez +", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
+		if p.LimitSpace() {
+			p.AddInventory("graine")
+		}
+		p.LevelUp()
+	} else {
+		Printtime("Qu'est ce que je vous ai dit KO premier round")
+	}
+}
 func (m *Mentor) Training(p *Personnage) {
 
 	var count int = 1
@@ -114,13 +153,42 @@ func (m *Mentor) Training(p *Personnage) {
 		p.initiative += m.initiative
 		p.wallet += m.wallet
 		p.RandomObjects(0.5)
-		fmt.Println("Vous avez battue ", m.name, " vous gagnez +", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
+		fmt.Println("Vous avez raquetté ", m.name, " vous gagnez +", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
 		if p.LimitSpace() {
 			p.AddInventory("graine")
 		}
 		p.LevelUp()
 		round--
+		if round == 3 {
+			m.name = "Eleve"
+			m.notemax = 100
+			m.note = 65
+			m.strengh = 5
+			m.wallet = 80
+			m.initiative = 10
+			m.exp = 50
+		} else if round == 2 {
+			m.name = "Eleve"
+			m.notemax = 100
+			m.note = 100
+			m.strengh = 7
+			m.wallet = 100
+			m.initiative = 18
+			m.exp = 70
+		} else if round == 1 {
+			m.name = "Antoine"
+			m.notemax = 120
+			m.note = 120
+			m.strengh = 13
+			m.wallet = 120
+			m.initiative = 50
+			m.exp = 100
+		} else {
+			fmt.Println("Bravo vous avez gagner le tournoi\nRegarde la Peda ;)")
+			marchand.inventaire["Chat gpt"] = 150
+		}
 		p.Display()
+
 	} else {
 		fmt.Println("Votre échauffement est maintenant terminé, vous avez perdu")
 		round = 4
