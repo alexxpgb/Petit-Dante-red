@@ -59,12 +59,12 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 		switch b {
 		case "1":
 			m.note -= int(p.strengh) / 2
-			fmt.Printf("%s a attaqué %s de %v point de degats \nIl est maintenant à %v/%v\n", p.name, m.name, int(p.strengh)/2, m.note, m.notemax)
+			fmt.Printf("%s a attaqué %s de %v points de degats \nIl est maintenant à %v/%v\n", p.name, m.name, int(p.strengh)/2, m.note, m.notemax)
 		case "2": // A revoir
 			if p.energy-bos["python"] >= 0 {
 				p.energy -= bos["python"]
 				m.note -= int(p.strengh)
-				fmt.Printf("%s a attaqué %s de %v point de degats \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh, m.note, m.notemax)
+				fmt.Printf("%s a attaqué %s de %v points de degats \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh, m.note, m.notemax)
 			} else {
 				fmt.Println("Tu n'a plus assez d'energie")
 				Enter()
@@ -77,7 +77,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 					if p.energy-bos["go"] >= 0 {
 						p.energy -= bos["go"]
 						m.note -= int(p.strengh) * 2
-						fmt.Printf("%s a attaqué %s de %v point de degats \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh*2, m.note, m.notemax)
+						fmt.Printf("%s a attaqué %s de %v points de degats \nIl est maintenant à %v/%v\n", p.name, m.name, p.strengh*2, m.note, m.notemax)
 					}
 				} else {
 					fmt.Println("Tu as raté ton coup")
@@ -100,7 +100,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 }
 func (m *Mentor) Battle(p *Personnage) {
 	var count int = 1
-	Printtime("Quelle erreur... Tu vas te combattre contre un mentor. Bonne chance tu en auras besoin")
+	Printtime("Quelle erreur... Tu vas te combattre contre un mentor. Bonne chance, tu en auras besoin")
 	fmt.Println("")
 	for p.IsAlive() && m.note > 0 { //Tant qu'il y en a un en vie
 		if p.initiative > m.initiative { //s'il a plus d'initiative que moi il commence
@@ -116,7 +116,7 @@ func (m *Mentor) Battle(p *Personnage) {
 	}
 	if p.IsAlive() { //A finir normalement il devrait gagner des trucs s'il gagne genre exp initiative et sous peut être même des objets
 		fmt.Println("")
-		Printtime("Cela est incroyable mais votre combat est maintenant terminé, vous avez gagné")
+		Printtime("Cela parrait incroyable mais votre combat est maintenant terminé, vous avez gagné")
 		fmt.Println("")
 		p.exp += m.exp
 		p.initiative += m.initiative
@@ -186,7 +186,7 @@ func (m *Mentor) Training(p *Personnage) {
 			m.initiative = 50
 			m.exp = 100
 		} else {
-			fmt.Println("Bravo vous avez gagner le tournoi\nRegarde la Peda ;)")
+			fmt.Println("Bravo vous avez gagné le tournoi\nRegarde la Peda ;)")
 			marchand.inventaire["Chat gpt"] = 150
 		}
 		p.Display()

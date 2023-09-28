@@ -218,19 +218,19 @@ func (p *Personnage) LevelUp() {
 			Enter()
 		}
 		fmt.Println("Bravo vous avez level up!!!!\nVous êtes maintenant en ", p.niveau)
-		fmt.Printf("\nVous avez évolué voici votre niveau actuel\nNote max : %v→%v\nInitiative : : %v→%v\nForce : %v→%v\nForce vital : %v→%v\nAgilité : %v→%v\n\n\n", p.notemax/1.3, p.notemax, p.initiative/1.3, p.initiative, p.strengh/2, p.strengh, p.intmax/1.3, p.intmax, p.agilite/1.3, p.agilite)
+		fmt.Printf("\nVous avez évolué, voici votre niveau actuel\nNote max : %v→%v\nInitiative : : %v→%v\nForce : %v→%v\nForce vital : %v→%v\nAgilité : %v→%v\n\n\n", p.notemax/1.3, p.notemax, p.initiative/1.3, p.initiative, p.strengh/2, p.strengh, p.intmax/1.3, p.intmax, p.agilite/1.3, p.agilite)
 	}
 }
 
 func (p *Personnage) class() {
 	if p.niveau == "B3" {
-		fmt.Println("❖ Quelle est ta specialisation ?")
+		fmt.Println("❖ Quelle est ta spécialité ?")
 		fmt.Println("-------------------------------")
 		fmt.Println("1/IA data (+ agilite) \n2/infra(+ notemax) \n3/cybersécurité(+ strengh) \n4/dev (+ initiative) ")
 		fmt.Print("-------------------------------\n\n")
 		fmt.Print("❖ Saisie le numéro de ta spécialité\n\n\n\n\n")
 		answer := Scan()
-		if answer == "1" { //Mettre des niveau different selon la classe
+		if answer == "1" { //Mettre des niveaux differents selon la classe
 			p.classe = "IA data"
 			p.notemax *= 1.3
 			p.initiative *= 1.3

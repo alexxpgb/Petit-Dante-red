@@ -36,7 +36,7 @@ func (p *Personnage) Boutique() {
 	fmt.Print("❖ Veux tu quelque chose parmi tous ses objets ou peut être vendre\n1-Acheter\n2-Vendre\n\n\n\n")
 	answer := Scan()
 	if answer == "1" {
-		fmt.Print("Quel objet veut tu ?\n\n\n\n\n")
+		fmt.Print("Quel objet veux tu ?\n\n\n\n\n")
 		ans := Scan()               //Le mec il rentre le numero auquel est attribué son objet
 		i, err := strconv.Atoi(ans) //string en int
 		i -= 1                      //Pour avoir un indice de 0
@@ -60,17 +60,17 @@ func (p *Personnage) Boutique() {
 				Enter()
 				p.Menu()
 			} else {
-				fmt.Println("Pas sur que tu peux te payer ça ou tu n'as pas assez de place dans ton inventaire")
+				fmt.Println("Pas sur que tu puisses te payer ça ou tu n'as pas assez de place dans ton inventaire")
 				Enter()
 				p.Menu() //Je reviens au menu dans tous les cas
 			}
 		}
-		fmt.Printf("%v J'attendais le numero de l'objet que tu voulais acheter\n", ans)
+		fmt.Printf("%v J'attendais le numéro de l'objet que tu voulais acheter\n", ans)
 		Enter()
 		p.Menu()
 	} else if answer == "2" {
 		if !p.IsInInventory("casque gaming") && !p.IsInInventory("pull ynov") && !p.IsInInventory("multiprise") {
-			fmt.Println("La peda n'accepte que les équipement ")
+			fmt.Println("La peda n'accepte que les équipements ")
 			Enter()
 			p.Menu()
 		}
@@ -184,7 +184,7 @@ func (p *Personnage) Boutique() {
 					}
 				}
 			} else {
-				fmt.Println("Vous n'avez pas selectionner l'index indiqué ou vous n'avez pas la place nécessaire")
+				fmt.Println("Vous n'avez pas selectionné l'index indiqué ou vous n'avez pas la place nécessaire")
 			}
 		}
 	}
@@ -198,7 +198,7 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 	for cle := range p.inventaire {
 		if cle == "skittles" { //On parcours l'inventaire et si on a la skittles on l'utilise
 			if p.energy > int(p.intmax)-20 { //La skittles rapporte un +20 à ta note donc si tu l'utilise et que tu deborde sur ta note max y a un affichage diff
-				fmt.Println("❖ Est tu sur de vouloir utiliser un skittles")
+				fmt.Println("❖ Es tu sur de vouloir utiliser un skittles")
 				fmt.Println("1 pour oui")
 				fmt.Print("2 pour non\n\n\n\n")
 				switch Scan() {
@@ -208,13 +208,13 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 						delete(p.inventaire, "skittles")
 					}
 					p.energy = int(p.intmax) //Dans le cas où ma note est superieur à ma note max - ma skittles donc ma note est au max car ma skittles fait un +20
-					fmt.Println("Tu as pris une skittles tu à maintenant", p.energy, "energie")
+					fmt.Println("Tu as pris un skittles tu à maintenant", p.energy, "energie")
 					a = true
 				case "2":
 					fmt.Println("Fais plus attention la prochaine fois")
 					a = true
 				default:
-					fmt.Println("Tu peux répéter ?")
+					fmt.Println(" Peux tu répéter ?")
 					p.TakeInt(nb) //On le relance
 
 				}
@@ -300,7 +300,7 @@ func (p *Personnage) Forgeron() {
 		}
 	}
 	fmt.Println("\n\n\n\n-------------------------------------")
-	fmt.Print("❖ Que veux tu parmis tous ces objets\n\n\n\n")
+	fmt.Print("❖ Que veux tu parmi tous ces objets\n\n\n\n")
 	answer := Scan() //Le mec il rentre le numero auquel est attribué à son objet
 	if answer == "0" {
 		p.Menu()
@@ -329,7 +329,7 @@ func (p *Personnage) Forgeron() {
 					p.RemoveInventory("clavier mecanique")
 					p.RemoveInventory("febreze")
 					if !p.IsInInventory("febreze") {
-						fmt.Println("Tu n'as pas les objets requis pour te fabriquer cet objet ou t'a plus de place")
+						fmt.Println("Tu n'as pas les objets requis pour te fabriquer cet objet ou tu n'as plus de place")
 						p.AddInventory("febreze")
 						p.AddInventory("clavier mecanique")
 						Enter()
@@ -356,7 +356,7 @@ func (p *Personnage) Forgeron() {
 			case "0":
 				p.Menu()
 			default:
-				fmt.Println("je n'ai pas compris ta réponse, peux tu repeter ? ")
+				fmt.Println("je n'ai pas compris ta réponse, peux tu répéter ? ")
 				Enter()
 				p.Forgeron()
 			}
@@ -366,7 +366,7 @@ func (p *Personnage) Forgeron() {
 		Enter()
 		p.Menu()
 	}
-	fmt.Println("Tu n'as pas les objets requis pour te fabriquer cet objet ou t'a plus de place")
+	fmt.Println("Tu n'as pas les objets requis pour te fabriquer cet objet ou tu n'as plus de place")
 	Enter()
 	p.Menu()
 }
@@ -379,7 +379,7 @@ func (p *Personnage) Equip() {
 		fmt.Printf("๑ %d %s pour %d € \n", ind+1, val, p.inventaire[val]) //le ind il sert juste pour numeroter les items la clé est le nom de l'objet et val est le montant
 	}
 	fmt.Println("\n----------------------")
-	fmt.Print("❖ Que veux tu equiper parmis tous ces objets\n\n\n\n")
+	fmt.Print("❖ Que veux tu équiper parmi tous ces objets\n\n\n\n")
 	answer := Scan()
 	i, err := strconv.Atoi(answer)
 	i -= 1
@@ -392,7 +392,7 @@ func (p *Personnage) Equip() {
 	case "1":
 		p.armure.body = "pull ynov"
 		p.RemoveInventory("pull ynov")
-		fmt.Println(("Ton pull ynov est maintenant equipé "))
+		fmt.Println(("Ton pull ynov est maintenant équipé "))
 		p.notemax += 10
 		p.note += 10
 		Enter()
@@ -400,20 +400,20 @@ func (p *Personnage) Equip() {
 	case "2":
 		p.armure.hand = "multiprise"
 		p.RemoveInventory("multiprise")
-		fmt.Println((" ta multiprise est maintenant equipée "))
+		fmt.Println((" ta multiprise est maintenant équipée "))
 		p.strengh += 10
 		Enter()
 		p.Menu()
 	case "3":
 		p.armure.head = "casque gaming"
 		p.RemoveInventory("casque gaming")
-		fmt.Println((" ton casque gaming est maintenant equipé "))
+		fmt.Println((" ton casque gaming est maintenant équipé "))
 		p.intmax += 10
 		p.energy += 10
 		Enter()
 		p.Menu()
 	default:
-		fmt.Println("je n'ai pas compris ta réponse, peux tu repeter ? ")
+		fmt.Println("je n'ai pas compris ta réponse, peux tu répéter ? ")
 		Enter()
 		p.Equip()
 	}
@@ -428,7 +428,7 @@ func (p *Personnage) Garden() {
 		fmt.Println("Voici votre jardin")
 		for val := range jardin {
 			jardin[val] += min
-			fmt.Println(val, jardin[val], "point de puissance")
+			fmt.Println(val, jardin[val], "points de puissance")
 		}
 	}
 	fmt.Print("Voulez vous planter votre graine\n1-Oui\n2-Non\n\n\n\n")
@@ -443,7 +443,7 @@ func (p *Personnage) Garden() {
 		}
 		jardin["graine "+strconv.Itoa(Len(jardin)+1)] = 0
 		fmt.Println("Vous avez ajouté une graine")
-		fmt.Print("Veux tu recolter une graine\n1-Oui\n2-Non\n\n\n\n")
+		fmt.Print("Veux tu récolter une graine\n1-Oui\n2-Non\n\n\n\n")
 		ans = Scan()
 		if ans == "1" {
 			fmt.Print("Laquelle?\n\n\n\n")
@@ -463,7 +463,7 @@ func (p *Personnage) Garden() {
 			p.Garden()
 		}
 	} else if ans == "2" && Len(jardin) > 0 {
-		fmt.Println("Veux tu recolter une graine\n1-Oui\n2-Non\n\n\n\n")
+		fmt.Println("Veux tu récolter une graine\n1-Oui\n2-Non\n\n\n\n")
 		ans = Scan()
 		if ans == "1" {
 			fmt.Print("Laquelle?\n\n\n\n")

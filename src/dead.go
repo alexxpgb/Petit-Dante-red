@@ -46,7 +46,7 @@ func (p *Personnage) TakePot(nb int) {
 					fmt.Println("Fais plus attention la prochaine fois")
 					a = true
 				default:
-					fmt.Println("Tu peux répéter ?")
+					fmt.Println(" Peux tu répéter ?")
 					p.TakePot(nb) //On le relance
 
 				}

@@ -12,7 +12,7 @@ var p Personnage
 var bos map[string]int = map[string]int{"python": 5}
 var check bool
 var color termbox.Attribute = termbox.ColorDefault
-var Alan Mentor = Mentor{"Alan", 400, 200, 40, 500, 50, 500, []string{"qcm", "audi TT", "entretiens"}}
+var Alan Mentor = Mentor{"Alan", 400, 200, 40, 500, 50, 500, []string{"qcm", "audi TT", "entretien"}}
 var Ethan Mentor = Mentor{"Ethan", 400, 250, 40, 300, 435, 500, []string{"kimono", "jugement", "sarcasme"}}
 var Kheir Mentor = Mentor{"Kheir", 300, 150, 30, 150, 7, 250, []string{"excès de vitesse", "voleur", "origami"}}
 var Cyril Mentor = Mentor{"Cyril", 300, 150, 20, 150, 50, 250, []string{"live coding", "air force one", "Ytrack"}}
@@ -67,10 +67,10 @@ func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts 
 						} else if b == "3" {
 							color = termbox.ColorGreen
 						} else {
-							fmt.Println("Il était pas si compliqué ce choix")
+							fmt.Println("Il n'était pas si compliqué ce choix")
 						}
 					}
-					fmt.Println("Voulez vous recommencer le jeux\n1-Oui\n2-Non")
+					fmt.Println("Voulez vous recommencer le jeu\n1-Oui\n2-Non")
 					a = Scan()
 					if a == "1" {
 						fmt.Print("\033[H\033[2J")
@@ -79,7 +79,7 @@ func ReadInputO() { //Pour pouvoir faire le mouvement des touches flèche hauts 
 					} else if a == "2" {
 						ReadInputO()
 					} else {
-						fmt.Println("Il était pas si compliqué ce choix")
+						fmt.Println("Il n'était pas si compliqué ce choix")
 						ReadInputO()
 					}
 				case 3:
@@ -180,7 +180,7 @@ func (p *Personnage) Menu() {
 	TermPrint("| | | | | |  __/ | | | |_| |", 1, 3, termbox.ColorCyan)
 	TermPrint("|_| |_| |_|\\___|_| |_|\\__,_|", 1, 4, termbox.ColorCyan)
 	fmt.Println("--------------------------------------------------------")
-	fmt.Println("1/Pour accéder à ton inventaire. \n2/Pour accéder aux informations de ton personnage. \n3/Pour accéder à la PEDA . \n4/Pour accéder a l'admin. \n5/Pour accéder à la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Pour aller au terrasse \n9/Pour revenir au menu principal\n0/Qui sont t-ils?")
+	fmt.Println("1/Pour accéder à ton inventaire. \n2/Pour accéder aux informations de ton personnage. \n3/Pour accéder à la PEDA . \n4/Pour accéder a l'admin. \n5/Pour accéder à la liste de skill dans ta bibliothèque \n6/Pour aller s'entrainer \n7/Pour commencer le mode histoire\n8/Pour aller à la terrasse \n9/Pour revenir au menu principal\n0/Qui sont t-ils?")
 	fmt.Println("--------------------------------------------------------")
 	switch ev := term.PollEvent(); ev.Type {
 	case term.EventKey: //Avec sa a peine tu touche une touche instant la demande est envoyé (pas besoin d'appuyer sur entrée)
@@ -232,8 +232,8 @@ func (p *Personnage) Display() {
 	fmt.Printf("๑ Tu as %v euros\n", p.wallet)
 	fmt.Printf("๑ Tu as %v point de force\n", p.strengh)
 	fmt.Printf("๑ Tu as %v/%v force mental\n", p.energy, p.intmax)
-	fmt.Printf("๑ Tu as %v point d'initiative\n", p.initiative)
-	fmt.Printf("๑ Tu as %v/%v point d'experience\n", p.exp, p.expmax)
+	fmt.Printf("๑ Tu as %v points d'initiative\n", p.initiative)
+	fmt.Printf("๑ Tu as %v/%v points d'experience\n", p.exp, p.expmax)
 	fmt.Println("  __")
 	fmt.Println(" (๏๏)←", p.armure.head)
 	fmt.Printf(" /||\\←%v\n", p.armure.body)
@@ -273,17 +273,17 @@ func (p *Personnage) AccessInventory(nb int) { // ca permet d'accéder a ton inv
 		ans := Scan()
 		if p.IsInInventory(ans) {
 			p.RemoveInventory(ans)
-			fmt.Println("L'objet a été supprimer")
+			fmt.Println("L'objet a été supprimé")
 			Enter()
 			p.Menu()
 		} else {
-			fmt.Println("Cet objet n'est pas dans votre inventaire")
+			fmt.Println("Cet objet n'est pas dans ton inventaire")
 			if nb == 1 {
 				p.Menu()
 			}
 		}
 	default:
-		fmt.Println("❖ Je n'ai pas compris ta requête, peux tu repeter? ")
+		fmt.Println("❖ Je n'ai pas compris ta requête, peux tu répèter? ")
 		p.AccessInventory(nb)
 	}
 }
@@ -299,7 +299,7 @@ func AppendSkill(s string, m int) {
 func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compétences
 	lst := TransvalseList(bos) //Je cast ma map en liste
 	fmt.Println("-----------------------")
-	fmt.Println("❖ Quels skills veut tu apprendre?")
+	fmt.Println("❖ Quels skills veux tu apprendre?")
 	for i, skl := range lst {
 		fmt.Printf(" •%d/ %s (Off: %d Int)\n", i+1, skl, bos[skl])
 	}
@@ -322,7 +322,7 @@ func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compéte
 			p.Menu()
 		}
 	} else {
-		fmt.Println("Vous avez déjà appris ce skill")
+		fmt.Println("Tu as déjà appris ce skill")
 		Enter()
 		p.Menu()
 	}
@@ -332,7 +332,7 @@ func (p *Personnage) Story() {
 	if p.niveau != "B1" {
 		Printtime("Il était une fois un jeune étudiant nommé ")
 		fmt.Print(p.name)
-		Printtime(", qui avait été accepté à l'école Ynov, réputée pour former les esprits les plus brillants de la nouvelle génération.")
+		Printtime(", qui fut accepté à l'école Ynov, réputée pour former les esprits les plus brillants de la nouvelle génération.")
 		fmt.Println("")
 		fmt.Print(p.name)
 		Printtime(" était excité à l'idée de commencer sa formation dans cette prestigieuse institution, mais il était loin de se douter des défis qui l'attendaient.")

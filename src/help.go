@@ -20,14 +20,14 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 			if cle == "multiprise" {
 				p.armure.hand = "multiprise"
 				p.RemoveInventory("multiprise")
-				fmt.Println((" ta multiprise est maintenant equipée "))
+				fmt.Println((" ta multiprise est maintenant équipée "))
 				p.strengh += 10
 				return
 			}
 			if cle == "pull ynov" {
 				p.armure.body = "pull ynov"
 				p.RemoveInventory("pull ynov")
-				fmt.Println(("Ton pull ynov est maintenant equipé "))
+				fmt.Println(("Ton pull ynov est maintenant équipé "))
 				p.notemax += 10
 				p.note += 10
 				return
@@ -35,17 +35,17 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 			if cle == "casque gaming" {
 				p.armure.head = "casque gaming"
 				p.RemoveInventory("casque gaming")
-				fmt.Println((" ton casque gaming est maintenant equipé "))
+				fmt.Println((" ton casque gaming est maintenant équipé "))
 				p.intmax += 10
 				p.energy += 10
 				return
 			}
 			if cle == "totem" {
-				fmt.Println("Vous ne pouvez utiliser ce totem que si vous mourrez")
+				fmt.Println("Tu peux utiliser ce totem que si vous mourrez")
 				return
 			}
 			if cle == "Skill: go" {
-				fmt.Println("Vous pouvez maintenant apprendre le skill go dans Book Of Skill")
+				fmt.Println("Tu peux maintenant apprendre le skill go dans Book Of Skill")
 				p.RemoveInventory("Skill: go")
 				AppendSkill("go", 7)
 				return
@@ -53,7 +53,7 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 			if cle == "Upgrade inventaire" {
 				p.inventaire[cle]--
 				p.UpgradeInventory()
-				fmt.Printf("Vous avez aggrandi votre inventaire maintenant vous avez jusqu'à %d places disponible\n", p.leninv)
+				fmt.Printf("Vous avez aggrandi votre inventaire. Maintenant, vous avez jusqu'à %d places disponibles\n", p.leninv)
 				return
 			}
 			if cle == "douche" {
@@ -72,7 +72,7 @@ func (p *Personnage) UseObject(m *Mentor, s string, nb int) { // si on utilise p
 			if cle == "Chat gpt" {
 				p.armure.hand = "Chat gpt"
 				p.RemoveInventory("Chat gpt")
-				fmt.Println((" Chat gpt est maintenant equipée "))
+				fmt.Println((" Chat gpt est maintenant équipée "))
 				p.strengh += 30
 				return
 			}
@@ -264,7 +264,7 @@ func (p Personnage) LimitSpace() bool { // vu que tu fais pas de sport tu peux p
 		}
 	}
 	if count > p.leninv { //J'ai crée un element dans la structure pour verifier si on a la place
-		fmt.Println("Vous n'avez plus de place dans votre inventaire") //trop faible...
+		fmt.Println("Tu n'as plus de place dans votre inventaire") //trop faible...
 		return false
 	}
 	return true
