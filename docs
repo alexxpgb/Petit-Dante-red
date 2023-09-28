@@ -16,43 +16,43 @@ marchand:tache 7,11 mission 2.1,2.2		toi:tache 8,10,19 mission 3,4,5.1,5.2
 
 A chaque push on explique ce qu'on a fait et discute de comment on voit la progression du jeu
 
-tache / mission               Alexandre                                  Julien
-tâche 1 			fait					   
-tâche 2				fait					   fait
-tâche 3				fait					   fait
-tâche 4				fait					   fait
-tâche 5				fait					   fait
-tâche 6				fait					   fait
-tâche 7				fait					   fait
-tâche 8				fait				  	   fait
-tâche 9				fait					   fait
-tâche 10								   fait
-tâche 11			fait					   fait
-tâche 12			fait					   
-tâche 13			fait					   
-tâche 14			fait					   
-tâche 15			fait					   
-tâche 16								   fait
-tâche 17								   fait
-tâche 18								   fait
-tâche 19								   fait
-tâche 20								   fait
-mission 1			fait					   
-mission 2								   fait
-mission 2.2								   fait
-mission 3								   fait
-mission 4								   fait
-mission 5.1								   fait
-mission 5.2								   fait
-bonus 1				fait					   
-bonus 2 			fait					   
+tache / mission               Alexandre                  Julien
+tâche 1 			            fait					   
+tâche 2				            fait					   fait
+tâche 3				            fait					   fait
+tâche 4				            fait					   fait
+tâche 5			            	fait					   fait
+tâche 6			               	fait					   fait
+tâche 7			            	fait					   fait
+tâche 8			            	fait				  	   fait
+tâche 9			            	fait					   fait
+tâche 10		            						       fait
+tâche 11		            	fait					   fait
+tâche 12		            	fait					   
+tâche 13		            	fait					   
+tâche 14		            	fait					   
+tâche 15		            	fait					   
+tâche 16		            			   			      fait
+tâche 17		            		    				    fait
+tâche 18		            						       fait
+tâche 19		            				    		   fait
+tâche 20		            					    	   fait
+mission 1		            	fait				    	   
+mission 2		             	    					   fait
+mission 2.2		                						   fait
+mission 3		            		    				   fait
+mission 4		            			    			   fait
+mission 5.1								                   fait
+mission 5.2								                   fait
+bonus 1			            	fait					   
+bonus 2 		            	fait					   
 
 tache hors projet
 
-termbox 								   fait
-univers du jeu 			fait					   
-mode histoire 			fait					   fait
-graphisme 								   fait
+termbox 			                					   fait
+univers du jeu 		           	fait					   
+mode histoire 			        fait					   fait
+graphisme 								                   fait
 
 
 

@@ -118,8 +118,13 @@ func (p *Personnage) Init() { //Pour demander et luo attribuer le nom du personn
 	p.armure.body = "rien"
 	p.armure.hand = "rien"
 	p.agilite = 5
+	if p.name == "Julien" {
+		p.strengh = 200
+		p.notemax = 999
+		p.note = 999
+		p.niveau = "M2"
+	}
 	p.Menu()
-
 }
 
 func Scan() string { //comme fmt.Scan sauf que ça te l'affiche aussi
@@ -180,7 +185,7 @@ func (p *Personnage) inputs(input rune, x, y int) int {
 
 func (p *Personnage) LevelUp() {
 	if p.exp >= int(p.expmax) {
-		p.exp = int(p.expmax) - p.exp
+		p.exp -= int(p.expmax)
 		p.expmax *= 1.5
 		if p.niveau == "B1" {
 			p.niveau = "B2"
@@ -213,8 +218,7 @@ func (p *Personnage) LevelUp() {
 			Enter()
 		}
 		fmt.Println("Bravo vous avez level up!!!!\nVous êtes maintenant en ", p.niveau)
-		fmt.Printf("\nVous avez évolué voici votre niveau actuel\nNote max : %v←%v\nInitiative : : %v←%v\nForce : %v←%v\nForce vital : %v←%v\nAgilité : %v←%v\n\n\n", p.notemax/1.3, p.notemax, p.initiative/1.3, p.initiative, p.strengh/2, p.strengh, p.intmax/1.3, p.intmax, p.agilite/1.3, p.agilite)
-		p.Display()
+		fmt.Printf("\nVous avez évolué voici votre niveau actuel\nNote max : %v→%v\nInitiative : : %v→%v\nForce : %v→%v\nForce vital : %v→%v\nAgilité : %v→%v\n\n\n", p.notemax/1.3, p.notemax, p.initiative/1.3, p.initiative, p.strengh/2, p.strengh, p.intmax/1.3, p.intmax, p.agilite/1.3, p.agilite)
 	}
 }
 
@@ -259,6 +263,5 @@ func (p *Personnage) class() {
 			p.intmax *= 1.3
 			p.agilite *= 1.3
 		}
-		p.Display()
 	}
 }

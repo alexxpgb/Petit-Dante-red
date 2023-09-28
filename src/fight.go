@@ -73,7 +73,7 @@ func (p *Personnage) CharTurn(m *Mentor) { //Le systeme de combat pour mon joueu
 
 		case "3":
 			if p.IsInSkill("go") {
-				if rand.Float64() < 5.0/p.agilite { //1 chance sur deux augmenter s'il ameliore une crtn stat story telling animated
+				if rand.Intn(100) < int(5.0*p.agilite) { //1 chance sur deux augmenter s'il ameliore une crtn stat story telling animated
 					if p.energy-bos["go"] >= 0 {
 						p.energy -= bos["go"]
 						m.note -= int(p.strengh) * 2
@@ -127,6 +127,7 @@ func (m *Mentor) Battle(p *Personnage) {
 		if p.LimitSpace() {
 			p.AddInventory("graine")
 		}
+		m.note = 0
 		p.LevelUp()
 	} else {
 		Printtime("Qu'est ce que je vous ai dit KO premier round")
