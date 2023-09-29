@@ -88,12 +88,12 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 				fmt.Println(m.name, " utilise le skill qcm")
 				m.note += 30
 				p.note -= 30
-				fmt.Println(m.name, " t'a volé 10 points de note")
+				fmt.Println(m.name, " t'a volé 30 points de note")
 			}
 			if v == "audi TT" {
 				fmt.Println(m.name, " utilise le skill audi TT")
 				m.initiative += 30
-				fmt.Println(m.name, " augmente de 10 points son initiative")
+				fmt.Println(m.name, " augmente de 30 points son initiative")
 			}
 			if v == "entretiens" {
 				fmt.Println(m.name, " utilise le skill entretiens")
@@ -103,13 +103,13 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			if v == "kimono" {
 				fmt.Println(m.name, " utilise le skill kimono")
 				m.initiative += 30
-				fmt.Println(m.name, " augmente de 10 points son initiative")
+				fmt.Println(m.name, " augmente de 30 points son initiative")
 			}
 			if v == "jugement" {
 				fmt.Println(m.name, " utilise le skill jugement")
 				m.note += 30
 				p.note -= 30
-				fmt.Println(m.name, " t'a volé 10 points de note")
+				fmt.Println(m.name, " t'a volé 30 points de note")
 			}
 			if v == "sarcasme" {
 				fmt.Println(m.name, " utilise le skill sarcasme")
@@ -119,7 +119,7 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			if v == "excès de vitesse" {
 				fmt.Println(m.name, " utilise le skill excès de vitesse")
 				m.initiative += 30
-				fmt.Println(m.name, " augmente de 10 points son initiative")
+				fmt.Println(m.name, " augmente de 30 points son initiative")
 			}
 			if v == "voleur" {
 				fmt.Println(m.name, " utilise le skill voleur")
@@ -149,13 +149,13 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			if v == "air force one" {
 				fmt.Println(m.name, " utilise le skill air force one")
 				m.initiative += 30
-				fmt.Println(m.name, " augmente de 10 points son initiative")
+				fmt.Println(m.name, " augmente de 30 points son initiative")
 			}
 			if v == "Ytrack" {
 				fmt.Println(m.name, " utilise le skill Ytrack")
 				m.note += 30
 				p.note -= 30
-				fmt.Println(m.name, " t'a volé 10 points de note")
+				fmt.Println(m.name, " t'a volé 30 points de note")
 			}
 			if v == "go" {
 				fmt.Println(m.name, " utilise le skill go \"volé\"")
@@ -165,6 +165,11 @@ func (p *Personnage) UseSkills(m *Mentor, s string) {
 			if v == "python" {
 				fmt.Println(m.name, " utilise le skill go \"volé\"")
 				p.note -= m.strengh / 2
+				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
+			}
+			if v == "major" {
+				fmt.Println(m.name, " utilise le skill major")
+				p.note -= m.strengh
 				fmt.Println(m.name, " t'a attaqué tu est maintenant à", p.note, " de note")
 			}
 		}
@@ -396,30 +401,31 @@ func Capitalize(s string) string {
 }
 
 func (p *Personnage) RandomObjects(nb float64) { //Add item
-	rand := rand.Float64() * nb
-	if rand >= 1 {
-		rand = 0.9
+	rand := rand.Intn(10) * int(nb)
+	if rand >= 10 {
+		rand = 9
 	}
 	if p.LimitSpace() {
-		if rand <= 0.3 {
+		if rand <= 3 {
 			p.AddInventory("Bouteille en plastique")
 			fmt.Println("Bravo vous avez gagné une bouteille en plastique")
-		} else if rand == 0.4 {
+		} else if rand == 4 {
 			p.AddInventory("carte graphique")
 			fmt.Println("Bravo vous avez gagné une carte graphique")
-		} else if rand == 0.5 {
+		} else if rand == 5 {
 			p.AddInventory("febreze")
 			fmt.Println("Bravo vous avez gagné un febreze")
-		} else if rand == 0.6 {
+		} else if rand == 6 {
 			p.AddInventory("clavier mecanique")
 			fmt.Println("Bravo vous avez gagné un clavier mecanique")
-		} else if rand == 0.7 {
+		} else if rand == 7 {
 			p.AddInventory("souris")
 			fmt.Println("Bravo vous avez gagné une souris")
-		} else if rand == 0.8 {
+		} else if rand == 8 {
 			p.AddInventory("")
-		} else if rand == 0.9 {
-			p.AddInventory("")
+		} else if rand == 9 {
+			p.AddInventory("skittles")
+			p.AddInventory("Bravo vous avez gagné une souris ")
 		}
 	}
 }

@@ -30,6 +30,9 @@ func (m *Mentor) MentorPattern(p *Personnage, i int) {
 			}
 		}
 	} else {
+		if p.name == "Antoine" {
+			p.UseSkills(m, m.skill[0])
+		}
 		if rand.Intn(3) == 1 {
 			p.UseSkills(m, m.skill[0])
 		} else if rand.Intn(3) == 2 {
@@ -155,7 +158,7 @@ func (m *Mentor) Training(p *Personnage) {
 		p.initiative += m.initiative
 		p.wallet += m.wallet
 		p.RandomObjects(0.5)
-		fmt.Println("Vous avez raquetté ", m.name, " vous gagnez +", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
+		fmt.Println("Vous avez raquetté ", m.name, " vous gagnez \n+", m.exp, " exp\n+", m.initiative, " d'initiative\n+", m.wallet, "€")
 		if p.LimitSpace() {
 			p.AddInventory("graine")
 		}
@@ -185,6 +188,7 @@ func (m *Mentor) Training(p *Personnage) {
 			m.wallet = 120
 			m.initiative = 50
 			m.exp = 100
+			m.skill = []string{"major"}
 		} else {
 			fmt.Println("Bravo vous avez gagné le tournoi\nRegarde la Peda ;)")
 			marchand.inventaire["Chat gpt"] = 150

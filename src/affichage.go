@@ -317,12 +317,12 @@ func (p *Personnage) BookOfSkills() { // fct qui permet d'apprendre des compéte
 			Enter()
 			p.Menu()
 		} else {
-			fmt.Println("Le skill que tu m'a proposé ne fait pas partie de ma liste de skills")
+			fmt.Println("Tu as déjà appris ce skill")
 			Enter()
 			p.Menu()
 		}
 	} else {
-		fmt.Println("Tu as déjà appris ce skill")
+		fmt.Println("Le skill que tu m'a proposé ne fait pas partie de ma liste de skills")
 		Enter()
 		p.Menu()
 	}
@@ -357,6 +357,10 @@ func (p *Personnage) Story() {
 		p.Final()
 		p.Final()
 		p.Final()
+		if Kheir.note <= 0 {
+			fmt.Println("Tu as gaggné la montre à Kheir")
+			p.AddInventory("montre")
+		}
 		Printtime("Lors de la cérémonie de remise des diplômes, les mentors lui remirent son parchemin avec fierté.")
 		Printtime(" Ils avaient vu en ")
 		fmt.Print(p.name)

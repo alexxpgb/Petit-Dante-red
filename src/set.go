@@ -147,7 +147,7 @@ func (p *Personnage) Boutique() {
 			fmt.Println(ans, strconv.Itoa(len(lst2)))
 			if ans <= strconv.Itoa(len(lst2)) && ans > "0" && p.LimitSpace() {
 				if lst2[i] == "multiprise" {
-					if rand.Float64() < 5.0 {
+					if rand.Intn(10) < 5.0 {
 						p.AddInventory("febreze")
 						fmt.Println("Bravo tu as gagné un febreze")
 						Enter()
@@ -159,7 +159,7 @@ func (p *Personnage) Boutique() {
 						p.Menu()
 					}
 				} else if lst2[i] == "pull ynov" {
-					if rand.Float64() < 5.0 {
+					if rand.Intn(10) < 5.0 {
 						p.AddInventory("febreze")
 						fmt.Println("Bravo tu as gagné un febreze")
 						Enter()
@@ -171,7 +171,7 @@ func (p *Personnage) Boutique() {
 						p.Menu()
 					}
 				} else if lst2[i] == "casque gaming" {
-					if rand.Float64() < 5.0 {
+					if rand.Intn(10) < 5.0 {
 						p.AddInventory("souris")
 						fmt.Println("Bravo tu as gagné une souris")
 						Enter()
@@ -238,6 +238,7 @@ func (p *Personnage) TakeInt(nb int) { //TakePot pour le mana
 }
 
 func (p *Personnage) Forgeron() {
+
 	fmt.Print("\033[H\033[2J")
 	TermPrint("    ___       __          _                                              	", 1, 1, termbox.ColorCyan)
 	TermPrint("   /   | ____/ /___ ___  (_)___                                            	", 1, 2, termbox.ColorCyan)
